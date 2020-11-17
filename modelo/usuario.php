@@ -27,8 +27,8 @@
         /**
          * @method Constructor con parámetros
          * @author Miguel Ángel Posadas
-         * @param $nombreUsuario El nombre del usuario 
-         * @param $email El email del nuevo usuario
+         * @param nombreUsuario El nombre del usuario 
+         * @param email El email del nuevo usuario
          */
         public function __construct1($nombreUsuario, $email)
         {
@@ -42,11 +42,11 @@
         /**
          * @method Constructor con todos los parámetros
          * @author Miguel Ángel Posadas
-         * @param $nombreUsuario El nombre del usuario 
-         * @param $email El email del nuevo usuario
-         * @param $chat Array con los chats asociados a este usuario
-         * @param $grupos Array con los grupos asociados a este usuario
-         * @param $actividades Array con las actividades asociadas a este usuario
+         * @param nombreUsuario El nombre del usuario 
+         * @param email El email del nuevo usuario
+         * @param chat Array con los chats asociados a este usuario
+         * @param grupos Array con los grupos asociados a este usuario
+         * @param actividades Array con las actividades asociadas a este usuario
          */
         public function __construct2($nombreUsuario, $email, $chat, $grupos,$actividades )
         {
@@ -61,7 +61,7 @@
          * Getter del atributo de clase $nombreUsuario
          * @method getNombreUsuario
          * @author Miguel Ángel Posadas
-         * @return $nombreUsuario
+         * @return nombreUsuario
          */
         public function getNombreUsuario()
         {
@@ -72,7 +72,7 @@
          * Setter del atributo de clase $nombreUsuario
          * @method setNombreUsuario
          * @author Miguel Ángel Posadas
-         * @param $nombreUsuario
+         * @param nombreUsuario
          */
         public function setNombreUsuario($nombreUsuario)
         {
@@ -83,7 +83,7 @@
          * Getter del atributo de clase $email
          * @method getMail
          * @author Miguel Ángel Posadas
-         * @return $email
+         * @return email
          */
         public function getMail()
         {
@@ -94,7 +94,7 @@
          * Setter del atributo de clase $email
          * @method setMail
          * @author Miguel Ángel Posadas
-         * @param $email
+         * @param email
          */
         public function setMail($email)
         {
@@ -106,7 +106,7 @@
          * Getter del atributo de clase $chat
          * @method getChat
          * @author Miguel Ángel Posadas
-         * @return $chat
+         * @return chat
          */
         public function getChat()
         {
@@ -117,7 +117,7 @@
          * Setter del atributo de clase $chat
          * @method setChat
          * @author Miguel Ángel Posadas
-         * @param $chat
+         * @param chat
          */
         public function setChat($chat)
         {
@@ -128,7 +128,7 @@
          * Getter del atributo de clase $grupo
          * @method getGrupo
          * @author Miguel Ángel Posadas
-         * @return $grupo
+         * @return grupo
          */
         public function getGrupo()
         {
@@ -139,7 +139,7 @@
          * Setter del atributo de clase $grupo
          * @method setGrupo
          * @author Miguel Ángel Posadas
-         * @param $grupo
+         * @param grupo
          */
         public function setGrupo($grupo)
         {
@@ -150,7 +150,7 @@
          * Getter del atributo de clase $actividades
          * @method getActividades
          * @author Miguel Ángel Posadas
-         * @return $actividades
+         * @return actividades
          */
         public function getActividades()
         {
@@ -161,7 +161,7 @@
          * Setter del atributo de clase $grupo
          * @method setGrupo
          * @author Miguel Ángel Posadas
-         * @param $grupo
+         * @param grupo
          */
         public function setActividades($actividades)
         {
