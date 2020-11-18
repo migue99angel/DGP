@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Crear Grupo</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../css/styles.css">
+    </head>
+
+    <body>
+        <div id="idFormularioCrearGrupo">
+            <form action="creargrupo.php" method="post" id="addgrupo" enctype="multipart/form-data">
+                Nombre del Grupo<br> <input type="text" name="nombre" required/><br><br>
+                Descripción<br> <textarea name="titulo" form="addejercicio" required></textarea><br><br>
+                Imagen o vídeo explicativo<br> <input type="file" name="multimedia" required/><br><br>
+                <input type="submit" value="CREAR EJERCICIO" />
+            </form>
+        </div>
+    </body>
+</html>
