@@ -5,8 +5,8 @@
      */
     class Usuario
     {
+        private $idUsuario;         //Identificador del usuario
         private $nombreUsuario;     //String con el nombre de usuario
-        private $email;             // String con el email del usuario
         private $chat;              //Array con los chats asociados a este usuario    
         private $grupos;            //Array con los grupos asociados a este usuario
         private $actividades;       //Array con las actividades asociadas a ester usuario
@@ -18,7 +18,6 @@
         public function __construct()
         {
             $this->$nombreUsuario = "";
-            $this->$email = "";
             $this->$chat = array();
             $this->$grupos = array();
             $this->$actividades = array();
@@ -28,12 +27,11 @@
          * @method Constructor con parámetros
          * @author Miguel Ángel Posadas
          * @param nombreUsuario El nombre del usuario 
-         * @param email El email del nuevo usuario
          */
-        public function __construct1($nombreUsuario, $email)
+        public function __construct1($idUsuario,$nombreUsuario)
         {
+            $this->$idUsuario = $idUsuario;
             $this->$nombreUsuario = $nombreUsuario;
-            $this->$email = $email;
             $this->$chat = array();
             $this->$grupos = array();
             $this->$actividades = array();
@@ -43,15 +41,14 @@
          * @method Constructor con todos los parámetros
          * @author Miguel Ángel Posadas
          * @param nombreUsuario El nombre del usuario 
-         * @param email El email del nuevo usuario
          * @param chat Array con los chats asociados a este usuario
          * @param grupos Array con los grupos asociados a este usuario
          * @param actividades Array con las actividades asociadas a este usuario
          */
-        public function __construct2($nombreUsuario, $email, $chat, $grupos,$actividades )
+        public function __construct2($idUsuario,$nombreUsuario,$chat,$grupos,$actividades )
         {
+            $this->$idUsuario = $idUsuario;
             $this->$nombreUsuario = $nombreUsuario;
-            $this->$email = $email;
             $this->$chat = $chat;
             $this->$grupos = $grupos;
             $this->$actividades = $actividades;
@@ -77,28 +74,6 @@
         public function setNombreUsuario($nombreUsuario)
         {
             $this->$nombreUsuario = $nombreUsuario;
-        }
-
-        /**
-         * Getter del atributo de clase $email
-         * @method getMail
-         * @author Miguel Ángel Posadas
-         * @return email
-         */
-        public function getMail()
-        {
-            return $this->$email;
-        }
-
-        /**
-         * Setter del atributo de clase $email
-         * @method setMail
-         * @author Miguel Ángel Posadas
-         * @param email
-         */
-        public function setMail($email)
-        {
-            $this->$email = $email;
         }
 
 

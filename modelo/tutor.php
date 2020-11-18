@@ -9,6 +9,7 @@
         private $telefono;    //Número de teléfono del tutor
         private $conexion;    //Conexion a la base de datos
         private $idTutor;     //Identificador del tutor
+        
          /**
          * @method Constructor por defecto
          * @author Miguel Ángel Posadas

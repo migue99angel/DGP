@@ -6,61 +6,61 @@
     class Chat
     {
         private $idChat;
-        private $tutor;
-        private $usuario;
+        private $idActividad;
+        private $idUsuario;
 
         /**
          * @method Constructor con parámetros
          * @author Miguel Ángel Posadas
          * @param idChat identificador del chat
-         * @param tutor El tutor 
-         * @param usuario El usuario
+         * @param idActividad Identificador de la actividad 
+         * @param idUsuario Identificador del usuario
          */
-        public function __construct($idChat, $tutor, $usuario)
+        public function __construct($idChat, $idActividad, $idUsuario)
         {
             $this->$idChat = $idChat;
-            $this->$tutor = $tutor;
-            $this->$usuario = $usuario; 
+            $this->$idActividad = $idActividad;
+            $this->$idUsuario = $idUsuario; 
         }
 
         /**
          * @method Método getter del usuario
          * @author Miguel Ángel Posadas
-         * @return usuario
+         * @return idUsuario
          */
         public function getUsuario()
         {
-            return $this->$usuario;
+            return $this->$idUsuario;
         }
 
         /**
          * @method Método getter del tutor
          * @author Miguel Ángel Posadas
-         * @return tutor
+         * @return idActividad
          */
-        public function getTutor()
+        public function getActividad()
         {
-            return $this->$tutor;
+            return $this->$idActividad;
         }
 
         /**
          * @method método setter del usuario
          * @author Miguel Ángel Posadas
-         * @param usuario
+         * @param idUsuario
          */
-        public function setUsuario($usuario)
+        public function setUsuario($idUsuario)
         {
-            $this->$usuario = $usuario;
+            $this->$idUsuario = $idUsuario;
         }
 
         /**
-         * @method método setter del usuario
+         * @method método setter del idActividad
          * @author Miguel Ángel Posadas
-         * @param tutor
+         * @param idActividad
          */
-        public function setTutor($tutor)
+        public function setActividad($idActividad)
         {
-            return $this->$tutor = $tutor;
+            return $this->$idActividad = $idActividad;
         }
 
 
