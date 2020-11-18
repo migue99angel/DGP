@@ -28,13 +28,18 @@ input[type=submit], .botonSemana {
     padding: 2%;
 }
 
-.idFormularioCrearEjercicio, .idFormularioCrearGrupo, .listaejercicios, .loginFacilitador, .loginPersonas, .principal {
+.idFormularioCrearEjercicio, .idFormularioCrearGrupo,
+.listaejercicios, .loginFacilitador,
+.loginPersonas, .principal,
+.principalAdministracion, .principalProfesores,
+.principalPersonas {
     width: 20%;
     padding: 2%;
-    margin-top: 10%;
+    margin-top: 6%;
     margin-left: 35%;
     border: 1px solid black;
     border-radius: 5px;
+    text-align: center;
 }
 
 #addejercicio, #addgrupo {
@@ -48,55 +53,6 @@ input[type=submit], .botonSemana {
 .listajercicios {
     display: grid;
     grid-template-columns: auto auto;
-}
-
-@media screen and (max-width: 500px) {
-    input[type=submit] {
-        padding: 8% 14%;
-    }
-
-    .idFormularioCrearEjercicio {
-        width: 100%;
-        margin-left: 3%;
-    }
-
-    .idFormularioCrearGrupo {
-        width: 100%;
-        margin-left: 3%;
-    }
-
-    #atajo {
-        visibility: hidden;
-    }
-}
-
-@media screen and (max-width: 1100px) {
-    input[type=submit] {
-        padding: 8% 14%;
-    }
-
-    .idFormularioCrearEjercicio {
-        width: 90%;
-        margin-left: 3%;
-    }
-
-    .idFormularioCrearGrupo {
-        width: 90%;
-        margin-left: 3%;
-    }
-
-    #atajo {
-        visibility: hidden;
-    }
-    
-    .botonesPrincipales {
-    font-weight: bold;
-    margin-top: 5%;
-    margin-left: auto;
-    margin-right: auto;
-    width: 95%;
-    text-align: center;
-  }
 }
 
 .logo {
@@ -145,16 +101,16 @@ input[type=submit], .botonSemana {
   margin-left: auto;
   margin-right: auto;
   width: 55%;
-  text-align: center;
 }
 
-.botonesPrincipales a, input[type=submit] {
+.botonesPrincipales a {
   border: 2px solid black;
   border-radius: 15px;
   height: 7%;
   display: block;
   background-color: #359B8A;
-  margin-bottom: 3%;
+  margin: 5%;
+  padding: 4%;
 }
 
 .botonSalir {
@@ -208,4 +164,120 @@ input[type=submit], .botonSemana {
 
 .titulo h1{
   font-size: 150%;
+}
+
+@media screen and (max-width: 1100px) {
+  input[type=submit] {
+      padding: 3% 6%;
+  }
+
+  .idFormularioCrearEjercicio {
+      width: 90%;
+      margin-left: 3%;
+  }
+
+  .idFormularioCrearGrupo {
+      width: 90%;
+      margin-left: 3%;
+  }
+
+  .loginFacilitador {
+      width: 90%;
+      margin-left: 3%;
+  }
+
+  .principal {
+    width: 90%;
+    margin-left: 3%;
+  }
+
+  .principalAdministracion {
+    width: 90%;
+    margin-left: 3%;
+  }
+
+  .principalProfesores {
+    width: 90%;
+    margin-left: 3%;
+  }
+
+  .principalPersonas {
+    width: 90%;
+    margin-left: 3%;
+  }
+
+  #atajo {
+      visibility: hidden;
+  }
+  
+  .botonesPrincipales a {
+    width: 95%;
+    padding: 5%;
+    margin: 5% 0;
+  }
+
+  .botonSalir a {
+    width: 95%;
+    padding: 5%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+    input[type=submit] {
+        padding: 8% 14%;
+    }
+
+    .idFormularioCrearEjercicio {
+        padding-top: 7%;
+        padding-bottom: 7%;
+    }
+
+    .idFormularioCrearGrupo {
+        padding-top: 7%;
+        padding-bottom: 7%;
+    }
+
+    .loginFacilitador {
+      padding-top: 7%;
+      padding-bottom: 7%;
+    }
+
+    .principal {
+      padding-top: 7%;
+      padding-bottom: 7%;
+    }
+
+    .principalAdministracion {
+      padding-top: 7%;
+      padding-bottom: 7%;
+    }
+
+    .principalProfesores {
+      padding-top: 7%;
+      padding-bottom: 7%;
+    }
+
+    .principalPersonas {
+      padding-top: 7%;
+      padding-bottom: 7%;
+    }
+
+    #atajo {
+        visibility: hidden;
+    }
+
+    .botonesPrincipales a {
+      font-weight: bold;
+      margin-top: 5%;
+      margin-left: auto;
+      margin-right: auto;
+      width: 95%;
+      text-align: center;
+      padding: 5%;
+    }
+
+    .botonSalir a {
+      width: 95%;
+      padding: 5%;
+    }
 }
