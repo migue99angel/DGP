@@ -16,14 +16,14 @@
          */
         public function __construct()
         {
-            $this->nombreAdmin = "";
+            $this->nombreTutor = "";
             $this->telefono = 0;
         }
 
         /**
          * @method Constructor con parámetros
          * @author Miguel Ángel Posadas
-         * @param nombreAdmin El nombre del tutor 
+         * @param nombreTutor El nombre del tutor 
          * @param telefono El número de teléfono del tutor
          * @param idTutor El identificador del tutor
          */
