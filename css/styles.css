@@ -1,0 +1,211 @@
+html, body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+
+a {
+    text-decoration: none;
+    background-color: none;
+    color: black;
+}
+
+input[type=submit], .botonSemana {
+    background-color: #359B8A;
+    padding: 6% 12%;
+    text-decoration: none;
+    cursor: pointer;
+    border: 2px solid black;
+    border-radius: 15px;
+}
+
+.diaSemana {
+    padding: 2%;
+}
+
+.idFormularioCrearEjercicio, .idFormularioCrearGrupo, .listaejercicios, .loginFacilitador, .loginPersonas, .principal {
+    width: 20%;
+    padding: 2%;
+    margin-top: 10%;
+    margin-left: 35%;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+#addejercicio, #addgrupo {
+    text-align: center;
+}
+
+#atajo {
+    font-size: 80%;
+}
+
+.listajercicios {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+@media screen and (max-width: 500px) {
+    input[type=submit] {
+        padding: 8% 14%;
+    }
+
+    .idFormularioCrearEjercicio {
+        width: 100%;
+        margin-left: 3%;
+    }
+
+    .idFormularioCrearGrupo {
+        width: 100%;
+        margin-left: 3%;
+    }
+
+    #atajo {
+        visibility: hidden;
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    input[type=submit] {
+        padding: 8% 14%;
+    }
+
+    .idFormularioCrearEjercicio {
+        width: 90%;
+        margin-left: 3%;
+    }
+
+    .idFormularioCrearGrupo {
+        width: 90%;
+        margin-left: 3%;
+    }
+
+    #atajo {
+        visibility: hidden;
+    }
+    
+    .botonesPrincipales {
+    font-weight: bold;
+    margin-top: 5%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 95%;
+    text-align: center;
+  }
+}
+
+.logo {
+  padding-top: 1%;
+}
+
+.logo img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 200px;
+    height: 30%;
+  width: 30%;
+}
+
+.botonesPrincipalesUsuario{
+  font-weight: bold;
+  margin-top: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 95%;
+  text-align: center;
+}
+
+.botonesPrincipalesUsuario a{
+  font-size: 200%;
+  border: 4px solid black;
+  border-radius: 25px;
+  padding-bottom: 6%;
+  display: block;
+  background-color: #359B8A;
+  margin-bottom: 5%;
+}
+
+.botonesPrincipalesUsuario p{
+  width: 100%;
+}
+
+.botonesPrincipalesUsuario img{
+  width: 60%;
+}
+
+.botonesPrincipales {
+  font-weight: bold;
+  margin-top: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 55%;
+  text-align: center;
+}
+
+.botonesPrincipales a, input[type=submit] {
+  border: 2px solid black;
+  border-radius: 15px;
+  height: 7%;
+  display: block;
+  background-color: #359B8A;
+  margin-bottom: 3%;
+}
+
+.botonSalir {
+  font-weight: bold;
+  margin-left: auto;
+  margin-right: auto;
+  width: 55%;
+  text-align: center;
+}
+
+.botonSalir a{
+  border: 2px solid #82B366;
+  border-radius: 10px;
+  height: 4%;
+  display: block;
+  background-color: #D5E8D4;
+}
+
+.botonSalirUsuario {
+  font-weight: bold;
+  margin-left: auto;
+  margin-right: auto;
+  width: 95%;
+}
+
+.botonSalirUsuario a{
+  border: 4px solid #82B366;
+  border-radius: 10px;
+  display: block;
+  background-color: #D5E8D4;
+  margin-bottom: 2%;
+}
+
+.botonSalirUsuario p{
+  width:10%;
+  padding-left: 20%;
+  font-size: 160%;
+  padding-top: 3%;
+  padding-bottom: 3%;
+  display: inline-block;
+}
+
+.botonSalirUsuario img{
+  width: 10%;
+}
+
+.titulo {
+  padding-top: 1%;
+  text-align: center;
+}
+
+.titulo h1{
+  font-size: 150%;
+}

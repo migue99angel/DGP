@@ -2,33 +2,21 @@
 <html>
 <title>Login Facilitador</title>
 <head>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body style="align-items:center">
 
-  <div class="general">
+  <div class="loginFacilitador">
 
     <div class=division>
-      <img src="./img/descarga.png" alt="Logo VALE">
+      <img src="../img/logo.jpeg" alt="Logo VALE">
     </div>
 
-    <div class="division">
-      <h1>Usuario</h1>
-
-      <input type="text">
-
-      <h1>Contraseña</h1>
-
-      <input type="text">
-    </div>
-
-    <div class="division">
-      <button>
-        <div style="text-align:center">
-          <span>Conectar</span>
-        </div>
-      </button>
-    </div>
+      <form action="loginFacilitador.php" method="post" id="loginFacilitador" enctype="multipart/form-data">
+                Usuario<br> <input type="text" name="usuario" required/><br><br>
+                Contraseña<br> <input type="password" name="contraseña" required/><br><br>
+                <input type="submit" value="CONECTAR" />
+        </form>
 
   </div>
 
