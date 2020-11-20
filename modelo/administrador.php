@@ -11,7 +11,7 @@
 		{
 			$this->$nombreAdmin = "";
 			$this->$telefono = "";
-			$this->$idAdministrador = "";
+			$this->$idAdministrador = -1;
 			$this->$conexion = new ConexionBD();
 		}
 
@@ -23,19 +23,19 @@
 			$this->$conexion = new conexionBD();
 		}
 
-		public function addTutor($usuario)
+		public function addTutor($nombreTutor, $telefono, $pass)
 		{
-			// Implementar
+			$this->$conexion->registrarTutor($nombreTutor, $telefono, $pass);
 		}
 
-		public function eliminarTutor($u)
+		public function eliminarTutor($idTutor)
 		{
-			// Implementar
+			$this->$conexion->eliminarTutor($idTutor);
 		}
 
-		public function modificarTutor($u)
+		public function modificarTutor($idTutor, $nombreTutor, $telefono, $pass)
 		{
-			// Implementar
+			$this->$conexion->modificarTutor($idTutor, $nombreTutor, $telefono, $pass);
 		}
 
 		public function getNombre()
@@ -56,6 +56,11 @@
 		public function setTelefono($telefono)
 		{
 			$this->$telefono = $telefono;
+		}
+
+		public function getIdAdministrador()
+		{
+			return $this->$idAdministrador;
 		}
 	 }
 ?>

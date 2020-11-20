@@ -143,6 +143,17 @@
             $this->$actividades = $actividades;
         }
 
+        /**
+         * Getter del atributo de clase $idUsuario
+         * @method getIdUsuario
+         * @author Miguel Ángel Posadas
+         * @return idUsuario
+         */
+        public function getIdUsuario()
+		{
+			return $this->$idUsuario;
+		}
+
     }
 
 ?>

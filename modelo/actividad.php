@@ -5,10 +5,10 @@
 		private $tipoActividad;
 		private $descripcion;
 		private $fecha;
-		private $adjuntos;
+		private $adjunto;
 		private $idActividad;
-		private $conexion;
-		private $usuarios;
+
+
 
 		public function __construct()
 		{
@@ -16,22 +16,19 @@
 			$this->$tipoActividad = "";
 			$this->$descripcion = "";
 			$this->$fecha = "";
-			$this->$adjuntos = array();
-			$this->$idActividad = 0;
-			$this->$conexion = new conexionBD();
-			$this->$usuarios = "";
+			$this->$adjunto = "";
+			$this->$idActividad = -1;
 		}
 
-		public function __construct1($nombreActividad, $tipoActividad, $descripcion, $fecha, $adjuntos, $idActividad, $usuarios)
+		public function __construct1($nombreActividad, $tipoActividad, $descripcion, $fecha, $adjunto, $idActividad)
 		{
 			$this->$nombreActividad = $nombreActividad;
 			$this->$tipoActividad = $tipoActividad;
 			$this->$descripcion = $descripcion;
 			$this->$fecha = $fecha;
-			$this->$adjuntos = $adjuntos;
+			$this->$adjunto = $adjunto;
 			$this->$idActividad = $idActividad;
-			$this->$conexion = new conexionBD();
-			$this->$usuarios = $usuarios;
+
 		}
 
 		public function getNombre()
@@ -74,19 +71,19 @@
 			$this->$fecha = $fecha;
 		}
 
-		public function addAdjunto($adj)
+		public function setAdjunto($adj)
 		{
-			array_push($this->$adjuntos, $adj);
+			$this->$adjunto = $adj;
 		}
 
 		public function getAdjunto($pos)
 		{
-			return $this->$adjuntos[$pos];
+			return $this->$adjunto[$pos];
 		}
 
-		public function getAllAdjuntos()
+		public function getAlladjunto()
 		{
-			return $this->$adjuntos;
+			return $this->$adjunto;
 		}
 	}
 
