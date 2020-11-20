@@ -1,15 +1,15 @@
 <?php
     /**
-     * @class Usuario
+     * @class Persona
      * @author Miguel Ángel Posadas
      */
-    class Usuario
+    class Persona
     {
-        private $idUsuario;         //Identificador del usuario
-        private $nombreUsuario;     //String con el nombre de usuario
-        private $chat;              //Array con los chats asociados a este usuario    
-        private $grupos;            //Array con los grupos asociados a este usuario
-        private $actividades;       //Array con las actividades asociadas a ester usuario
+        private $idPersona;         //Identificador de la persona
+        private $nombrePersona;     //String con el nombre de la persona
+        private $chat;              //Array con los chats asociados a esta persona    
+        private $grupos;            //Array con los grupos asociados a esta persona
+        private $actividades;       //Array con las actividades asociadas a esta persona
 
         /**
          * @method Constructor por defecto
@@ -17,7 +17,7 @@
          */
         public function __construct()
         {
-            $this->$nombreUsuario = "";
+            $this->$nombrePersona = "";
             $this->$chat = array();
             $this->$grupos = array();
             $this->$actividades = array();
@@ -26,12 +26,12 @@
         /**
          * @method Constructor con parámetros
          * @author Miguel Ángel Posadas
-         * @param nombreUsuario El nombre del usuario 
+         * @param nombrePersona El nombre de la persona 
          */
-        public function __construct1($idUsuario,$nombreUsuario)
+        public function __construct1($idPersona,$nombrePersona)
         {
-            $this->$idUsuario = $idUsuario;
-            $this->$nombreUsuario = $nombreUsuario;
+            $this->$idPersona = $idPersona;
+            $this->$nombrePersona = $nombrePersona;
             $this->$chat = array();
             $this->$grupos = array();
             $this->$actividades = array();
@@ -40,40 +40,40 @@
         /**
          * @method Constructor con todos los parámetros
          * @author Miguel Ángel Posadas
-         * @param nombreUsuario El nombre del usuario 
-         * @param chat Array con los chats asociados a este usuario
-         * @param grupos Array con los grupos asociados a este usuario
-         * @param actividades Array con las actividades asociadas a este usuario
+         * @param nombrePersona El nombre de esta persona 
+         * @param chat Array con los chats asociados a esta persona
+         * @param grupos Array con los grupos asociados a esta persona
+         * @param actividades Array con las actividades asociadas a esta persona
          */
-        public function __construct2($idUsuario,$nombreUsuario,$chat,$grupos,$actividades )
+        public function __construct2($idPersona,$nombrePersona,$chat,$grupos,$actividades )
         {
-            $this->$idUsuario = $idUsuario;
-            $this->$nombreUsuario = $nombreUsuario;
+            $this->$idPersona = $idPersona;
+            $this->$nombrePersona = $nombrePersona;
             $this->$chat = $chat;
             $this->$grupos = $grupos;
             $this->$actividades = $actividades;
         }
         
         /**
-         * Getter del atributo de clase $nombreUsuario
-         * @method getNombreUsuario
+         * Getter del atributo de clase $nombrePersona
+         * @method getNombrePersona
          * @author Miguel Ángel Posadas
-         * @return nombreUsuario
+         * @return nombrePersona
          */
-        public function getNombreUsuario()
+        public function getNombrePersona()
         {
-            return $this->$nombreUsuario;
+            return $this->$nombrePersona;
         }
 
         /**
-         * Setter del atributo de clase $nombreUsuario
-         * @method setNombreUsuario
+         * Setter del atributo de clase $nombrePersona
+         * @method setNombrePersona
          * @author Miguel Ángel Posadas
-         * @param nombreUsuario
+         * @param nombrePersona
          */
-        public function setNombreUsuario($nombreUsuario)
+        public function setNombrePersona($nombrePersona)
         {
-            $this->$nombreUsuario = $nombreUsuario;
+            $this->$nombrePersona = $nombrePersona;
         }
 
 
@@ -144,14 +144,14 @@
         }
 
         /**
-         * Getter del atributo de clase $idUsuario
-         * @method getIdUsuario
+         * Getter del atributo de clase $idPersona
+         * @method getIdPersona
          * @author Miguel Ángel Posadas
-         * @return idUsuario
+         * @return idPersona
          */
-        public function getIdUsuario()
+        public function getIdPersona()
 		{
-			return $this->$idUsuario;
+			return $this->$idPersona;
 		}
 
     }

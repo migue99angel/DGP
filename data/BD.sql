@@ -1,147 +1,165 @@
-/*Autor: José Luis Gallego Peña*/
-/*Autor: Darío Megías Guerrero*/
-
-
-DROP DATABASE IF EXISTS Comunica2;
-
-CREATE DATABASE IF NOT EXISTS Comunica2;
-
-USE Comunica2;
-
-CREATE TABLE Crea_Ejercicio(
-    IDejercicio INT NOT NULL AUTO_INCREMENT,
-    IDfacilitador INT NOT NULL,
-    TlfFacilitador VARCHAR(10) UNIQUE,
-    FechaCreacion DATE NOT NULL,
-    Titulo VARCHAR(100) NOT NULL,
-    Categoria VARCHAR(100),
-    Fecha DATE,
-    Descripcion TEXT(1000),
-    archivoAdjunto VARCHAR(100),
-    PRIMARY KEY (IDejercicio, IDfacilitador)
-);
-
 CREATE TABLE Persona(
-    IDpersona INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    TlfPersona VARCHAR(10) UNIQUE,
-    Nombre VARCHAR(100) NOT NULL,
-    Contraseña VARCHAR(100) NOT NULL
-);
-
-CREATE TABLE Resuelve(
-    IDejercicio INT NOT NULL PRIMARY KEY,
-    IDpersona INT NOT NULL UNIQUE,
-    TlfPersona VARCHAR(10) UNIQUE,
-    Texto TEXT(1000),
-    FechaResolucion DATE NOT NULL,
-    ValoracionPersona INT,
-    ArchivoAdjuntoSolucion VARCHAR(100),
-    FOREIGN KEY (IDejercicio) REFERENCES Crea_Ejercicio(IDejercicio),
-    FOREIGN KEY (IDpersona) REFERENCES Persona(IDpersona),
-    FOREIGN KEY (TlfPersona) REFERENCES Persona(TlfPersona)
+    idPersona INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    tlfPersona VARCHAR(10) UNIQUE,
+    nombre VARCHAR(100) NOT NULL,
+    contraseña VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE Administrador(
-    IDadministrador INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    TlfAdministrador VARCHAR(10) UNIQUE,
-    Nombre VARCHAR(100) NOT NULL,
-    Contraseña VARCHAR(100) NOT NULL
-);
-
-CREATE TABLE GestionaPersona(
-    IDadministrador INT NOT NULL,
-    Fecha DATE NOT NULL,
-    TlfAdministrador VARCHAR(10) UNIQUE,
-    IDpersona INT NOT NULL UNIQUE,
-    TlfPersona VARCHAR(10) UNIQUE,
-    TipoGestion VARCHAR(30) NOT NULL,
-    PRIMARY KEY (IDadministrador, Fecha),
-    FOREIGN KEY (IDadministrador) REFERENCES Administrador(IDadministrador),
-    FOREIGN KEY (TlfAdministrador) REFERENCES Administrador(TlfAdministrador),
-    FOREIGN KEY (IDpersona) REFERENCES Persona(IDpersona),
-    FOREIGN KEY (TlfPersona) REFERENCES Persona(TlfPersona)
+    idAdministrador INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    tlfAdministrador VARCHAR(10) UNIQUE,
+    nombre VARCHAR(100) NOT NULL,
+    contraseña VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE Facilitador(
-    IDfacilitador INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    TlfFacilitador VARCHAR(10) UNIQUE,
-    Nombre VARCHAR(100) NOT NULL,
-    Contraseña VARCHAR(100) NOT NULL
+    idFacilitador INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    tlfFacilitador VARCHAR(10) UNIQUE,
+    nombre VARCHAR(100) NOT NULL,
+    contraseña VARCHAR(100) NOT NULL
 );
 
+CREATE TABLE Crea_Ejercicio(
+    idEjercicio INT NOT NULL AUTO_INCREMENT,
+    idFacilitador INT NOT NULL,
+    fechaCreacion DATE NOT NULL,
+    titulo VARCHAR(100) NOT NULL,
+    categoria VARCHAR(100),
+    fecha DATE,
+    descripcion TEXT(1000),
+    archivoAdjunto VARCHAR(100),
+    PRIMARY KEY (idEjercicio, idFacilitador),
+    FOREIGN KEY (idFacilitador) REFERENCES Facilitador(idFacilitador)
+);
+
+
+
+CREATE TABLE Resuelve(
+    idEjercicio INT NOT NULL PRIMARY KEY,
+    idPersona INT NOT NULL UNIQUE,
+    texto TEXT(1000),
+    fechaResolucion DATE NOT NULL,
+    valoracionPersona INT,
+    archivoAdjuntoSolucion VARCHAR(100),
+    FOREIGN KEY (idEjercicio) REFERENCES Crea_Ejercicio(idEjercicio),
+    FOREIGN KEY (idPersona) REFERENCES Persona(idPersona)
+);
+
+
+
+CREATE TABLE GestionaPersona(
+    idAdministrador INT NOT NULL,
+    fecha DATE NOT NULL,
+    idPersona INT NOT NULL UNIQUE,
+    tipoGestion VARCHAR(30) NOT NULL,
+    PRIMARY KEY (idAdministrador, fecha),
+    FOREIGN KEY (idAdministrador) REFERENCES Administrador(idAdministrador),
+    FOREIGN KEY (idPersona) REFERENCES Persona(idPersona)
+);
+
+
 CREATE TABLE Asigna(
-    IDejercicio INT NOT NULL,
-    FechaAsignacion DATE NOT NULL,
-    IDfacilitador INT NOT NULL UNIQUE,
-    TlfFacilitador VARCHAR(10) UNIQUE,
-    IDpersona INT NOT NULL UNIQUE,
-    TlfPersona VARCHAR(10) UNIQUE,
-    PRIMARY KEY (IDejercicio, FechaAsignacion),
-    FOREIGN KEY (IDejercicio) REFERENCES Resuelve(IDejercicio),
-    FOREIGN KEY (IDfacilitador) REFERENCES Facilitador(IDfacilitador),
-    FOREIGN KEY (TlfFacilitador) REFERENCES Facilitador(TlfFacilitador),
-    FOREIGN KEY (IDpersona) REFERENCES Persona(IDpersona),
-    FOREIGN KEY (IDpersona) REFERENCES Persona(IDpersona)
+    idEjercicio INT NOT NULL,
+    fechaAsignacion DATE NOT NULL,
+    idFacilitador INT NOT NULL UNIQUE,
+    idPersona INT NOT NULL UNIQUE,
+    PRIMARY KEY (idEjercicio, fechaAsignacion),
+    FOREIGN KEY (idEjercicio) REFERENCES Resuelve(idEjercicio),
+    FOREIGN KEY (idFacilitador) REFERENCES Facilitador(idFacilitador),
+    FOREIGN KEY (idPersona) REFERENCES Persona(idPersona),
+    FOREIGN KEY (idPersona) REFERENCES Persona(idPersona)
 );
 
 CREATE TABLE GestionaFacilitador(
-    IDadministrador INT NOT NULL,
-    Fecha DATE NOT NULL,
-    TlfAdministrador VARCHAR(10) UNIQUE,
-    IDfacilitador INT NOT NULL UNIQUE,
-    TlfFacilitador VARCHAR(10) UNIQUE,
-    TipoGestion VARCHAR(30) NOT NULL,
-    PRIMARY KEY (IDadministrador, Fecha),
-    FOREIGN KEY (TlfAdministrador) REFERENCES Administrador(TlfAdministrador),
-    FOREIGN KEY (IDfacilitador) REFERENCES Facilitador(IDfacilitador),
-    FOREIGN KEY (TlfFacilitador) REFERENCES Facilitador(TlfFacilitador)
+    idAdministrador INT NOT NULL,
+    fecha DATE NOT NULL,
+    idFacilitador INT NOT NULL UNIQUE,
+    tipoGestion VARCHAR(30) NOT NULL,
+    PRIMARY KEY (idAdministrador, fecha),
+    FOREIGN KEY (idFacilitador) REFERENCES Facilitador(idFacilitador)
 );
 
 CREATE TABLE Corrige(
-    IDejercicio INT NOT NULL PRIMARY KEY,
-    IDfacilitador INT NOT NULL UNIQUE,
-    TlfFacilitador VARCHAR(10) UNIQUE,
-    IDpersona INT NOT NULL UNIQUE,
-    TlfPersona VARCHAR(10) UNIQUE,
-    FechaCorreccion DATE NOT NULL,
-    Comentario TEXT(1000),
-    ArchivoAdjuntoCorreccion VARCHAR(100),
-    ValoracionFacilitador INT,
-    FOREIGN KEY (IDejercicio) REFERENCES Resuelve(IDejercicio),
-    FOREIGN KEY (IdFacilitador) REFERENCES Facilitador(IdFacilitador),
-    FOREIGN KEY (TlfFacilitador) REFERENCES Facilitador(TlfFacilitador),
-    FOREIGN KEY (IDpersona) REFERENCES Persona(IDpersona),
-    FOREIGN KEY (IDpersona) REFERENCES Persona(IDpersona)
+    idEjercicio INT NOT NULL PRIMARY KEY,
+    idFacilitador INT NOT NULL UNIQUE,
+    idPersona INT NOT NULL UNIQUE,
+    fechaCorreccion DATE NOT NULL,
+    comentario TEXT(1000),
+    archivoAdjuntoCorreccion VARCHAR(100),
+   valoracionFacilitador INT,
+    FOREIGN KEY (idEjercicio) REFERENCES Resuelve(idEjercicio),
+    FOREIGN KEY (idFacilitador) REFERENCES Facilitador(idFacilitador),
+    FOREIGN KEY (idPersona) REFERENCES Persona(idPersona)
 );
 
 CREATE TABLE Crea_Grupo(
-    IDgrupo INT NOT NULL AUTO_INCREMENT,
-    IDfacilitador INT NOT NULL,
-    TlfFacilitador VARCHAR(10) NOT NULL UNIQUE,
-    FechaCreacion DATE NOT NULL,
-    Nombre VARCHAR(100) NOT NULL,
-    PRIMARY KEY (IDgrupo, IDfacilitador),
-    FOREIGN KEY (IDfacilitador) REFERENCES Facilitador(IDfacilitador),
-    FOREIGN KEY (TlfFacilitador) REFERENCES Facilitador(TlfFacilitador)
+    idGrupo INT NOT NULL AUTO_INCREMENT,
+    idFacilitador INT NOT NULL,
+    fechaCreacion DATE NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
+    PRIMARY KEY (idGrupo, idFacilitador),
+    FOREIGN KEY (idFacilitador) REFERENCES Facilitador(idFacilitador)
 );
 
 CREATE TABLE Pertence(
-    IDgrupo INT NOT NULL,
-    IDpersona INT NOT NULL,
-    TlfPersona VARCHAR(10) UNIQUE,
-    PRIMARY KEY (IDgrupo, IDpersona),
-    FOREIGN KEY (IDgrupo) REFERENCES Crea_Grupo(IDgrupo),
-    FOREIGN KEY (IDpersona) REFERENCES Persona(IDpersona),
-    FOREIGN KEY (TlfPersona) REFERENCES Persona(TlfPersona)
+    idGrupo INT NOT NULL,
+    idPersona INT NOT NULL,
+    PRIMARY KEY (idGrupo, idPersona),
+    FOREIGN KEY (idGrupo) REFERENCES Crea_Grupo(idGrupo),
+    FOREIGN KEY (idPersona) REFERENCES Persona(idPersona)
+);
+CREATE TABLE Tiene_Chat(
+    idChat INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    idEjercicio INT NOT NULL UNIQUE,
+    idPersona INT NOT NULL UNIQUE,
+    ruta VARCHAR(1000),
+    FOREIGN KEY (idEjercicio) REFERENCES Resuelve(idEjercicio),
+    FOREIGN KEY (idPersona) REFERENCES Resuelve(idPersona)
 );
 
-CREATE TABLE Tiene_Chat(
-    IDchat INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    IDejercicio INT NOT NULL UNIQUE,
-    IDpersona INT NOT NULL UNIQUE,
-    TlfPersona VARCHAR(10) UNIQUE,
-    Ruta VARCHAR(1000),
-    FOREIGN KEY (IDejercicio) REFERENCES Resuelve(IDejercicio),
-    FOREIGN KEY (IDpersona) REFERENCES Resuelve(IDpersona),
-    FOREIGN KEY (TlfPersona) REFERENCES Resuelve(TlfPersona)
-);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

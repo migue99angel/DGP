@@ -7,34 +7,34 @@
     {
         private $idChat;
         private $idActividad;
-        private $idUsuario;
+        private $idPersona;
 
         /**
          * @method Constructor con parámetros
          * @author Miguel Ángel Posadas
          * @param idChat identificador del chat
          * @param idActividad Identificador de la actividad 
-         * @param idUsuario Identificador del usuario
+         * @param idPersona Identificador del usuario
          */
-        public function __construct($idChat, $idActividad, $idUsuario)
+        public function __construct($idChat, $idActividad, $idPersona)
         {
             $this->$idChat = $idChat;
             $this->$idActividad = $idActividad;
-            $this->$idUsuario = $idUsuario; 
+            $this->$idPersona = $idPersona; 
         }
 
         /**
          * @method Método getter del usuario
          * @author Miguel Ángel Posadas
-         * @return idUsuario
+         * @return idPersona
          */
         public function getUsuario()
         {
-            return $this->$idUsuario;
+            return $this->$idPersona;
         }
 
         /**
-         * @method Método getter del tutor
+         * @method Método getter del facilitador
          * @author Miguel Ángel Posadas
          * @return idActividad
          */
@@ -46,11 +46,11 @@
         /**
          * @method método setter del usuario
          * @author Miguel Ángel Posadas
-         * @param idUsuario
+         * @param idPersona
          */
-        public function setUsuario($idUsuario)
+        public function setUsuario($idPersona)
         {
-            $this->$idUsuario = $idUsuario;
+            $this->$idPersona = $idPersona;
         }
 
         /**

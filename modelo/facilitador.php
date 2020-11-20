@@ -1,14 +1,14 @@
 <?php
     /**
-     * @class Tutor
+     * @class Facilitador
      * @author Miguel Ángel Posadas
      */
-    class Tutor
+    class Facilitador
     {
-        private $nombreTutor; //Nombre del tutor
-        private $telefono;    //Número de teléfono del tutor
+        private $nombreFacilitador; //Nombre del facilitador
+        private $telefono;    //Número de teléfono del facilitador
         private $conexion;    //Conexion a la base de datos
-        private $idTutor;     //Identificador del tutor
+        private $idFacilitador;     //Identificador del facilitador
         
          /**
          * @method Constructor por defecto
@@ -16,23 +16,23 @@
          */
         public function __construct()
         {
-            $this->nombreTutor = "";
+            $this->nombreFacilitador = "";
             $this->telefono = 0;
         }
 
         /**
          * @method Constructor con parámetros
          * @author Miguel Ángel Posadas
-         * @param nombreTutor El nombre del tutor 
-         * @param telefono El número de teléfono del tutor
-         * @param idTutor El identificador del tutor
+         * @param nombreFacilitador El nombre del facilitador 
+         * @param telefono El número de teléfono del facilitador
+         * @param idFacilitador El identificador del facilitador
          */
-        public function __construct1($nombreTutor, $telefono, $idTutor)
+        public function __construct1($nombreFacilitador, $telefono, $idFacilitador)
         {
-            $this->$nombreTutor = $nombreTutor;
+            $this->$nombreFacilitador = $nombreFacilitador;
             $this->$telefono = $telefono;
             $this->conexion = new ConexionBD();
-            $this->idTutor = $idTutor;
+            $this->idFacilitador = $idFacilitador;
         }
 
         /**
@@ -47,7 +47,7 @@
          */
         public function crearActividad($nombreActividad,$tipoActividad,$descripcion,$fechas,$adjuntos)
         {
-            $this->conexion->crearActividad($this->$idTutor,$nombreActividad,$tipoActividad,$descripcion,$fechas,$adjuntos);
+            $this->conexion->crearActividad($this->$idFacilitador,$nombreActividad,$tipoActividad,$descripcion,$fechas,$adjuntos);
         }
 
         /**
@@ -74,31 +74,31 @@
          */
         public function modificarActividad($nombreActividad,$tipoActividad,$descripcion,$fechas,$adjuntos,$idActividad)
         {
-            $this->conexion->modificarActividad($this->$idTutor,$nombreActividad,$tipoActividad,$descripcion,$fechas,$adjuntos,$idActividad);
+            $this->conexion->modificarActividad($this->$idFacilitador,$nombreActividad,$tipoActividad,$descripcion,$fechas,$adjuntos,$idActividad);
         }
 
         /**
          * Este método requiere que todas las variables vengan parseadas y comprobadas del controlador
-         * @method registrarUsuario. Método que registra un usuario en el sistema
+         * @method registrarPersona. Método que registra una persona en el sistema
          * @author Miguel Ángel Posadas
-         * @param nombreUsuario 
+         * @param nombrePersona 
          * @param email
          * @param password
          */
-        public function registrarUsuario($nombreUsuario,$email,$password)
+        public function registrarPersona($nombrePersona,$email,$password)
         {
-            $this->conexion->registrarUSuario($this->$idTutor,$nombreUsuario,$email,$password);
+            $this->conexion->registrarPersona($this->$idFacilitador,$nombrePersona,$email,$password);
         }
 
         /**
          * Este método requiere que todas las variables vengan parseadas y comprobadas del controlador
-         * @method eliminarUsuario. Método que elimina un usuario de la base de datos
+         * @method eliminarPersona. Método que elimina una persona de la base de datos
          * @author Miguel Ángel Posadas
-         * @param idActividad. El identificador del usuario
+         * @param idActividad. El identificador de la persona
          */
-        public function eliminarUsuario($idActividad)
+        public function eliminarPersona($idActividad)
         {
-            $this->conexion->eliminarUsuario($idActividad);
+            $this->conexion->eliminarPersona($idActividad);
         }
 
         /**
@@ -110,7 +110,7 @@
          */
         public function crearGrupo($nombreGrupo,$participantes)
         {
-            $this->conexion->crearGrupo($this->$idTutor,$nombreGrupo,$participantes);
+            $this->conexion->crearGrupo($this->$idFacilitador,$nombreGrupo,$participantes);
         }
 
         /**
@@ -118,25 +118,25 @@
          * @method valorarActividad. Método que añade una actividad a la base de datos
          * @author Miguel Ángel Posadas
          * @param idActividad identificador de la actividad
-         * @param idUsuario El usuario que se va a calificar
+         * @param idPersona La persona que se va a calificar
          * @param comentarioValoración Comentario de corrección
          * @param valoracion Nota puesta a la actividad
          */
-        public function valorarActividad($idActividad,$idUsuario,$comentarioValoracion,$valoracion)
+        public function valorarActividad($idActividad,$idPersona,$comentarioValoracion,$valoracion)
         {
-            $this->conexion->valorarActividad($this->idTutor,$idActividad,$idUsuario,$comentarioValoracion,$valoracion);
+            $this->conexion->valorarActividad($this->idFacilitador,$idActividad,$idPersona,$comentarioValoracion,$valoracion);
         }
 
         /**
          * Este método requiere que todas las variables vengan parseadas y comprobadas del controlador
-         * @method asignarActividad. Método que asigna una actividad a un usuario
+         * @method asignarActividad. Método que asigna una actividad a una persona
          * @author Miguel Ángel Posadas
          * @param idActividad identificador de la actividad
-         * @param idUsuario El usuario al que se va asignar la actividad
+         * @param idPersona La persona a la que se va asignar la actividad
          */
-        public function asignarActividad($idActividad,$idUsuario)
+        public function asignarActividad($idActividad,$idPersona)
         {
-            $this->conexion->asignarActividad($this->idTutor,$idActividad,$idUsuario);
+            $this->conexion->asignarActividad($this->idFacilitador,$idActividad,$idPersona);
         }
 
         /**
@@ -144,35 +144,35 @@
          * @method asignarActividadGrupo. Método que asigna una actividad a un grupo
          * @author Miguel Ángel Posadas
          * @param idActividad identificador de la actividad
-         * @param idGrupo El usuario al que se va asignar la actividad
+         * @param idGrupo La persona a la que se va asignar la actividad
          */
         public function asignarActividadGrupo($idActividad,$idGrupo)
         {
             $grupo = $this->conexion->obtenerGrupo($idGrupo);
             for($i = 0; $i < sizeof($grupo); $i++)
-                $this->conexion->asignarActividad($this->idTutor,$idActividad,$grupo[$i]);
+                $this->conexion->asignarActividad($this->idFacilitador,$idActividad,$grupo[$i]);
         }
 
         /**
-         * Getter del atributo de clase $nombreTutor
-         * @method getNombreTutor
+         * Getter del atributo de clase $nombreFacilitador
+         * @method getnombreFacilitador
          * @author Miguel Ángel Posadas
-         * @return nombreTutor
+         * @return nombreFacilitador
          */
-        public function getNombreTutor()
+        public function getnombreFacilitador()
         {
-            return $this->$nombreTutor;
+            return $this->$nombreFacilitador;
         }
 
         /**
-         * Setter del atributo de clase $nombreTutor
-         * @method setNombreTutor
+         * Setter del atributo de clase $nombreFacilitador
+         * @method setnombreFacilitador
          * @author Miguel Ángel Posadas
-         * @param nombreTutor
+         * @param nombreFacilitador
          */
-        public function setNombreTutor($nombreTutor)
+        public function setnombreFacilitador($nombreFacilitador)
         {
-            $this->$nombreTutor = $nombreTutor;
+            $this->$nombreFacilitador = $nombreFacilitador;
         }
 
         /**
@@ -198,25 +198,25 @@
         }
 
         /**
-         * Getter del atributo de clase $idTutor
-         * @method getIdTutor
+         * Getter del atributo de clase $idFacilitador
+         * @method getidFacilitador
          * @author Miguel Ángel Posadas
-         * @return idTutor
+         * @return idFacilitador
          */
-        public function getIdTutor()
+        public function getidFacilitador()
         {
-            return $this->$idTutor;
+            return $this->$idFacilitador;
         }
 
         /**
-         * Setter del atributo de clase $idTutor
-         * @method setIdTutor
+         * Setter del atributo de clase $idFacilitador
+         * @method setidFacilitador
          * @author Miguel Ángel Posadas
-         * @param idTutor
+         * @param idFacilitador
          */
-        public function setIdTutor($idTutor)
+        public function setidFacilitador($idFacilitador)
         {
-            $this->$idTutor = $idTutor;
+            $this->$idFacilitador = $idFacilitador;
         }
     }
 

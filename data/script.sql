@@ -1,0 +1,12 @@
+drop table Tiene_Chat;
+drop table Pertenece;
+drop table Crea_Grupo;
+drop table Corrige;
+drop table GestionaFacilitador;
+drop table Asigna;
+drop table GestionaPersona;
+drop table Resuelve;
+drop table Crea_Ejercicio;
+drop table Facilitador;
+drop table Administrador;
+drop table Persona;

@@ -23,19 +23,49 @@
 			$this->$conexion = new conexionBD();
 		}
 
-		public function addTutor($nombreTutor, $telefono, $pass)
+		public function addPersona($nombrePersona, $telefono, $pass)
 		{
-			$this->$conexion->registrarTutor($nombreTutor, $telefono, $pass);
+			$this->$conexion->registrarPersona($nombrePersona, $telefono, $pass);
 		}
 
-		public function eliminarTutor($idTutor)
+		public function eliminarPersona($idPersona)
 		{
-			$this->$conexion->eliminarTutor($idTutor);
+			$this->$conexion->eliminarPersona($idPersona);
 		}
 
-		public function modificarTutor($idTutor, $nombreTutor, $telefono, $pass)
+		public function modificarPersona($idPersona, $nombrePersona, $telefono, $pass)
 		{
-			$this->$conexion->modificarTutor($idTutor, $nombreTutor, $telefono, $pass);
+			$this->$conexion->modificarPersona($idPersona, $nombrePersona, $telefono, $pass);
+		}
+
+		public function addFacilitador($nombreFacilitador, $telefono, $pass)
+		{
+			$this->$conexion->registrarFacilitador($nombreFacilitador, $telefono, $pass);
+		}
+
+		public function eliminarFacilitador($idFacilitador)
+		{
+			$this->$conexion->eliminarFacilitador($idFacilitador);
+		}
+
+		public function modificarFacilitador($idFacilitador, $nombreFacilitador, $telefono, $pass)
+		{
+			$this->$conexion->modificarFacilitador($idFacilitador, $nombreFacilitador, $telefono, $pass);
+		}
+
+		public function addAdministrador($nombreAdministrador, $telefono, $pass)
+		{
+			$this->$conexion->registrarAdministrador($nombreAdministrador, $telefono, $pass);
+		}
+
+		public function eliminarAdministrador($idAdministrador)
+		{
+			$this->$conexion->eliminarAdministrador($idAdministrador);
+		}
+
+		public function modificarAdministrador($idAdministrador, $nombreAdministrador, $telefono, $pass)
+		{
+			$this->$conexion->modificarAdministrador($idAdministrador, $nombreAdministrador, $telefono, $pass);
 		}
 
 		public function getNombre()

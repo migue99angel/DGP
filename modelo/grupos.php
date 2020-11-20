@@ -82,13 +82,13 @@
 		 * Método para borrar un elemento del array $participantes
 		 * @method eliminarParticipante
 		 * @author Miguel Muñoz Molina
-		 * @param $u Un usuario
+		 * @param $p Una persona
 		 */
-		public function eliminarParticipante($u)
+		public function eliminarParticipante($p)
 		{
-			if (($key = array_search($usuario, $this->$participantes)) !== false)
+			if (($key = array_search($p, $this->$participantes)) !== false)
 			{
-				unset($usuario[$key]);
+				unset($p[$key]);
 			}
 		}
 
@@ -96,11 +96,11 @@
 		 * Método para añadir un elemento al array $participantes
 		 * @method addParticipante
 		 * @author Miguel Muñoz Molina
-		 * @param $u Un usuario
+		 * @param $p Una persona
 		 */
-		public function addParticipante($u)
+		public function addParticipante($p)
 		{
-			array_push($this->$participantes, $u);
+			array_push($this->$participantes, $p);
 		}
 	}
 
