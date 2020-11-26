@@ -27,7 +27,8 @@ CREATE TABLE Crea_Ejercicio(
     categoria VARCHAR(100),
     fecha DATE,
     descripcion TEXT(1000),
-    archivoAdjunto VARCHAR(100),
+    multimediaAdjunto VARCHAR(100),
+    imagenAdjunta VARCHAR(100),
     PRIMARY KEY (idEjercicio, idFacilitador),
     FOREIGN KEY (idFacilitador) REFERENCES Facilitador(idFacilitador)
 );
@@ -101,7 +102,7 @@ CREATE TABLE Crea_Grupo(
     FOREIGN KEY (idFacilitador) REFERENCES Facilitador(idFacilitador)
 );
 
-CREATE TABLE Pertence(
+CREATE TABLE Pertenece(
     idGrupo INT NOT NULL,
     idPersona INT NOT NULL,
     PRIMARY KEY (idGrupo, idPersona),
@@ -116,50 +117,3 @@ CREATE TABLE Tiene_Chat(
     FOREIGN KEY (idEjercicio) REFERENCES Resuelve(idEjercicio),
     FOREIGN KEY (idPersona) REFERENCES Resuelve(idPersona)
 );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
