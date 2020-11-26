@@ -6,20 +6,20 @@
     class Chat
     {
         private $idChat;
-        private $idActividad;
+        private $idEjercicio;
         private $idPersona;
 
         /**
          * @method Constructor con parámetros
          * @author Miguel Ángel Posadas
          * @param idChat identificador del chat
-         * @param idActividad Identificador de la actividad 
+         * @param idEjercicio Identificador de la Ejercicio 
          * @param idPersona Identificador del usuario
          */
-        public function __construct($idChat, $idActividad, $idPersona)
+        public function __construct($idChat, $idEjercicio, $idPersona)
         {
             $this->$idChat = $idChat;
-            $this->$idActividad = $idActividad;
+            $this->$idEjercicio = $idEjercicio;
             $this->$idPersona = $idPersona; 
         }
 
@@ -36,11 +36,11 @@
         /**
          * @method Método getter del facilitador
          * @author Miguel Ángel Posadas
-         * @return idActividad
+         * @return idEjercicio
          */
-        public function getActividad()
+        public function getEjercicio()
         {
-            return $this->$idActividad;
+            return $this->$idEjercicio;
         }
 
         /**
@@ -54,13 +54,13 @@
         }
 
         /**
-         * @method método setter del idActividad
+         * @method método setter del idEjercicio
          * @author Miguel Ángel Posadas
-         * @param idActividad
+         * @param idEjercicio
          */
-        public function setActividad($idActividad)
+        public function setEjercicio($idEjercicio)
         {
-            return $this->$idActividad = $idActividad;
+            return $this->$idEjercicio = $idEjercicio;
         }
 
 

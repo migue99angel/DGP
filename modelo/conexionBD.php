@@ -41,7 +41,7 @@
 
             $persona->setChat(cargarChatsPersona($idPersona));
             $persona->setGrupo(cargarGruposPersona($idPersona));
-            $persona->setActividades(cargarActividadesPersona($idPersona));
+            $persona->setEjercicios(cargarEjerciciosPersona($idPersona));
 
             return $persona;
 
@@ -121,49 +121,49 @@
         }
 
         /**
-         * @method cargarActividadesPersona obtiene todas las actividades de una persona
+         * @method cargarEjerciciosPersona obtiene todas las ejercicios de una persona
          * @author Miguel Ángel Posadas
          * @param idPersona El identificador de la persona
-         * @return actividades Array de objetos de la clase actividad
+         * @return ejercicios Array de objetos de la clase ejercicio
          */
-        public function cargarActividadesPersona()
+        public function cargarEjerciciosPersona()
         {
             $res = $this->$conexion->query("SELECT * from Asigna WHERE idPersona='" . $idPersona . "'");
-            $actividades = array();
+            $ejercicios = array();
             $i = 0;
             
             while($row = mysqli_fetch_row($res))
             {
-                $actividades[$i] = cargarActividad($row['idEjercicio']);
+                $ejercicios[$i] = cargarEjercicio($row['idEjercicio']);
                 $i += 1;
             }
 
-            return $actividades;
+            return $ejercicios;
         }
 
         /**
-         * @method cargarActividad Crea un objeto de la clase Actividad para un idEjercicio pasado
+         * @method cargarEjercicio Crea un objeto de la clase Ejercicio para un idEjercicio pasado
          * @author Miguel Ángel Posadas
          * @param idEjercicio
-         * @return actividad Obejto de la clase Actividad
+         * @return ejercicio Obejto de la clase Ejercicio
          */
-        public function cargarActividad($idEjecicio)
+        public function cargarEjercicio($idEjecicio)
         {
             $res = $this->$conexion->query("SELECT * from Crea_Ejercicio WHERE idEjercicio='" . $idEjercicio . "'");
-            $actividad = new Actividad();
+            $ejercicio = new Ejercicio();
 
             if($res->num_rows > 0) 
             {
                 $row = $res->fetch_assoc();
-                $nombreActividad = $row['titulo'];
-                $tipoActividad = $row['categoria'];
+                $nombreEjercicio = $row['titulo'];
+                $tipoEjercicio = $row['categoria'];
                 $descripcion = $row['descripcion'];
                 $fecha = $row['fecha'];
                 $adjunto = $row['archivoAdjunto'];
-                $actividad = new Actividad($nombreActividad, $tipoActividad, $descripcion, $fecha, $adjunto, $idEjercicio);
+                $ejercicio = new Ejercicio($nombreEjercicio, $tipoEjercicio, $descripcion, $fecha, $adjunto, $idEjercicio);
             }
 
-            return $actividad;
+            return $ejercicio;
             
         }
 

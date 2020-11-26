@@ -37,44 +37,44 @@
 
         /**
          * Este método requiere que todas las variables vengan parseadas y comprobadas del controlador
-         * @method crearActividad. Método que añade una actividad a la base de datos
+         * @method crearEjercicio. Método que añade una ejercicio a la base de datos
          * @author Miguel Ángel Posadas
-         * @param nombreActividad El nombre de la actividad (String)
-         * @param tipoActividad El tipo de la actividad (String)
-         * @param descripcion Texto de descripción de la actividad
+         * @param nombreEjercicio El nombre del ejercicio (String)
+         * @param tipoEjercicio El tipo del ejercicio (String)
+         * @param descripcion Texto de descripción del ejercicio
          * @param fechas Array de fechas
          * @param adjuntos Array de ficheros adjuntos
          */
-        public function crearActividad($nombreActividad,$tipoActividad,$descripcion,$fechas,$adjuntos)
+        public function crearEjercicio($nombreEjercicio,$tipoEjercicio,$descripcion,$fechas,$adjuntos)
         {
-            $this->conexion->crearActividad($this->$idFacilitador,$nombreActividad,$tipoActividad,$descripcion,$fechas,$adjuntos);
+            $this->conexion->crearEjercicio($this->$idFacilitador,$nombreEjercicio,$tipoEjercicio,$descripcion,$fechas,$adjuntos);
         }
 
         /**
          * Este método requiere que todas las variables vengan parseadas y comprobadas del controlador
-         * @method eliminarActividad. Método que elimina una actividad de la base de datos
+         * @method eliminarEjercicio. Método que elimina un Ejercicio de la base de datos
          * @author Miguel Ángel Posadas
-         * @param idActividad. El identificador de la actividad
+         * @param idEjercicio. El identificador del Ejercicio
          */
-        public function eliminarActividad($idActividad)
+        public function eliminarEjercicio($idEjercicio)
         {
-            $this->conexion->eliminarActividad($idActividad);
+            $this->conexion->eliminarEjercicio($idEjercicio);
         }
 
         /**
          * Este método requiere que todas las variables vengan parseadas y comprobadas del controlador
-         * @method modificarActividad. Método que modifica una actividad de la base de datos
+         * @method modificarEjercicio. Método que modifica un Ejercicio de la base de datos
          * @author Miguel Ángel Posadas
-         * @param nombreActividad El nombre de la actividad (String)
-         * @param tipoActividad El tipo de la actividad (String)
-         * @param descripcion Texto de descripción de la actividad
+         * @param nombreEjercicio El nombre de la Ejercicio (String)
+         * @param tipoEjercicio El tipo del Ejercicio (String)
+         * @param descripcion Texto de descripción del Ejercicio
          * @param fechas Array de fechas
          * @param adjuntos Array de ficheros adjuntos
-         * @param idActividad. El identificador de la actividad
+         * @param idEjercicio. El identificador del Ejercicio
          */
-        public function modificarActividad($nombreActividad,$tipoActividad,$descripcion,$fechas,$adjuntos,$idActividad)
+        public function modificarEjercicio($nombreEjercicio,$tipoEjercicio,$descripcion,$fechas,$adjuntos,$idEjercicio)
         {
-            $this->conexion->modificarActividad($this->$idFacilitador,$nombreActividad,$tipoActividad,$descripcion,$fechas,$adjuntos,$idActividad);
+            $this->conexion->modificarEjercicio($this->$idFacilitador,$nombreEjercicio,$tipoEjercicio,$descripcion,$fechas,$adjuntos,$idEjercicio);
         }
 
         /**
@@ -94,16 +94,16 @@
          * Este método requiere que todas las variables vengan parseadas y comprobadas del controlador
          * @method eliminarPersona. Método que elimina una persona de la base de datos
          * @author Miguel Ángel Posadas
-         * @param idActividad. El identificador de la persona
+         * @param idPersona. El identificador de la persona
          */
-        public function eliminarPersona($idActividad)
+        public function eliminarPersona($idPersona)
         {
-            $this->conexion->eliminarPersona($idActividad);
+            $this->conexion->eliminarPersona($idPersona);
         }
 
         /**
          * Este método requiere que todas las variables vengan parseadas y comprobadas del controlador
-         * @method crearGrupo. Método que añade una actividad a la base de datos
+         * @method crearGrupo. Método que añade un grupo a la base de datos
          * @author Miguel Ángel Posadas
          * @param nombreGrupo El nombre del grupo (String)
          * @param participantes Array de participantes
@@ -115,42 +115,42 @@
 
         /**
          * Este método requiere que todas las variables vengan parseadas y comprobadas del controlador
-         * @method valorarActividad. Método que añade una actividad a la base de datos
+         * @method valorarEjercicio. Método que añade un Ejercicio a la base de datos
          * @author Miguel Ángel Posadas
-         * @param idActividad identificador de la actividad
+         * @param idEjercicio identificador del Ejercicio
          * @param idPersona La persona que se va a calificar
          * @param comentarioValoración Comentario de corrección
-         * @param valoracion Nota puesta a la actividad
+         * @param valoracion Nota puesta al Ejercicio
          */
-        public function valorarActividad($idActividad,$idPersona,$comentarioValoracion,$valoracion)
+        public function valorarEjercicio($idEjercicio,$idPersona,$comentarioValoracion,$valoracion)
         {
-            $this->conexion->valorarActividad($this->idFacilitador,$idActividad,$idPersona,$comentarioValoracion,$valoracion);
+            $this->conexion->valorarEjercicio($this->idFacilitador,$idEjercicio,$idPersona,$comentarioValoracion,$valoracion);
         }
 
         /**
          * Este método requiere que todas las variables vengan parseadas y comprobadas del controlador
-         * @method asignarActividad. Método que asigna una actividad a una persona
+         * @method asignarEjercicio. Método que asigna un Ejercicio a una persona
          * @author Miguel Ángel Posadas
-         * @param idActividad identificador de la actividad
-         * @param idPersona La persona a la que se va asignar la actividad
+         * @param idEjercicio identificador del Ejercicio
+         * @param idPersona La persona a la que se va asignar el Ejercicio
          */
-        public function asignarActividad($idActividad,$idPersona)
+        public function asignarEjercicio($idEjercicio,$idPersona)
         {
-            $this->conexion->asignarActividad($this->idFacilitador,$idActividad,$idPersona);
+            $this->conexion->asignarEjercicio($this->idFacilitador,$idEjercicio,$idPersona);
         }
 
         /**
          * Este método requiere que todas las variables vengan parseadas y comprobadas del controlador
-         * @method asignarActividadGrupo. Método que asigna una actividad a un grupo
+         * @method asignarEjercicioGrupo. Método que asigna un Ejercicio a un grupo
          * @author Miguel Ángel Posadas
-         * @param idActividad identificador de la actividad
-         * @param idGrupo La persona a la que se va asignar la actividad
+         * @param idEjercicio identificador del Ejercicio
+         * @param idGrupo La persona a la que se va asignar el Ejercicio
          */
-        public function asignarActividadGrupo($idActividad,$idGrupo)
+        public function asignarEjercicioGrupo($idEjercicio,$idGrupo)
         {
             $grupo = $this->conexion->obtenerGrupo($idGrupo);
             for($i = 0; $i < sizeof($grupo); $i++)
-                $this->conexion->asignarActividad($this->idFacilitador,$idActividad,$grupo[$i]);
+                $this->conexion->asignarEjercicio($this->idFacilitador,$idEjercicio,$grupo[$i]);
         }
 
         /**

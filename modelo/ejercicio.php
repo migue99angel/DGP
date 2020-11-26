@@ -1,54 +1,54 @@
 <?php
-	class Actividad
+	class Ejercicio
 	{
-		private $nombreActividad;
-		private $tipoActividad;
+		private $nombreEjercicio;
+		private $tipoEjercicio;
 		private $descripcion;
 		private $fecha;
 		private $adjunto;
-		private $idActividad;
+		private $idEjercicio;
 
 
 
 		public function __construct()
 		{
-			$this->$nombreActividad = "";
-			$this->$tipoActividad = "";
+			$this->$nombreEjercicio = "";
+			$this->$tipoEjercicio = "";
 			$this->$descripcion = "";
 			$this->$fecha = "";
 			$this->$adjunto = "";
-			$this->$idActividad = -1;
+			$this->$idEjercicio = -1;
 		}
 
-		public function __construct1($nombreActividad, $tipoActividad, $descripcion, $fecha, $adjunto, $idActividad)
+		public function __construct1($nombreEjercicio, $tipoEjercicio, $descripcion, $fecha, $adjunto, $idEjercicio)
 		{
-			$this->$nombreActividad = $nombreActividad;
-			$this->$tipoActividad = $tipoActividad;
+			$this->$nombreEjercicio = $nombreEjercicio;
+			$this->$tipoEjercicio = $tipoEjercicio;
 			$this->$descripcion = $descripcion;
 			$this->$fecha = $fecha;
 			$this->$adjunto = $adjunto;
-			$this->$idActividad = $idActividad;
+			$this->$idEjercicio = $idEjercicio;
 
 		}
 
 		public function getNombre()
 		{
-			return $this->$nombreActividad;
+			return $this->$nombreEjercicio;
 		}
 
 		public function setNombre($nombre)
 		{
-			$this->$nombreActividad = $nombre;
+			$this->$nombreEjercicio = $nombre;
 		}
 
 		public function getTipo()
 		{
-			return $this->$tipoActividad;
+			return $this->$tipoEjercicio;
 		}
 
 		public function setTipo($tipo)
 		{
-			$this->$tipoActividad = $tipo;
+			$this->$tipoEjercicio = $tipo;
 		}
 
 		public function getDescripcion()
