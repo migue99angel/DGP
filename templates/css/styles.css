@@ -190,6 +190,24 @@ input[type=submit], .botonSemana {
   font-size: 170%;
 }
 
+.botonesLoginPersonas {
+  display: flex;
+  flex-flow: column nowrap;
+  position: relative;
+}
+
+.filaBotonesLoginPersonas {
+  display: flex;
+  position: relative;
+  flex-flow: row;
+  justify-content: space-between;
+}
+
+.pictogramaLoginPersonas img {
+  max-width: 70%;
+  position: relative;
+}
+
 @media screen and (max-width: 1100px) {
   input[type=submit] {
       padding: 3% 6%;

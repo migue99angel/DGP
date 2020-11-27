@@ -7,23 +7,51 @@
 <body style="align-items:center">
 
   <div class="loginPersonas">
-
-    <div>
-      <h1>Usuario</h1>
+    <div class="Titulo">
+      <h1>Login Personas</h1>
     </div>
 
-    <div>
-      <button>
-        <div style="text-align:center">
-          <img src="./templates/img/logo.jpeg" alt="Logo VALE">
-          <br>
-          <form action="principalPersonas.php" method="post" id="loginFacilitador" enctype="multipart/form-data">
-            <input type="submit" value="CONECTAR PERSONA" />
-          </form>
+    <div class="botonesLoginPersonas">
+      <div class="filaBotonesLoginPersonas">
+        <div class="pictogramaLoginPersonas">
+          <img src="templates//img/llave.png" alt="Llave">
         </div>
-      </button>
+        <div class="pictogramaLoginPersonas">
+          <img src="templates/img/playa.png" alt="Playa">
+        </div>
+        <div class="pictogramaLoginPersonas">
+          <img src="templates/img/sello.png" alt="Sello">
+        </div>
+      </div>
+        
+      <div class="filaBotonesLoginPersonas">
+        <div class="pictogramaLoginPersonas">
+          <img src="templates/img/consola.png" alt="Consola">
+        </div>
+        <div class="pictogramaLoginPersonas">
+          <img src="templates/img/coche de carreras.png" alt="Coche de carreras">
+        </div>
+        <div class="pictogramaLoginPersonas">
+          <img src="templates/img/coche de rally.png" alt="Coche de rally">
+        </div>
+      </div>
+      
+      <div class="filaBotonesLoginPersonas">
+        <div class="pictogramaLoginPersonas">
+          <img src="templates/img/montaña.png" alt="Montaña">
+        </div>
+        <div class="pictogramaLoginPersonas">
+          <img src="templates/img/zapatilla.png" alt="Zapatilla">
+        </div>
+        <div class="pictogramaLoginPersonas">
+          <img src="templates/img/caballo.png" alt="Caballo">
+        </div>
+      </div>
     </div>
 
+    <form action="loginPersonas_PlaceHolder.php" method="post" id="loginPersonas" enctype="multipart/form-data">
+      <input type="submit" value="CONECTAR PERSONA" />
+    </form>
   </div>
 </body>
-</htm>
+</html>
