@@ -16,18 +16,18 @@
     //Faltan los real_escape_string
     $usuario = $_POST['usuario'];
     $contraseña = $_POST['contraseña'];
-    $_SESSION['admin'] = $conexion->inicioSesionAdministrador($usuario, $contraseña);
+    $_SESSION['facilitador'] = $conexion->inicioSesionFacilitador($usuario, $contraseña);
   }
 
-  if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_SESSION['admin']))
+  if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_SESSION['facilitador']))
   {
-    $_SESSION['admin'] = null;
+    $_SESSION['facilitador'] = null;
   }
 
 
-  if (isset($_SESSION['admin']))
+  if (isset($_SESSION['facilitador']))
   {
-    header("Location: principalAdmin.php");
+    header("Location: principalFacilitador.php");
   }
 
 

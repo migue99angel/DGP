@@ -208,6 +208,30 @@ input[type=submit], .botonSemana {
   position: relative;
 }
 
+.pictogramaContraseñaPersonas img {
+  max-width: 70%;
+  position: relative;
+}
+
+
+.pictogramaLoginPersonas:hover {
+  box-sizing: border-box;
+  border: 2px solid black;
+}
+
+.botonEliminarPictogramas {
+  background-color: none;
+    color: black;
+    font-weight: bold;
+    background-color: #359B8A;
+    padding: 1%;
+    text-decoration: none;
+    cursor: pointer;
+    border: 2px solid black;
+    border-radius: 15px;
+    margin-bottom: 5%;
+}
+
 @media screen and (max-width: 1100px) {
   input[type=submit] {
       padding: 3% 6%;
