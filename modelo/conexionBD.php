@@ -1,5 +1,9 @@
 <?php
     require "administrador.php";
+    require "facilitador.php";
+    require "persona.php";
+    require "grupos.php";
+    require "ejercicio.php";
     /**
      * @class ConexionBD
      * @author Miguel Ángel Posadas

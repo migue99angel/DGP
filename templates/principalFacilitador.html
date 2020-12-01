@@ -21,9 +21,10 @@
         <a href="chat_PlaceHolder.php" cclass="button">CHATS</a>
       </div>
 
-      <div class="botonSalir">
-        <a href="loginFacilitadorAd_PlaceHolder.php" class="button">SALIR</a>
-      </div>
+      <form action="principalFacilitador.php" method="post" id="loginFacilitador" enctype="multipart/form-data">
+        <input type="submit" class="botonSalir" name="salir" value="Salir"/>
+        <input name="cerrarSesion" type="hidden" value=1 ></input>
+      </form>
     </div>
   </body>
 </html>

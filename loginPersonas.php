@@ -13,7 +13,7 @@
 
   session_start();
 
-  if ($_SERVER['REQUEST_METHOD'] === 'POST')
+  if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_SESSION['persona']))
   {
     $conexion = new ConexionBD();
     //Faltan los real_escape_string
