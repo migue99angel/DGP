@@ -21,8 +21,11 @@
         <a href="registrarAdmin_PlaceHolder.php" class="button">GESTIONAR ADMINISTRADORES</a>
       </div>
 
-      <div class="botonSalir">
-        <a href="loginFacilitadorAd_PlaceHolder.php?salir=1" class="button">SALIR</a>
+      <div>
+        <form action="principalAdmin.php" method="post" id="loginAdministrador" enctype="multipart/form-data">
+          <input type="submit" class="botonSalir" name="salir" value="SALIR"/>
+          <input name="cerrarSesion" type="hidden" value=1 ></input>
+        </form>
       </div>
     </div>
   </body>

@@ -10,27 +10,21 @@
 
   session_start();
 
-  if ($_SERVER['REQUEST_METHOD'] === 'POST')
+  if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_SESSION['facilitador']))
   {
     $conexion = new ConexionBD();
     //Faltan los real_escape_string
     $usuario = $_POST['usuario'];
     $contraseña = $_POST['contraseña'];
-    $_SESSION['admin'] = $conexion->inicioSesionAdministrador($usuario, $contraseña);
+    $_SESSION['facilitador'] = $conexion->inicioSesionFacilitador($usuario, $contraseña);
   }
 
-  if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_SESSION['admin']))
+  if (isset($_SESSION['facilitador']))
   {
-    $_SESSION['admin'] = null;
+    header("Location: principalFacilitador.php");
   }
 
 
-  if (isset($_SESSION['admin']))
-  {
-    header("Location: principalAdmin.php");
-  }
-
-
-  echo $twig->render('loginAdministrador_PlaceHolder.html', $variablesParaTwig);
+  echo $twig->render('loginFacilitador.html', $variablesParaTwig);
 
 ?>
