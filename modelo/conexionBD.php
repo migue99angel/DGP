@@ -1,5 +1,9 @@
 <?php
     require "administrador.php";
+    require "facilitador.php";
+    require "persona.php";
+    require "grupos.php";
+    require "ejercicio.php";
     /**
      * @class ConexionBD
      * @author Miguel Ángel Posadas
@@ -39,9 +43,9 @@
                 $persona = new Persona($row['idPersona'],$row['nombre']);
             }
 
-            $persona->setChat(cargarChatsPersona($idPersona));
-            $persona->setGrupo(cargarGruposPersona($idPersona));
-            $persona->setEjercicios(cargarEjerciciosPersona($idPersona));
+            $persona->setChat($this->cargarChatsPersona($idPersona));
+            $persona->setGrupo($this->cargarGruposPersona($idPersona));
+            $persona->setEjercicios($this->cargarEjerciciosPersona($idPersona));
 
             return $persona;
 
@@ -59,7 +63,7 @@
             $chats = array();
             $i = 0;
 
-            while($row = mysqli_fetch_row($res))
+            while($row = $res->fetch_assoc())
             {
                 $aux = new Chat($row['idChat'],$row['idEjercicio'],$row['idPersona']);
                 $chats[$i] = $aux;
@@ -77,13 +81,13 @@
          */
         public function cargarGruposPersona($idPersona)
         {
-            $res = $this->$conexion->query("SELECT * from Pertenece WHERE idPersona='" . $idPersona . "'");
+            $res = $this->$conexion->query("SELECT * from Pertenece WHERE idPersona=$idPersona");
             $grupos = array();
             $i = 0;
             
-            while($row = mysqli_fetch_row($res))
+            while($row = $res->fetch_assoc())
             {
-                $grupos[$i] = cargarGrupo($row['idGrupo']);
+                $grupos[$i] = $this->cargarGrupo($row['idGrupo']);
                 $i += 1;
             }
 
@@ -98,7 +102,7 @@
          */
         public function cargarGrupo($idGrupo)
         {
-            $res = $this->$conexion->query("SELECT * from Pertenece WHERE idGrupo='" . $idGrupo . "'");
+            $res = $this->$conexion->query("SELECT * from Pertenece WHERE idGrupo=$idGrupo");
             $participantes = array();
             $i = 0;
 
@@ -108,7 +112,7 @@
                 $i += 1;
             }
 
-            $res = $this->$conexion->query("SELECT * from Crea_Grupo WHERE idGrupo='" . $idGrupo . "'");
+            $res = $this->$conexion->query("SELECT * from Crea_Grupo WHERE idGrupo=$idGrupo");
             if($res->num_rows > 0) 
             {
                 $row = $res->fetch_assoc();
@@ -363,7 +367,7 @@
          */
         public function eliminarPersona($idPersona)
         {
-            $res = $this->$conexion->query("DELETE FROM Persona (idPersona) VALUES ('$idPersona')" ) ;
+            $res = $this->$conexion->query("DELETE FROM Persona WHERE idPersona=$idPersona") ;
 
             return $res;
         }
@@ -376,7 +380,7 @@
          */
         public function eliminarFacilitador($idFacilitador)
         {
-            $res = $this->$conexion->query("DELETE FROM Facilitador (idPersona) VALUES ('$idFacilitador')" ) ;
+            $res = $this->$conexion->query("DELETE FROM Facilitador WHERE idFacilitador=$idFacilitador");
 
             return $res;
         }
@@ -389,7 +393,7 @@
          */
         public function eliminarAdministrador($idAdministrador)
         {
-            $res = $this->$conexion->query("DELETE FROM Administrador (idAdministrador) VALUES ('$idAdministrador')" ) ;
+            $res = $this->$conexion->query("DELETE FROM Administrador WHERE idAdministrador=$idAdministrador") ;
 
             return $res;
         }

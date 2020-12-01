@@ -109,6 +109,7 @@ CREATE TABLE Pertenece(
     FOREIGN KEY (idGrupo) REFERENCES Crea_Grupo(idGrupo),
     FOREIGN KEY (idPersona) REFERENCES Persona(idPersona)
 );
+
 CREATE TABLE Tiene_Chat(
     idChat INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     idEjercicio INT NOT NULL UNIQUE,

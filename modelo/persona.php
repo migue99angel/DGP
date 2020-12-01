@@ -9,7 +9,7 @@
         private $nombrePersona;     //String con el nombre de la persona
         private $chat;              //Array con los chats asociados a esta persona    
         private $grupos;            //Array con los grupos asociados a esta persona
-        private $actividades;       //Array con las actividades asociadas a esta persona
+        private $ejercicios;       //Array con las ejercicios asociadas a esta persona
 
         /**
          * @method Constructor por defecto
@@ -20,7 +20,7 @@
             $this->$nombrePersona = "";
             $this->$chat = array();
             $this->$grupos = array();
-            $this->$actividades = array();
+            $this->$ejercicios = array();
         }
 
         /**
@@ -34,7 +34,7 @@
             $this->$nombrePersona = $nombrePersona;
             $this->$chat = array();
             $this->$grupos = array();
-            $this->$actividades = array();
+            $this->$ejercicios = array();
         }
 
         /**
@@ -43,15 +43,15 @@
          * @param nombrePersona El nombre de esta persona 
          * @param chat Array con los chats asociados a esta persona
          * @param grupos Array con los grupos asociados a esta persona
-         * @param actividades Array con las actividades asociadas a esta persona
+         * @param ejercicios Array con las ejercicios asociadas a esta persona
          */
-        public function __construct2($idPersona,$nombrePersona,$chat,$grupos,$actividades )
+        public function __construct2($idPersona,$nombrePersona,$chat,$grupos,$ejercicios )
         {
             $this->$idPersona = $idPersona;
             $this->$nombrePersona = $nombrePersona;
             $this->$chat = $chat;
             $this->$grupos = $grupos;
-            $this->$actividades = $actividades;
+            $this->$ejercicios = $ejercicios;
         }
         
         /**
@@ -122,14 +122,14 @@
         }
 
         /**
-         * Getter del atributo de clase $actividades
-         * @method getActividades
+         * Getter del atributo de clase $ejercicios
+         * @method getejercicios
          * @author Miguel Ángel Posadas
-         * @return actividades
+         * @return ejercicios
          */
-        public function getActividades()
+        public function getEjercicios()
         {
-            return $this->$actividades;
+            return $this->$ejercicios;
         }
 
         /**
@@ -138,9 +138,9 @@
          * @author Miguel Ángel Posadas
          * @param grupo
          */
-        public function setActividades($actividades)
+        public function setEjercicios($ejercicios)
         {
-            $this->$actividades = $actividades;
+            $this->$ejercicios = $ejercicios;
         }
 
         /**

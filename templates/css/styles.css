@@ -194,6 +194,7 @@ input[type=submit], .botonSemana {
   display: flex;
   flex-flow: column nowrap;
   position: relative;
+  align-content: center;
 }
 
 .filaBotonesLoginPersonas {
@@ -253,6 +254,12 @@ input[type=submit], .botonSemana {
       margin-left: 3%;
   }
 
+  .loginPersonas {
+    font-weight: bold;
+    width: 90%;
+    margin-left: 3%;
+  }
+
   .principal {
     width: 90%;
     margin-left: 3%;
@@ -287,6 +294,30 @@ input[type=submit], .botonSemana {
     width: 95%;
     padding: 5%;
   }
+
+  .botonesLoginPersonas {
+    width: 100%;
+  }
+  
+  .filaBotonesLoginPersonas {
+    width: 100%;
+  }
+  
+  .pictogramaLoginPersonas img {
+    width: 100%;
+  }
+  
+  .pictogramaContraseñaPersonas img {
+    width: 100%;
+  }
+  
+  .pictogramaLoginPersonas:hover {
+    width: 100%;
+  }
+  
+  .botonEliminarPictogramas {
+    width: 100%;
+  }
 }
 
 @media screen and (max-width: 500px) {
@@ -305,6 +336,12 @@ input[type=submit], .botonSemana {
     }
 
     .loginFacilitador {
+      font-weight: bold;
+      padding-top: 7%;
+      padding-bottom: 7%;
+    }
+
+    .loginPersonas {
       font-weight: bold;
       padding-top: 7%;
       padding-bottom: 7%;
@@ -346,5 +383,30 @@ input[type=submit], .botonSemana {
     .botonSalir a {
       width: 95%;
       padding: 5%;
+    }
+
+    .botonesLoginPersonas {
+      width: 100%;
+    }
+    
+    .filaBotonesLoginPersonas {
+      width: 100%;
+    }
+    
+    .pictogramaLoginPersonas img {
+      width: 100%;
+    }
+    
+    .pictogramaContraseñaPersonas img {
+      width: 100%;
+    }
+    
+    
+    .pictogramaLoginPersonas:hover {
+      width: 100%;
+    }
+    
+    .botonEliminarPictogramas {
+      width: 100%;
     }
 }

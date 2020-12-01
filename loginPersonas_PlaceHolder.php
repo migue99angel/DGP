@@ -7,75 +7,38 @@
   $twig = new \Twig\Environment($loader);
 
   $variablesParaTwig = [];
+  $variablesParaTwig['correcto'] = true;
+
+  session_start();
 
   // Contraseña de la persona
   $contraseña = "";
 
-  session_start();
-
-  if ($_SERVER['REQUEST_METHOD'] === 'POST')
+  if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pictograma']))
   {
+    $contraseña = $_POST['pictograma'];
+    
     $conexion = new ConexionBD();
     //Faltan los real_escape_string
-    $_SESSION['persona'] = $conexion->inicioSesionPersona($contraseña);
 
+    $persona = $conexion->inicioSesionPersona($contraseña);
 
-    /*if (strlen($contraseña) == 3)
+    // Comprobar que se ha iniciado sesión correctamente 
+    if (!is_null($persona)) 
     {
-      $conexion = new ConexionBD();
-      //Faltan los real_escape_string
-      $_SESSION['persona'] = $conexion->inicioSesionPersona($contraseña);
-    } else {
-      // Añadir pictograma pulsado a la contraseña
-      switch ((string) $_POST['Pictograma'])
-      {
-        case '1':
-          $contraseña .= '1';
-          break;
-
-        case '2':
-          $contraseña .= '2';
-          break;
-
-        case '3':
-          $contraseña .= '3';
-          break;
-
-        case '4':
-          $contraseña .= '4';
-          break;
-
-        case '5':
-          $contraseña .= '5';
-          break;
-
-        case '6':
-          $contraseña .= '6';
-          break;
-
-        case '7':
-          $contraseña .= '7';
-          break;
-
-        case '8':
-          $contraseña .= '8';
-          break;
-
-        case '9':
-          $contraseña .= '9';
-          break;
-      }
-    }*/
+      $_SESSION['persona'] = $persona;
+      
+      header("Location: principalPersonas.php");
+    } 
+    else 
+    {
+      $variablesParaTwig['correcto'] = false;
+    }
   }
 
   if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_SESSION['persona']))
   {
     $_SESSION['persona'] = null;
-  }
-
-  if (isset($_SESSION['persona']))
-  {
-    header("Location: principalPersonas.php");
   }
 
   echo $twig->render('loginPersonas_PlaceHolder.html', $variablesParaTwig);
