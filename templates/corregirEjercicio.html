@@ -9,6 +9,36 @@
     <link rel="stylesheet" href="./templates/css/styles.css">
   </head>
 
-  <p>Placeholder de corregir ejercicio</p>
+  <body>
+    <div class="listaejercicios">
+        <div class="titulo">
+            <h1>CORREGIR EJERCICIO</h1>
+        </div>
 
+        <div class="ejercicio">
+            <p><strong>Persona: </strong><em>PLACEHOLDER NOMBRE DE LA PERSONA</em></p>
+            <p><strong>Fecha: </strong><em>PLACEHOLDER FECHA</em></p>
+            <p><strong>Texto: </strong><em>PLACEHOLDER TEXTO</em></p>
+            <p><strong>Valoración de la Persona: </strong><em>PLACEHOLDER VALORACIÓN</em></p>
+            <p><strong>Archivo Adjunto: </strong><em>PLACEHOLDER ARCHIVO</em></p>
+        </div>
+
+        <hr>
+
+        <div class="formularioCorreccion">
+          <form action="corregirEjercicio.php?corregido=true&idEjercicio=XXXX&idPersona=YYYY" method="post" id="correccion" enctype="multipart/form-data">
+              <label for="comentario">Comentario</label><br>
+              <textarea name="comentario" form="correccion" required></textarea><br><br>
+
+              <label for="valoracion">Valoración (entre 0 y 5):</label><br>
+              <input type="range" form="correccion" name="valoracion" min="0" max="5"><br><br>
+              <!-- Añadir JS para que muestre el valor actual del rango -->
+
+              <label for="multimedia">Imagen o vídeo explicativo</label><br>
+              <input type="file" name="multimedia" required/><br><br>
+              <input type="submit" value="CORREGIR" />
+          </form>
+      </div>
+    </div>
+  </body>
 </html>

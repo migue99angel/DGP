@@ -172,6 +172,44 @@
         }
 
         /**
+         * @method cargarEjerciciosResueltos Consulta todos los ejercicios que han sido resueltos y no han sido corregidos aún
+         * @author Francisco Domínguez Lorente
+         * @return ejercicios Array de los ejercicios resueltos que no han sido corregidos
+         */
+        public function cargarEjerciciosResueltos()
+        {
+            $res = $this->$conexion->query("SELECT * from Resuelve LEFT JOIN Corrige ON (Resuelve.idEjercicio = Corrige.idEjercicio AND Resuelve.idPersona = Corrige.idPersona");
+            $ejercicios = array();
+
+            while($row = mysqli_fetch_row($res)) {
+                $ejercicios[] = $row;
+            }
+
+            return $ejercicios;
+        }
+
+        /**
+         * @method corregirEjercicio Consulta todos los ejercicios que han sido resueltos y no han sido corregidos aún
+         * @author Francisco Domínguez Lorente
+         * @return resultado True en caso de registro False en caso contrario
+         */
+        public function corregirEjercicio($idEjercicio, $idFacilitador, $idPersona, $comentario, $adjunto, $valoracion)
+        {
+            $idEjercicio = $this->$conexion->real_escape_string($idEjecicio); 
+            $idFacilitador = $this->$conexion->real_escape_string($idFacilitador); 
+            $idPersona = $this->$conexion->real_escape_string($idPersona);
+            $fechaCorrecion = date("Y-m-d");
+            $comentario = $this->$conexion->real_escape_string($comentario);
+            $adjunto = $this->$conexion->real_escape_string($adjunto);
+            $valoracion = $this->$conexion->real_escape_string($valoracion);
+
+            $res = $this->$conexion->query("INSERT INTO Corrige (idEjercicio, idFacilitador, idPersona, fechaCorrecion, comentario, archivoAdjuntoCorrecion, valoracionFacilitadorbre)
+            VALUES ('$idEjercicio','$idFacilitador','$idPersona','$fechaCorrecion','$comentario','$adjunto','$valoracion')" ) ;
+
+            return $res;
+        }
+
+        /**
          * Este método requiere que el controlador parsee los datos
          * @method inicioSesionPersona método que loguea en el sistema a una Persona
          * @author Miguel Ángel Posadas Arráez
