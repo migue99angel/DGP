@@ -41,6 +41,6 @@
     $_SESSION['persona'] = null;
   }
 
-  echo $twig->render('loginPersonas_PlaceHolder.html', $variablesParaTwig);
+  echo $twig->render('loginPersonas.html', $variablesParaTwig);
 
 ?>
