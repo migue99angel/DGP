@@ -13,6 +13,8 @@
     header("Location: loginPersonas.php");
   }
 
+  //$variablesParaTwig['nombre'] = $_SESSION['persona']->getNombrePersona();
+
   echo $twig->render('principalPersonas.html', $variablesParaTwig);
 
 ?>

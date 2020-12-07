@@ -1,10 +1,14 @@
-<!DOCTYPE html>
-<html>
+{% extends "principal.html" %}
+
+{% block titulo %}
 <title>Login Personas</title>
-<head>
-  <link rel="stylesheet" href="./templates/css/styles.css">
-  <script src="templates/js/loginPersonas.js"></script> 
-</head>
+{% endblock %}
+
+{% block scripts%}
+<script src="templates/js/loginPersonas.js"></script> 
+{% endblock %}
+
+{% block cuerpo %}
 <body style="align-items:center">
 
   <div class="loginPersonas">
@@ -81,4 +85,4 @@
     </form>
   </div>
 </body>
-</html>
+{% endblock %}

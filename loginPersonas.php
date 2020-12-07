@@ -27,18 +27,11 @@
     if (!is_null($persona)) 
     {
       $_SESSION['persona'] = $persona;
-      
-      header("Location: principalPersonas.php");
     } 
     else 
     {
       $variablesParaTwig['correcto'] = false;
     }
-  }
-
-  if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_SESSION['persona']))
-  {
-    $_SESSION['persona'] = null;
   }
 
   if (isset($_SESSION['persona']))
