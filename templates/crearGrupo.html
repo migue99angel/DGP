@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block titulo %}
-<title>Crear Grupo</title>
+<title>Gestionar Grupos</title>
 {% endblock %}
 
 {% block divClass %}
@@ -9,13 +9,20 @@
 {% endblock %}
 
 {% block body %}
+
 <div class="Titulo">
     <h1>Crear grupo</h1>
 </div>
-<form action="principalFacilitador.php" method="post" id="addgrupo" enctype="multipart/form-data">
-    Nombre del Grupo<br> <input type="text" name="nombre" required/><br><br>
-    Descripción<br> <textarea name="titulo" form="addejercicio" required></textarea><br><br>
-    Imagen o vídeo explicativo<br> <input type="file" name="multimedia" required/><br><br>
-    <input type="submit" value="CREAR EJERCICIO" />
+
+{% if seleccionMiembros %}
+  {% embed "listaPersonasCheckbox.html" %}
+  {% endembed %}
+{% else %}
+<form method="post" id="addgrupo" enctype="multipart/form-data">
+  Nombre del Grupo<br> <input id="nombre" type="text" name="nombre" required/><br><br>
+  <input type="submit" value="CREAR GRUPO" />
 </form>
-{% endblock %}
+{% endif %}
+
+
+{% endblock body %}
