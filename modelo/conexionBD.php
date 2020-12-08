@@ -227,7 +227,8 @@
          */
         public function cargarEjerciciosResueltos()
         {
-            $consulta = "SELECT * from Resuelve LEFT JOIN Corrige ON (Resuelve.idEjercicio = Corrige.idEjercicio AND Resuelve.idPersona = Corrige.idPersona";
+            //$consulta = "SELECT * from Resuelve LEFT JOIN Corrige ON (Resuelve.idEjercicio = Corrige.idEjercicio AND Resuelve.idPersona = Corrige.idPersona";
+            $consulta = "SELECT * from Resuelve";
 
             $ejercicios = array();
             if($res = $this->conexion->query($consulta))
@@ -242,22 +243,51 @@
         }
 
         /**
+         * @method cargarEjercicioResueltoPorID Consulta un determinado ejercicio resuelto por una determinada persona
+         * @author Francisco Domínguez Lorente
+         * @return ejercicio Array con el ejercicio devuelto
+         */
+        public function cargarEjercicioResueltoPorID($idEjercicio, $idPersona)
+        {
+            $consulta = "SELECT * from Resuelve WHERE idPersona = '". $idPersona ."' AND idEjercicio = '". $idEjercicio ."'";
+
+            $ejercicio = array();
+            if($res = $this->conexion->query($consulta))
+            {
+                $ejercicio = $res->fetch_assoc();
+            }
+
+            return $ejercicio;
+        }
+
+        /**
          * @method corregirEjercicio Consulta todos los ejercicios que han sido resueltos y no han sido corregidos aún
          * @author Francisco Domínguez Lorente
          * @return resultado True en caso de registro False en caso contrario
          */
         public function corregirEjercicio($idEjercicio, $idFacilitador, $idPersona, $comentario, $adjunto, $valoracion)
         {
-            $idEjercicio = $this->conexion->real_escape_string($idEjecicio);
-            $idFacilitador = $this->conexion->real_escape_string($idFacilitador);
-            $idPersona = $this->conexion->real_escape_string($idPersona);
-            $fechaCorrecion = date("Y-m-d");
+            $idEjercicio = (int) $this->conexion->real_escape_string($idEjercicio);
+            $idFacilitador = (int) $this->conexion->real_escape_string($idFacilitador);
+            $idPersona = (int) $this->conexion->real_escape_string($idPersona);
+            $fechaCorreccion = date("Y-m-d");
             $comentario = $this->conexion->real_escape_string($comentario);
             $adjunto = $this->conexion->real_escape_string($adjunto);
-            $valoracion = $this->conexion->real_escape_string($valoracion);
+            $valoracion = (int) $this->conexion->real_escape_string($valoracion);
 
-            $res = $this->conexion->query("INSERT INTO Corrige (idEjercicio, idFacilitador, idPersona, fechaCorrecion, comentario, archivoAdjuntoCorrecion, valoracionFacilitadorbre)
-            VALUES ('$idEjercicio','$idFacilitador','$idPersona','$fechaCorrecion','$comentario','$adjunto','$valoracion')" ) ;
+            var_dump($idEjercicio);
+            var_dump($idFacilitador);
+            var_dump($idPersona);
+            var_dump($fechaCorreccion);
+            var_dump($comentario);
+            var_dump($adjunto);
+            var_dump($valoracion);
+
+            $res = $this->conexion->query("INSERT INTO Corrige (idEjercicio, idFacilitador, idPersona,
+            fechaCorreccion, comentario, archivoAdjuntoCorreccion, valoracionFacilitador)
+            VALUES ('$idEjercicio','$idFacilitador','$idPersona','$fechaCorrecion','$comentario','$adjunto','$valoracion')");
+
+            var_dump($res);
 
             return $res;
         }

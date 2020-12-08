@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block divClass %}
-<div class="listaejercicios"></div>
+<div class="listaejercicios">
 {% endblock %}
 
 {% block body %}
@@ -14,17 +14,17 @@
 </div>
 
 <div class="ejercicio">
-  <p><strong>Persona: </strong><em>PLACEHOLDER NOMBRE DE LA PERSONA</em></p>
-  <p><strong>Fecha: </strong><em>PLACEHOLDER FECHA</em></p>
-  <p><strong>Texto: </strong><em>PLACEHOLDER TEXTO</em></p>
-  <p><strong>Valoración de la Persona: </strong><em>PLACEHOLDER VALORACIÓN</em></p>
-  <p><strong>Archivo Adjunto: </strong><em>PLACEHOLDER ARCHIVO</em></p>
+  <p><strong>Persona: </strong><em>{{ ejercicio['idPersona'] }}</em></p>
+  <p><strong>Fecha: </strong><em>{{ ejercicio['fechaResolucion'] }}</em></p>
+  <p><strong>Texto: </strong><em>{{ ejercicio['texto'] }}</em></p>
+  <p><strong>Valoración de la Persona: </strong><em>{{ ejercicio['valoracionPersona'] }}</em></p>
+  <p><strong>Archivo Adjunto: </strong><em>{{ ejercicio['archivoAdjuntoSolucion'] }}</em></p>
 </div>
 
 <hr>
 
 <div class="formularioCorreccion">
-<form action="corregirEjercicio.php?corregido=true&idEjercicio=XXXX&idPersona=YYYY" method="post" id="correccion" enctype="multipart/form-data">
+<form action="corregirEjercicio.php?corregido=true&idEjercicio={{ idEjercicio }}&idPersona={{ idPersona }}" method="post" id="correccion" enctype="multipart/form-data">
     <label for="comentario">Comentario</label><br>
     <textarea name="comentario" form="correccion" required></textarea><br><br>
 

@@ -10,50 +10,52 @@
 
   if(isset($_SESSION['facilitador'])) {
     $conexion = new ConexionBD();
-    $ejercicios = $conexion->cargarEjerciciosResueltos();
+
   } else {
     exit();
   }
 
-  if(isset($_GET['corregido']) && isset($_GET['idEjercicio']) && isset($_GET['idPersona'])) {
-    if($_GET['corregido'] == true && ctype_digit($_GET['idEjercicio']) && ctype_digit($_GET['Ejercicio'])) {
+  if(isset($_GET['idEjercicio']) && isset($_GET['idPersona'])) {
+    if(ctype_digit($_GET['idEjercicio']) && ctype_digit($_GET['idPersona'])) {
       $idEjercicio = htmlspecialchars($_GET['idEjercicio']);
       $idPersona = htmlspecialchars($_GET['idPersona']);
-    }else {
+      $ejercicio = $conexion->cargarEjercicioResueltoPorID($_GET['idEjercicio'], $_GET['idPersona']);
+    } else {
       exit();
     }
   }
 
-  if($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if(isset($_POST['comentario']) && !empty($_POST['comentario']) && is_string($_POST['comentario']) &&
-        isset($_POST['valoracion']) && !empty($_POST['valoracion']) && ctype_digit($_POST['valoracion'] &&
-        isset($_FILES['multimedia']) && !empty($_FILES['multimedia']))) 
-        {
+  if(isset($_GET['corregido']) && $_GET['corregido'] == true) {
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+      if(isset($_POST['comentario']) && !empty($_POST['comentario']) && is_string($_POST['comentario']) &&
+          isset($_POST['valoracion']) && !empty($_POST['valoracion']) && is_string($_POST['valoracion']) &&
+          isset($_FILES['multimedia']) && !empty($_FILES['multimedia'])) 
+          {
 
-          $comentario = htmlspecialchars($_POST['comentario']);
-          $valoracion = htmlspecialchars($_POST['valoracion']);
+            $comentario = htmlspecialchars($_POST['comentario']);
+            $valoracion = htmlspecialchars($_POST['valoracion']);
+  
+            $file_name = $_FILES['multimedia']['name'];
+            $file_size = $_FILES['multimedia']['size'];
+            $file_tmp = $_FILES['multimedia']['tmp_name'];
+            $file_type = $_FILES['multimedia']['type'];
+            $file_ext = strtolower(end(explode('.',$_FILES['multimedia']['name'])));
+            
+            $extensions= array("jpeg","jpg","png","mp3","mp4","mov");
+  
+            $rutaFichero = 'img/'. $file_name;
+  
+            if(in_array($file_ext,$extensions) === true && $file_size < 2097152){
+              move_uploaded_file($file_tmp, $rutaFichero);
+            }      
 
-          $file_name = $_FILES['imagen']['name'];
-          $file_size = $_FILES['imagen']['size'];
-          $file_tmp = $_FILES['imagen']['tmp_name'];
-          $file_type = $_FILES['imagen']['type'];
-          $file_ext = strtolower(end(explode('.',$_FILES['imagen']['name'])));
-          
-          $extensions= array("jpeg","jpg","png","mp3","mp4","mov");
+            $res = $conexion->corregirEjercicio($idEjercicio, $_SESSION['facilitador']->getidFacilitador(), $idPersona, $comentario, $rutaFichero, $valoracion);
 
-          $rutaFichero = "img/" . $file_name;
-
-          if(in_array($file_ext,$extensions) === true && $file_size < 2097152){
-            move_uploaded_file($file_tmp, $rutaFichero);
           }
-
-          $conexion->corregirEjercicio($idEjercicio, $_SESSION['facilitador']->getidFacilitador(), $idPersona, $comentario, $rutaFichero, $valoracion);
-
-          header("Location: listaEjercicios.php");
-        }
+    }
   }
 
-  $variablesParaTwig = [];
+  $variablesParaTwig = ['ejercicio' => $ejercicio, 'idEjercicio' => $_GET['idEjercicio'], 'idPersona' => $_GET['idPersona']];
 
   echo $twig->render('corregirEjercicio.html', $variablesParaTwig);
 
