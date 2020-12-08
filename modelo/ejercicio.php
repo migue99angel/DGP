@@ -1,89 +1,110 @@
 <?php
 	class Ejercicio
 	{
-		private $nombreEjercicio;
-		private $tipoEjercicio;
+		private $titulo;
+		private $categoria;
 		private $descripcion;
-		private $fecha;
-		private $adjunto;
+		private $fechaCreacion;
+		private $multimediaAdjunto;
+		private $imagenAdjunta;
 		private $idEjercicio;
 
 
 
 		public function __construct()
 		{
-			$this->$nombreEjercicio = "";
-			$this->$tipoEjercicio = "";
-			$this->$descripcion = "";
-			$this->$fecha = "";
-			$this->$adjunto = "";
-			$this->$idEjercicio = -1;
+			$this->titulo = "";
+			$this->categoria = "";
+			$this->descripcion = "";
+			$this->fechaCreacion = "";
+			$this->multimediaAdjunto = "";
+			$this->imagenAdjunta = "";
+			$this->idEjercicio = -1;
 		}
 
-		public function __construct1($nombreEjercicio, $tipoEjercicio, $descripcion, $fecha, $adjunto, $idEjercicio)
+		public static function crearConParametros($titulo, $categoria, $descripcion, $fechaCreacion, $mAdjunto, $iAdjunta, $idEjercicio)
 		{
-			$this->$nombreEjercicio = $nombreEjercicio;
-			$this->$tipoEjercicio = $tipoEjercicio;
-			$this->$descripcion = $descripcion;
-			$this->$fecha = $fecha;
-			$this->$adjunto = $adjunto;
-			$this->$idEjercicio = $idEjercicio;
+			$instancia = new Ejercicio();
 
+			$instancia->setTitulo($titulo);
+			$instancia->setCategoria($categoria);
+			$instancia->setDescripcion($descripcion);
+			$instancia->setFechaCreacion($fechaCreacion);
+			$instancia->setMultimediaAdjunto($mAdjunto);
+			$instancia->setImagenAdjunta($iAdjunta);
+			$instancia->setIdEjercicio($idEjercicio);
+
+			return $instancia;
 		}
 
-		public function getNombre()
+		public function getTitulo()
 		{
-			return $this->$nombreEjercicio;
+			return $this->titulo;
 		}
 
-		public function setNombre($nombre)
+		public function setTitulo($nombre)
 		{
-			$this->$nombreEjercicio = $nombre;
+			$this->titulo = $nombre;
 		}
 
-		public function getTipo()
+		public function getCategoria()
 		{
-			return $this->$tipoEjercicio;
+			return $this->categoria;
 		}
 
-		public function setTipo($tipo)
+		public function setCategoria($tipo)
 		{
-			$this->$tipoEjercicio = $tipo;
+			$this->categoria = $tipo;
 		}
 
 		public function getDescripcion()
 		{
-			return $this->$descripcion;
+			return $this->descripcion;
 		}
 
 		public function setDescripcion($descripcion)
 		{
-			$this->$descripcion = $descripcion;
+			$this->descripcion = $descripcion;
 		}
 
-		public function getFecha()
+		public function getFechaCreacion()
 		{
-			return $this->$fecha;
+			return $this->fechaCreacion;
 		}
 
-		public function setFecha($fecha)
+		public function setFechaCreacion($fechaCreacion)
 		{
-			$this->$fecha = $fecha;
+			$this->fechaCreacion = $fechaCreacion;
 		}
 
-		public function setAdjunto($adj)
+		public function getMultimediaAdjunto()
 		{
-			$this->$adjunto = $adj;
+			return $this->multimediaAdjunto;
 		}
 
-		public function getAdjunto($pos)
+		public function setMultimediaAdjunto($adj)
 		{
-			return $this->$adjunto[$pos];
+			$this->multimediaAdjunto = $adj;
 		}
 
-		public function getAlladjunto()
+		public function getImagenAdjunta()
 		{
-			return $this->$adjunto;
+			return $this->imagenAdjunto;
+		}
+
+		public function setImagenAdjunta($img)
+		{
+			$this->imagenAdjunta = $img;
+		}
+
+		public function getIdEjercicio()
+		{
+			return $this->idEjercicio;
+		}
+
+		public function setIdEjercicio($id)
+		{
+			$this->idEjercicio = $id;
 		}
 	}
 

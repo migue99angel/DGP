@@ -1,15 +1,16 @@
-<!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Asignar Ejercicio</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./templates/css/styles.css">
-  </head>
+{% extends "base.html" %}
 
-  <body>
-    <p>Place Holder de Asignar Ejercicio</p>
-  </body>
-</html>
+{% block body %}
+<div class="titulo">
+  <h1>Asignar Ejercicios</h1>
+</div>
+
+{% if tipoLista == "ejercicios" %}
+  {% embed "listaEjerciciosCheckbox.html" %}
+  {% endembed %}
+{% elseif tipoLista == "personas" %}
+  {% embed "listaPersonasCheckbox.html" %}
+  {% endembed %}
+{% endif %}
+
+{% endblock body %}

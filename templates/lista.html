@@ -1,0 +1,41 @@
+<div class="contenedorListaCheckbox">
+    <form action="{{ accionCheckbox }}" method="post" id="{{ idCheckbox }}" enctype="{{ encCheckbox }}">
+        <div class="tituloLista">
+            <p>{{ tituloLista }}</p>
+        </div>
+
+        <div class="listaCheckbox">
+                {% for elemento in elementos %}
+                    <div>
+                        <input type="checkbox" id="elemento{{ loop.index0 }}" name="elemento{{ loop.index0 }}" value="elemento{{ loop.index0 }}">
+                        <label for="elemento{{ loop.index0 }}"> {% block elementoLista %}{% endblock elementoLista %} </label><br>
+                    </div>
+                {% endfor %}
+                <div>
+                    <input type="checkbox" id="persona0" name="persona0" value="persona0">
+                    <label for="persona0">Benito Pérez Galdós</label><br>
+                </div>
+                <div>
+                    <input type="checkbox" id="persona1" name="persona1" value="persona1">
+                    <label for="persona1"> Lucas El Pato González</label><br>
+                </div>
+                <div>
+                    <input type="checkbox" id="persona2" name="persona2" value="persona2">
+                    <label for="persona2"> Lorena Trujillos Yévenez</label><br>
+                </div>
+                <div>
+                    <input type="checkbox" id="persona3" name="persona3" value="persona3">
+                    <label for="persona3"> Adrián Julián de los Ríos Martín de Villodres</label><br>
+                </div>
+        </div>
+        {% if numeroOcultos is not null %}
+                <input type="hidden" id="numeroOcultos" name="numeroOcultos" value="{{ numeroOcultos }}">
+            {% for inputOculto in inputOcultos %}
+                <input type="hidden" id="oculto{{ loop.index0 }}" name="oculto{{ loop.index0 }}" value="{{ inputOculto }}">
+            {% endfor %}
+        {% endif %}
+        <div>
+            <input type="submit" class="botonEnviar" value="{{ valorSubmitCheckbox }}" />
+        </div>
+    </form>
+</div>

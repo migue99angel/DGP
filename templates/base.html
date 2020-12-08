@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Principal VALE</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./templates/css/styles.css">
+    {% block estilos %}
+    {% endblock estilos %}
+    {% block preScripts %}
+    {% endblock preScripts %}
+  </head>
+
+  <body>
+    <div class="principal">
+      {% if botonAtras %}
+        <button class="botonAtras">
+          <a href="{{ paginaAnterior  }}">
+            <img src="templates/img/caminar hacia atrás.png" alt="Volver atrás" class="imagenBoton" />
+          </a>
+        </button>
+      {% endif %}
+
+      {% block body %}
+      {% endblock body %}
+    </div>
+  </body>
+
+  {% block postScripts %}
+  {% endblock postScripts %}
+
+  </html>

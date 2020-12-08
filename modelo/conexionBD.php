@@ -37,7 +37,7 @@
             $res = $this->$conexion->query("SELECT * from Persona WHERE idPersona='" . $idPersona . "'");
 
              /* Con esto tenemos un array multidimensional para obtener todos los comentarios a la vez */
-            if($res->num_rows > 0) 
+            if($res->num_rows > 0)
             {
                 $row = $res->fetch_assoc();
                 $persona = new Persona($row['idPersona'],$row['nombre']);
@@ -84,7 +84,7 @@
             $res = $this->$conexion->query("SELECT * from Pertenece WHERE idPersona=$idPersona");
             $grupos = array();
             $i = 0;
-            
+
             while($row = $res->fetch_assoc())
             {
                 $grupos[$i] = $this->cargarGrupo($row['idGrupo']);
@@ -113,7 +113,7 @@
             }
 
             $res = $this->$conexion->query("SELECT * from Crea_Grupo WHERE idGrupo=$idGrupo");
-            if($res->num_rows > 0) 
+            if($res->num_rows > 0)
             {
                 $row = $res->fetch_assoc();
                 $nombreGrupo = $row['nombre'];
@@ -135,7 +135,7 @@
             $res = $this->$conexion->query("SELECT * from Asigna WHERE idPersona='" . $idPersona . "'");
             $ejercicios = array();
             $i = 0;
-            
+
             while($row = mysqli_fetch_row($res))
             {
                 $ejercicios[$i] = cargarEjercicio($row['idEjercicio']);
@@ -147,28 +147,54 @@
 
         /**
          * @method cargarEjercicio Crea un objeto de la clase Ejercicio para un idEjercicio pasado
-         * @author Miguel Ángel Posadas
+         * @author Miguel Ángel Posadas y Darío Megías Guerrero
          * @param idEjercicio
          * @return ejercicio Obejto de la clase Ejercicio
          */
-        public function cargarEjercicio($idEjecicio)
+        public function cargarEjercicio($idEjercicio)
         {
-            $res = $this->$conexion->query("SELECT * from Crea_Ejercicio WHERE idEjercicio='" . $idEjercicio . "'");
+            $consulta = "SELECT * from Crea_Ejercicio WHERE idEjercicio=" . $idEjercicio . ";";
             $ejercicio = new Ejercicio();
 
-            if($res->num_rows > 0) 
+            if($res = $this->$conexion->query($consulta))
             {
                 $row = $res->fetch_assoc();
                 $nombreEjercicio = $row['titulo'];
                 $tipoEjercicio = $row['categoria'];
                 $descripcion = $row['descripcion'];
-                $fecha = $row['fecha'];
-                $adjunto = $row['archivoAdjunto'];
-                $ejercicio = new Ejercicio($nombreEjercicio, $tipoEjercicio, $descripcion, $fecha, $adjunto, $idEjercicio);
+                $fechaCreacion = $row['fechaCreacion'];
+                $mAdjunto = $row['multimediaAdjunto'];
+                $iAdjunta = $row['imagenAdjunta'];
+                $ejercicio = Ejercicio::crearConParametros($nombreEjercicio, $tipoEjercicio, $descripcion,
+                                                           $fechaCreacion, $mAdjunto, $iAdjunta, $idEjercicio);
             }
 
             return $ejercicio;
-            
+
+        }
+
+        /**
+         * @method getAllEjercicios Provee un array de objetos ejercicio con todos los ejercicios
+         * @author Darío Megías Guerrero
+         * @return ejercicios
+         */
+        public function getAllEjercicios($ordenarFecha=False)
+        {
+            $ordenFecha = '';
+            $ejercicios = array();
+
+            if ($ordenarFecha)
+                $ordenFecha = 'ORDER BY fechaCreacion ASC';
+
+            $consulta = 'SELECT * FROM Crea_Ejercicio '.$ordenFecha.';';
+
+            if ($res = $this->$conexion->query($consulta)) {
+                while ($fila = $res->fetch_assoc()) {
+                    $ejercicios[] = $this->cargarEjercicio($fila['idEjercicio']);
+                }
+            }
+
+            return $ejercicios;
         }
 
         /**
@@ -195,8 +221,8 @@
          */
         public function corregirEjercicio($idEjercicio, $idFacilitador, $idPersona, $comentario, $adjunto, $valoracion)
         {
-            $idEjercicio = $this->$conexion->real_escape_string($idEjecicio); 
-            $idFacilitador = $this->$conexion->real_escape_string($idFacilitador); 
+            $idEjercicio = $this->$conexion->real_escape_string($idEjecicio);
+            $idFacilitador = $this->$conexion->real_escape_string($idFacilitador);
             $idPersona = $this->$conexion->real_escape_string($idPersona);
             $fechaCorrecion = date("Y-m-d");
             $comentario = $this->$conexion->real_escape_string($comentario);
@@ -220,8 +246,8 @@
         {
             $persona = null;
             $res = $this->$conexion->query("SELECT * from Persona WHERE contraseña= '". $pass ."' ");
-            
-            if($res->num_rows > 0) 
+
+            if($res->num_rows > 0)
             {
                 $row = $res->fetch_assoc();
                 $persona = $this->cargarPersona($row['idPersona']);
@@ -242,8 +268,8 @@
         {
             $facilitador = null;
             $res = $this->$conexion->query("SELECT * from Facilitador WHERE nombre='" . $nombreFacilitador . "' AND contraseña= '". $pass ."' ");
-            
-            if($res->num_rows > 0) 
+
+            if($res->num_rows > 0)
             {
                 $row = $res->fetch_assoc();
                 $facilitador = new Facilitador($row['nombre'],$row['tlfFacilitador'],$row['idFacilitador']);
@@ -266,7 +292,7 @@
 
             $res = $this->$conexion->query("SELECT * FROM Administrador WHERE nombre ='$nombreAdministrador' AND contraseña = '$pass'");
 
-            if($res->num_rows > 0) 
+            if($res->num_rows > 0)
             {
                 $row = $res->fetch_assoc();
                 $admin = new Administrador($row['nombre'],$row['tlfAdministrador'],$row['idAdministrador']);
@@ -313,7 +339,7 @@
             }
 
             return $facilitadores;
-            
+
         }
 
 
@@ -348,9 +374,9 @@
          */
         public function registrarPersonas($nombrePersona,$telefono,$pass)
         {
-            $nombrePersona = $this->$conexion->real_escape_string($nombreFacilitador); 
-            $telefono = $this->$conexion->real_escape_string($telefono); 
-            $pass = $this->$conexion->real_escape_string($pass); 
+            $nombrePersona = $this->$conexion->real_escape_string($nombreFacilitador);
+            $telefono = $this->$conexion->real_escape_string($telefono);
+            $pass = $this->$conexion->real_escape_string($pass);
 
             $res = $this->$conexion->query("INSERT INTO Persona (tlfPersona,nombre,contraseña) VALUES ('$telefono','$nombrePersona','$pass')" ) ;
 
@@ -368,9 +394,9 @@
          */
         public function registrarFacilitador($nombreFacilitador,$telefono,$pass)
         {
-            $nombreFacilitador = $this->$conexion->real_escape_string($nombreFacilitador); 
-            $telefono = $this->$conexion->real_escape_string($telefono); 
-            $pass = $this->$conexion->real_escape_string($pass); 
+            $nombreFacilitador = $this->$conexion->real_escape_string($nombreFacilitador);
+            $telefono = $this->$conexion->real_escape_string($telefono);
+            $pass = $this->$conexion->real_escape_string($pass);
 
             $res = $this->$conexion->query("INSERT INTO Facilitador (tlfFacilitador,nombre,contraseña) VALUES ('$telefono','$nombreFacilitador','$pass')" ) ;
 
@@ -388,9 +414,9 @@
          */
         public function registrarAdministrador($nombreAdministrador,$telefono,$pass)
         {
-            $nombreAdministrador = $this->$conexion->real_escape_string($nombreAdministrador); 
-            $telefono = $this->$conexion->real_escape_string($telefono); 
-            $pass = $this->$conexion->real_escape_string($pass); 
+            $nombreAdministrador = $this->$conexion->real_escape_string($nombreAdministrador);
+            $telefono = $this->$conexion->real_escape_string($telefono);
+            $pass = $this->$conexion->real_escape_string($pass);
 
             $res = $this->$conexion->query("INSERT INTO Administrador (tlfAdministrador,nombre,contraseña) VALUES ('$telefono','$nombreAdministrador','$pass')" ) ;
 
@@ -439,7 +465,7 @@
         /**
          * @method modificarPersona Modifica los datos de una persona en la base de datos
          * @author Miguel Ángel Posadas Arráez
-         * @param idPersona 
+         * @param idPersona
          * @param nombrePersona
          * @param telefono
          * @param pass
@@ -447,12 +473,12 @@
          */
         public function modificarPersona($idPersona,$nombrePersona,$telefono,$pass)
         {
-            $nombrePersona = $this->$conexion->real_escape_string($nombrePersona); 
-            $telefono = $this->$conexion->real_escape_string($telefono); 
+            $nombrePersona = $this->$conexion->real_escape_string($nombrePersona);
+            $telefono = $this->$conexion->real_escape_string($telefono);
             $pass = $this->$conexion->real_escape_string($pass);
             //FALTA HASHEAR contraseña
             $res =  $this->$conexion->query("UPDATE Persona SET  nombre='$nombrePersona' contraseña='$pass',tlfPersona='$telefono'  WHERE idPersona='$idPersona'");
-            
+
             return $res;
         }
 
@@ -467,19 +493,19 @@
          */
         public function modificarFacilitador($idFacilitador, $nombreFacilitador, $telefono, $pass)
         {
-            $nombreFacilitador = $this->$conexion->real_escape_string($nombreFacilitador); 
-            $telefono = $this->$conexion->real_escape_string($telefono); 
+            $nombreFacilitador = $this->$conexion->real_escape_string($nombreFacilitador);
+            $telefono = $this->$conexion->real_escape_string($telefono);
             $pass = $this->$conexion->real_escape_string($pass);
             //FALTA HASHEAR contraseña
             $res = $this->$conexion->query("UPDATE Facilitador SET idPersona='$idFacilitador', tlfFacilitador='$telefono', nombre='$nombreFacilitador', contraseña='$pass' WHERE idPersona='$idFacilitador'");
-            
+
             return $res;
         }
 
         /**
          * @method modificarAdministrador Modifica los datos de un administrador en la base de datos
          * @author Miguel Ángel Posadas Arráez
-         * @param idAdministrador 
+         * @param idAdministrador
          * @param nombreAdministrador
          * @param telefono
          * @param pass
@@ -487,15 +513,15 @@
          */
         public function modificarAdministrador($idAdministrador,$nombreAdministrador,$telefono,$pass)
         {
-            $nombreAdministrador = $this->$conexion->real_escape_string($nombreAdministrador); 
-            $telefono = $this->$conexion->real_escape_string($telefono); 
+            $nombreAdministrador = $this->$conexion->real_escape_string($nombreAdministrador);
+            $telefono = $this->$conexion->real_escape_string($telefono);
             $pass = $this->$conexion->real_escape_string($pass);
             //FALTA HASHEAR contraseña
             $res =  $this->$conexion->query("UPDATE Administrador SET  nombre='$nombreAdministrador' contraseña='$pass',tlfPersona='$telefono'  WHERE idAdministrador='$idAdministrador'");
-            
+
             return $res;
         }
-    }   
+    }
 
 
 ?>

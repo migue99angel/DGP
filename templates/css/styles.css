@@ -15,7 +15,7 @@ a {
     color: black;
 }
 
-input[type=submit], .botonSemana {
+input[type=submit], .botonSemana, .botonEnviar {
     background-color: none;
     color: black;
     font-weight: bold;
@@ -157,6 +157,28 @@ input[type=submit], .botonSemana {
   background-color: #D5E8D4;
 }
 
+.botonAtras {
+  border: 2px solid #82B366;
+  border-radius: 10px;
+  height: 4rem;
+  width: 30%;
+  display: block;
+  background-color: #D5E8D4;
+  max-height: 20%;
+  margin-top: 1rem;
+}
+
+.botonAtras a{
+  height: 100%;
+  display: block;
+  background-color: #D5E8D4;
+}
+
+.imagenBoton{
+  position: relative;
+  height: 100%;
+}
+
 .botonSalirUsuario {
   font-weight: bold;
   margin-left: auto;
@@ -233,6 +255,19 @@ input[type=submit], .botonSemana {
     margin-bottom: 5%;
 }
 
+.contenedorListaCheckbox {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.listaCheckbox {
+  position:relative;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  left: 1rem;
+}
+
 @media screen and (max-width: 1100px) {
   input[type=submit] {
       padding: 3% 6%;
@@ -298,23 +333,23 @@ input[type=submit], .botonSemana {
   .botonesLoginPersonas {
     width: 100%;
   }
-  
+
   .filaBotonesLoginPersonas {
     width: 100%;
   }
-  
+
   .pictogramaLoginPersonas img {
     width: 100%;
   }
-  
+
   .pictogramaContraseñaPersonas img {
     width: 100%;
   }
-  
+
   .pictogramaLoginPersonas:hover {
     width: 100%;
   }
-  
+
   .botonEliminarPictogramas {
     width: 100%;
   }
@@ -388,24 +423,24 @@ input[type=submit], .botonSemana {
     .botonesLoginPersonas {
       width: 100%;
     }
-    
+
     .filaBotonesLoginPersonas {
       width: 100%;
     }
-    
+
     .pictogramaLoginPersonas img {
       width: 100%;
     }
-    
+
     .pictogramaContraseñaPersonas img {
       width: 100%;
     }
-    
-    
+
+
     .pictogramaLoginPersonas:hover {
       width: 100%;
     }
-    
+
     .botonEliminarPictogramas {
       width: 100%;
     }
