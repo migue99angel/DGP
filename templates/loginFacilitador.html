@@ -1,21 +1,19 @@
-{% extends "principal.html" %}
+{% extends "base.html" %}
 
 {% block titulo %}
   <title>Login Facilitadores</title>
 {% endblock %}
 
-{% block cuerpo %}
-<body>
-  <div class="loginFacilitador">
-    <div class="Titulo">
-      <h1>Login Facilitadores</h1>
-    </div>
-
-      <form action="loginFacilitador.php" method="post" id="loginFacilitador" enctype="multipart/form-data">
-        Usuario<br> <input type="text" name="usuario" required/><br><br>
-        Contraseña<br> <input type="password" name="contraseña" required/><br><br>
-        <input type="submit" value="CONECTAR FACILITADOR" />
-      </form>
+{% block body %}
+<div class="loginFacilitador">
+  <div class="Titulo">
+    <h1>Login Facilitadores</h1>
   </div>
-</body>
+
+    <form action="loginFacilitador.php" method="post" id="loginFacilitador" enctype="multipart/form-data">
+      Usuario<br> <input type="text" name="usuario" required/><br><br>
+      Contraseña<br> <input type="password" name="contraseña" required/><br><br>
+      <input type="submit" value="CONECTAR FACILITADOR" />
+    </form>
+</div>
 {% endblock %}

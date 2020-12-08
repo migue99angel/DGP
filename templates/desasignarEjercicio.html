@@ -1,19 +1,13 @@
-<!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Desasignar Ejercicio</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./templates/css/styles.css">
-  </head>
+{% extends "padre.html" %}
 
-  <body>
-      <div class="desasignarEjercicio">
-          <div class="listaEjerciciosDesasignar">
-            <!-- Aquí va un for en Twig con los ejercicios de cada usuario mandados por el facilitador logeado -->
-          </div>  
-      </div>
-  </body>
-</html>
+{% block titulo %}
+<title>Desasignar Ejercicio</title>
+{% endblock %}
+
+{% block body %}
+<div class="desasignarEjercicio">
+  <div class="listaEjerciciosDesasignar">
+    <!-- Aquí va un for en Twig con los ejercicios de cada usuario mandados por el facilitador logeado -->
+  </div>  
+</div>
+{% endblock %}

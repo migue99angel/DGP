@@ -5,24 +5,22 @@
 {% endblock %}
 
 {% block cuerpo %}
-<body>
-  <div class="principalAdministracion">
-    <div class="Titulo">
-      <h1>Página principal administrador</h1>
-    </div>
-
-    <div class="botonesPrincipales">
-      <a href="registrarFacilitador_PlaceHolder.php" class="button">GESTIONAR FACILITADORES</a>
-      <a href="registrarPersona_PlaceHolder.php" class="button">GESTIONAR<br> PERSONAS</a>
-      <a href="registrarAdmin_PlaceHolder.php" class="button">GESTIONAR ADMINISTRADORES</a>
-    </div>
-
-    <div>
-      <form action="principalAdmin.php" method="post" id="loginAdministrador" enctype="multipart/form-data">
-        <input type="submit" class="botonSalir" name="salir" value="SALIR"/>
-        <input name="cerrarSesion" type="hidden" value=1 ></input>
-      </form>
-    </div>
+<div class="principalAdministracion">
+  <div class="Titulo">
+    <h1>Página principal administrador</h1>
   </div>
-</body>
+
+  <div class="botonesPrincipales">
+    <a href="registrarFacilitador_PlaceHolder.php" class="button">GESTIONAR FACILITADORES</a>
+    <a href="registrarPersona_PlaceHolder.php" class="button">GESTIONAR<br> PERSONAS</a>
+    <a href="registrarAdmin_PlaceHolder.php" class="button">GESTIONAR ADMINISTRADORES</a>
+  </div>
+
+  <div>
+    <form action="principalAdmin.php" method="post" id="loginAdministrador" enctype="multipart/form-data">
+      <input type="submit" class="botonSalir" name="salir" value="SALIR"/>
+      <input name="cerrarSesion" type="hidden" value=1 ></input>
+    </form>
+  </div>
+</div>
 {% endblock %}

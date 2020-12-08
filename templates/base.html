@@ -3,14 +3,16 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {% block titulo %}
     <title>Principal VALE</title>
+    {% endblock %}
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./templates/css/styles.css">
     {% block estilos %}
-    {% endblock estilos %}
+    {% endblock %}
     {% block preScripts %}
-    {% endblock preScripts %}
+    {% endblock %}
   </head>
 
   <body>
@@ -25,12 +27,12 @@
 
       {% block body %}
         {% block errores %}
-        {% endblock errores %}
-      {% endblock body %}
+        {% endblock %}
+      {% endblock %}
     </div>
   </body>
 
   {% block postScripts %}
-  {% endblock postScripts %}
+  {% endblock %}
 
   </html>

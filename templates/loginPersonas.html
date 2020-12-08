@@ -1,15 +1,15 @@
-{% extends "principal.html" %}
+{% extends "base.html" %}
 
 {% block titulo %}
 <title>Login Personas</title>
 {% endblock %}
 
-{% block scripts%}
+{% block preScripts %}
 <script src="templates/js/loginPersonas.js"></script> 
 {% endblock %}
 
-{% block cuerpo %}
-<body style="align-items:center">
+{% block body %}
+<!--<body style="align-items:center">-->
 
   <div class="loginPersonas">
     <div class="Titulo">
@@ -84,5 +84,5 @@
       <input type="submit" value="CONECTAR PERSONA" class="botonConectarPersona"/>
     </form>
   </div>
-</body>
+<!--</body>-->
 {% endblock %}
