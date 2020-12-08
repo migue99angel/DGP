@@ -1,33 +1,29 @@
-<!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Profesores - Principal</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./templates/css/styles.css">
-  </head>
+{% extends "principal.html" %}
 
-  <body>
-    <div class="principalProfesores">
-      <div class="Titulo">
-        <h1>Página principal facilitadores</h1>
-      </div>
+{% block titulo %}
+  <title>Profesores - Principal</title>
+{% endblock %}
 
-      <div class="botonesPrincipales">
-        <a href="asignarEjercicio.php" class="button">ASIGNAR EJERCICIO</a>
-        <a href="corregirEjercicio.php" class="button">LISTA DE EJERICIOS RECIBIDOS</a>
-        <a href="crearEjercicio.php" class="button">CREAR EJERCICIO</a>
-        <a href="crearGrupo.php" class="button">CREAR GRUPO</a>
-        <a href="chat_PlaceHolder.php" cclass="button">CHATS</a>
-        <a href="desasignarEjercicio.php" class="button">DESASIGNAR EJERCICIO</a>
-      </div>
-
-      <form action="principalFacilitador.php" method="post" id="loginFacilitador" enctype="multipart/form-data">
-        <input type="submit" class="botonSalir" name="salir" value="Salir"/>
-        <input name="cerrarSesion" type="hidden" value=1 ></input>
-      </form>
+{% block cuerpo %}
+<body>
+  <div class="principalProfesores">
+    <div class="Titulo">
+      <h1>Página principal facilitadores</h1>
     </div>
-  </body>
-</html>
+
+    <div class="botonesPrincipales">
+      <a href="asignarEjercicio.php" class="button">ASIGNAR EJERCICIO</a>
+      <a href="corregirEjercicio.php" class="button">LISTA DE EJERICIOS RECIBIDOS</a>
+      <a href="crearEjercicio.php" class="button">CREAR EJERCICIO</a>
+      <a href="crearGrupo.php" class="button">CREAR GRUPO</a>
+      <a href="chat_PlaceHolder.php" cclass="button">CHATS</a>
+      <a href="desasignarEjercicio.php" class="button">DESASIGNAR EJERCICIO</a>
+    </div>
+
+    <form action="principalFacilitador.php" method="post" id="loginFacilitador" enctype="multipart/form-data">
+      <input type="submit" class="botonSalir" name="salir" value="Salir"/>
+      <input name="cerrarSesion" type="hidden" value=1 ></input>
+    </form>
+  </div>
+</body>
+{% endblock %}

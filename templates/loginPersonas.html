@@ -1,10 +1,14 @@
-<!DOCTYPE html>
-<html>
+{% extends "principal.html" %}
+
+{% block titulo %}
 <title>Login Personas</title>
-<head>
-  <link rel="stylesheet" href="./templates/css/styles.css">
-  <script src="templates/js/loginPersonas.js"></script> 
-</head>
+{% endblock %}
+
+{% block scripts%}
+<script src="templates/js/loginPersonas.js"></script> 
+{% endblock %}
+
+{% block cuerpo %}
 <body style="align-items:center">
 
   <div class="loginPersonas">
@@ -56,6 +60,15 @@
 
     <div class="botonesLoginPersonas">
       <div class="filaBotonesLoginPersonas" id="contraseñaPictogramas" style="padding-top: 5%; padding-bottom: 5%">
+        <div class="pictogramaContraseñaPersonas">
+          <img src="templates/img/cross.png" id="picto1">
+        </div>
+        <div class="pictogramaContraseñaPersonas">
+          <img src="templates/img/cross.png" id="picto2">
+        </div>
+        <div class="pictogramaContraseñaPersonas">
+          <img src="templates/img/cross.png" id="picto3">
+        </div>
       </div>
     </div>
 
@@ -65,11 +78,11 @@
     </div>
     {% endif %}
 
-    <button onclick="eliminarPictogramasSeleccionados()" type="submit" action="loginPersonas_PlaceHolder.php" class="botonEliminarPictogramas">Eliminar pictogramas</button>
+    <button onclick="eliminarPictogramasSeleccionados()" type="submit" action="loginPersonas.php" class="botonEliminarPictogramas"><p class="botonConectarPersona">Eliminar pictogramas</p><img src="./templates/img/gomaborrar.png"/></button>
 
     <form action="loginPersonas.php" method="post" id="loginPersonas" enctype="multipart/form-data">
-      <input type="submit" value="CONECTAR PERSONA"/>
+      <input type="submit" value="CONECTAR PERSONA" class="botonConectarPersona"/>
     </form>
   </div>
 </body>
-</html>
+{% endblock %}

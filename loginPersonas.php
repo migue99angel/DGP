@@ -14,7 +14,7 @@
   // Contraseña de la persona
   $contraseña = "";
 
-  if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pictograma']))
+  if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pictograma']) && !isset($_SESSION['persona']))
   {
     $contraseña = $_POST['pictograma'];
     
@@ -27,8 +27,6 @@
     if (!is_null($persona)) 
     {
       $_SESSION['persona'] = $persona;
-      
-      header("Location: principalPersonas.php");
     } 
     else 
     {
@@ -36,9 +34,9 @@
     }
   }
 
-  if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_SESSION['persona']))
+  if (isset($_SESSION['persona']))
   {
-    $_SESSION['persona'] = null;
+    header("Location: principalPersonas.php");
   }
 
   echo $twig->render('loginPersonas.html', $variablesParaTwig);

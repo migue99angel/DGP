@@ -1,25 +1,21 @@
-<!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Login Administrador</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./templates/css/styles.css">
-  </head>
+{% extends "principal.html" %}
 
-  <body>
-    <div class="loginFacilitador">
-      <div class="Titulo">
-        <h1>Login Administrador</h1>
-      </div>
+{% block titulo %}
+  <title>Login Administrador</title>
+{% endblock %}
 
-        <form action="loginAdministrador.php" method="post" id="loginAdministrador" enctype="multipart/form-data">
-          Usuario<br> <input type="text" name="usuario" required/><br><br>
-          Contraseña<br> <input type="password" name="contraseña" required/><br><br>
-          <input type="submit" value="CONECTAR ADMIN" />
-        </form>
+{% block cuerpo %}
+<body>
+  <div class="loginFacilitador">
+    <div class="Titulo">
+      <h1>Login Administrador</h1>
     </div>
-  </body>
-</html>
+
+      <form action="loginAdministrador.php" method="post" id="loginAdministrador" enctype="multipart/form-data">
+        Usuario<br> <input type="text" name="usuario" required/><br><br>
+        Contraseña<br> <input type="password" name="contraseña" required/><br><br>
+        <input type="submit" value="CONECTAR ADMIN" />
+      </form>
+  </div>
+</body>
+{% endblock %}

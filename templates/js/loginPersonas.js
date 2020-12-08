@@ -7,18 +7,16 @@ function pictogramaPulsado(picto) {
       pictograma += picto;
       var imgPictograma = document.getElementById("Pictograma" + picto).src;
 
-      // Crear pictograma seleccionado
-      var pictogramaSeleccionado = document.createElement("img");
-      pictogramaSeleccionado.src = imgPictograma;
-
-      // Crear estructura y añadir
-      var pictogramaLoginPersonas = document.createElement("div");
-      pictogramaLoginPersonas.className = "pictogramaContraseñaPersonas";
-      pictogramaLoginPersonas.appendChild(pictogramaSeleccionado);
-      document.getElementById("contraseñaPictogramas").appendChild(pictogramaLoginPersonas);
+      if (pictograma.length == 1) {
+         document.getElementById("picto1").src = imgPictograma;
+      } else if (pictograma.length == 2) {
+         document.getElementById("picto2").src = imgPictograma;
+      }
    }
 
    if (pictograma.length === 3) {
+      document.getElementById("picto3").src = imgPictograma;
+
       var input = document.createElement("input");
       input.type = "hidden";
       input.value = pictograma;
@@ -30,5 +28,7 @@ function pictogramaPulsado(picto) {
 
 function eliminarPictogramasSeleccionados() {
     pictograma = "";
-    document.getElementById("contraseñaPictogramas").innerHTML = "";
+    document.getElementById("picto1").src = "templates/img/cross.png";
+    document.getElementById("picto2").src = "templates/img/cross.png";
+    document.getElementById("picto3").src = "templates/img/cross.png";
 }
