@@ -17,7 +17,7 @@
   if($_SERVER['REQUEST_METHOD'] === "POST"){
     $idGrupo = $_POST['id'];
     $nombreGrupo = $_POST['nombre'];
-    $participantesGrupo = $_POST['participantes']
+    $participantesGrupo = $_POST['participantes'];
     $conexion->crearGrupo($idGrupo,$nombreGrupo,$participantesGrupo);
   }
 

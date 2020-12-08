@@ -1,6 +1,7 @@
 <?php
 
   require_once "/usr/local/lib/php/vendor/autoload.php";
+  require_once "./modelo/conexionBD.php";
 
   $loader = new \Twig\Loader\FilesystemLoader('templates');
   $twig = new \Twig\Environment($loader);
@@ -17,8 +18,8 @@
   if(isset($_GET['corregido']) && isset($_GET['idEjercicio']) && isset($_GET['idPersona'])) {
     if($_GET['corregido'] == true && ctype_digit($_GET['idEjercicio']) && ctype_digit($_GET['Ejercicio'])) {
       $idEjercicio = htmlspecialchars($_GET['idEjercicio']);
-      $idPersona = htmlspecialchars($_GET['idPersona'])
-    } else {
+      $idPersona = htmlspecialchars($_GET['idPersona']);
+    }else {
       exit();
     }
   }

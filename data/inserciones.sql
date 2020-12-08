@@ -1,9 +1,9 @@
 INSERT INTO Administrador (tlfAdministrador,nombre,contraseña) VALUES ('666666666', 'elAdmin', 'elAdmin');
 INSERT INTO Facilitador (tlfFacilitador, nombre, contraseña) VALUES ('777777777', 'elFaci', 'elFaci');
 INSERT INTO Facilitador (tlfFacilitador, nombre, contraseña) VALUES ('222222222', 'elFaci2', 'elFaci2');
-INSERT INTO Persona (tlfPersona, nombre, contraseña) VALUES ('888888888', 'laPersona', 'laPersona');
-INSERT INTO Persona (tlfPersona, nombre, contraseña) VALUES ('999999999', 'Eufrasio de la Cuevas y Garmendia', 'eufrasio');
-INSERT INTO Persona (tlfPersona, nombre, contraseña) VALUES ('111111111', 'Consuelo Rodríguez Gamarra', 'consuelo');
+INSERT INTO Persona (tlfPersona, nombre, contraseña) VALUES ('888888888', 'laPersona', '123');
+INSERT INTO Persona (tlfPersona, nombre, contraseña) VALUES ('999999999', 'Eufrasio de la Cuevas y Garmendia', '144');
+INSERT INTO Persona (tlfPersona, nombre, contraseña) VALUES ('111111111', 'Consuelo Rodríguez Gamarra', '111');
 INSERT INTO Crea_Grupo (idFacilitador,fechaCreacion,nombre) VALUES ((SELECT idFacilitador FROM Facilitador WHERE nombre = 'elFaci'), NOW(), 'Motricidad');
 INSERT INTO Crea_Grupo (idFacilitador,fechaCreacion,nombre) VALUES ((SELECT idFacilitador FROM Facilitador WHERE nombre = 'elFaci2', NOW(), 'Lavadora');
 INSERT INTO Crea_Ejercicio (idFacilitador,fechaCreacion,titulo,categoria,fecha,descripcion,multimediaAdjunto,imagenAdjunta) VALUES ((SELECT idFacilitador FROM Facilitador WHERE nombre = 'elFaci'),NOW(),'Lavando la ropa blanca',NULL,NULL,'La ropa se lava metiéndola en la lavadora, luego...','unaRuta que se puede hacer con disparadors','otra ruta igual');

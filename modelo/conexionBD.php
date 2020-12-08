@@ -81,14 +81,16 @@
          */
         public function cargarGruposPersona($idPersona)
         {
-            $res = $this->conexion->query("SELECT * from Pertenece WHERE idPersona=$idPersona");
+            $consulta = "SELECT * from Pertenece WHERE idPersona=$idPersona";
             $grupos = array();
             $i = 0;
-
-            while($row = $res->fetch_assoc())
+            if($res = $this->conexion->query($consulta))
             {
-                $grupos[$i] = $this->cargarGrupo($row['idGrupo']);
-                $i += 1;
+                while($row = $res->fetch_assoc())
+                {
+                    $grupos[$i] = $this->cargarGrupo($row['idGrupo']);
+                    $i += 1;
+                }
             }
 
             return $grupos;
@@ -204,11 +206,15 @@
          */
         public function cargarEjerciciosResueltos()
         {
-            $res = $this->conexion->query("SELECT * from Resuelve LEFT JOIN Corrige ON (Resuelve.idEjercicio = Corrige.idEjercicio AND Resuelve.idPersona = Corrige.idPersona");
+            $consulta = "SELECT * from Resuelve LEFT JOIN Corrige ON (Resuelve.idEjercicio = Corrige.idEjercicio AND Resuelve.idPersona = Corrige.idPersona";
+            
             $ejercicios = array();
-
-            while($row = mysqli_fetch_row($res)) {
-                $ejercicios[] = $row;
+            if($res = $this->conexion->query($consulta))
+            {
+                while($row = $res->fetch_assoc())
+                {
+                    $ejercicios[] = $row;
+                }
             }
 
             return $ejercicios;
