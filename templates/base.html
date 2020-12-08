@@ -16,7 +16,9 @@
   </head>
 
   <body>
+    {% block divClass %}
     <div class="principal">
+    {% endblock %}
       {% if botonAtras %}
         <button class="botonAtras">
           <a href="{{ paginaAnterior  }}">
@@ -35,4 +37,4 @@
   {% block postScripts %}
   {% endblock %}
 
-  </html>
+</html>

@@ -4,24 +4,26 @@
   <title>Profesores - Principal</title>
 {% endblock %}
 
-{% block cuerpo %}
+{% block divClass %}
 <div class="principalProfesores">
-  <div class="Titulo">
-    <h1>Página principal facilitadores</h1>
-  </div>
+{% endblock %}
 
-  <div class="botonesPrincipales">
-    <a href="asignarEjercicio.php" class="button">ASIGNAR EJERCICIO</a>
-    <a href="corregirEjercicio.php" class="button">LISTA DE EJERICIOS RECIBIDOS</a>
-    <a href="crearEjercicio.php" class="button">CREAR EJERCICIO</a>
-    <a href="crearGrupo.php" class="button">CREAR GRUPO</a>
-    <a href="chat_PlaceHolder.php" cclass="button">CHATS</a>
-    <a href="desasignarEjercicio.php" class="button">DESASIGNAR EJERCICIO</a>
-  </div>
-
-  <form action="principalFacilitador.php" method="post" id="loginFacilitador" enctype="multipart/form-data">
-    <input type="submit" class="botonSalir" name="salir" value="Salir"/>
-    <input name="cerrarSesion" type="hidden" value=1 ></input>
-  </form>
+{% block body %}
+<div class="Titulo">
+  <h1>Página principal facilitadores</h1>
 </div>
+
+<div class="botonesPrincipales">
+  <a href="asignarEjercicio.php" class="button">ASIGNAR EJERCICIO</a>
+  <a href="corregirEjercicio.php" class="button">LISTA DE EJERICIOS RECIBIDOS</a>
+  <a href="crearEjercicio.php" class="button">CREAR EJERCICIO</a>
+  <a href="crearGrupo.php" class="button">CREAR GRUPO</a>
+  <a href="chat_PlaceHolder.php" cclass="button">CHATS</a>
+  <a href="desasignarEjercicio.php" class="button">DESASIGNAR EJERCICIO</a>
+</div>
+
+<form action="principalFacilitador.php" method="post" id="loginFacilitador" enctype="multipart/form-data">
+  <input type="submit" class="botonSalir" name="salir" value="Salir"/>
+  <input name="cerrarSesion" type="hidden" value=1 ></input>
+</form>
 {% endblock %}

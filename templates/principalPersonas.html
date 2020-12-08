@@ -1,26 +1,28 @@
-{% extends "principal.html" %}
+{% extends "base.html" %}
 
 {% block titulo %}
   <title>Personas - Principal</title>
 {% endblock %}
 
-{% block cuerpo %}
+{% block divClass %}
 <div class="principalPersonas">
-  <div class="titulo">
-    <h1>PANTALLA PRINCIPAL</h1>
-    <h1>Hola {{ nombre }}!</h1>
-  </div>
+{% endblock %}
+  
+{% block body %}
+<div class="titulo">
+  <h1>PANTALLA PRINCIPAL</h1>
+  <h1>Hola {{ nombre }}!</h1>
+</div>
 
-  <div class="botonesPrincipalesUsuario">
-    <a href="listaEjercicios.php"p pss="button"><p>EJERCICIOS</p><img src="./templates/img/ejercicio.png"/></a>
-  </div>
+<div class="botonesPrincipalesUsuario">
+  <a href="listaEjercicios.php"p pss="button"><p>EJERCICIOS</p><img src="./templates/img/ejercicio.png"/></a>
+</div>
 
-  <div class="botonSalirUsuario">
-    <p>ADIÓS</p>
-    <form action="principalPersonas.php" method="post" id="loginPersonas" enctype="multipart/form-data">
-      <input type="image" src="templates/img/adiós.png" class="botonSalir" name="salir" value="ADIÓS"/>
-      <input name="cerrarSesion" type="hidden" value=1 ></input>
-    </form>
-  </div>
+<div class="botonSalirUsuario">
+  <p>ADIÓS</p>
+  <form action="principalPersonas.php" method="post" id="loginPersonas" enctype="multipart/form-data">
+    <input type="image" src="templates/img/adiós.png" class="botonSalir" name="salir" value="ADIÓS"/>
+    <input name="cerrarSesion" type="hidden" value=1 ></input>
+  </form>
 </div>
 {% endblock %}

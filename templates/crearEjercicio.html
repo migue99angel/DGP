@@ -4,25 +4,27 @@
     <title>Crear Ejercicio</title>
 {% endblock %}
 
-{% block body %}
-<div class="idFormularioCrearEjercicio">
-    <div class="Titulo">
-        <h1>Crear ejercicio</h1>
-    </div>
+{% block divClass %}
+<div class="idFormularioCrearEjercicio"></div>
+{% endblock %}
 
-    <form action="principalFacilitador.php" method="post" id="addejercicio" enctype="multipart/form-data">
-        Titulo del Ejercicio<br> <input type="text" name="titulo" required/><br><br>
-        Descripción<br> <textarea name="titulo" form="addejercicio" required></textarea><br><br>
-        Imagen o vídeo explicativo<br> <input type="file" name="multimedia" required/><br><br>
-        Grupos<br>
-        <p id="atajo"><em>(mantener pulsado tecla CTRL para seleccionar varios)</em></p><br>
-        <select id="grupos" name="grupos" multiple>
-            <option value="grupo1">Grupo1</option>
-            <option value="grupo2">Grupo2</option>
-            <option value="grupo3">Grupo3</option>
-            <option value="grupo4">Grupo4</option>
-        </select><br><br>
-        <input type="submit" value="CREAR EJERCICIO" />
-    </form>
+{% block body %}
+<div class="Titulo">
+    <h1>Crear ejercicio</h1>
 </div>
+
+<form action="principalFacilitador.php" method="post" id="addejercicio" enctype="multipart/form-data">
+    Titulo del Ejercicio<br> <input type="text" name="titulo" required/><br><br>
+    Descripción<br> <textarea name="titulo" form="addejercicio" required></textarea><br><br>
+    Imagen o vídeo explicativo<br> <input type="file" name="multimedia" required/><br><br>
+    Grupos<br>
+    <p id="atajo"><em>(mantener pulsado tecla CTRL para seleccionar varios)</em></p><br>
+    <select id="grupos" name="grupos" multiple>
+        <option value="grupo1">Grupo1</option>
+        <option value="grupo2">Grupo2</option>
+        <option value="grupo3">Grupo3</option>
+        <option value="grupo4">Grupo4</option>
+    </select><br><br>
+    <input type="submit" value="CREAR EJERCICIO" />
+</form>
 {% endblock %}

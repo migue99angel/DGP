@@ -4,27 +4,27 @@
     <title>Lista de Ejercicios</title>
 {% endblock %}
 
-{% block body %}
-<body>
-    <div class="listaejercicios">
-        <div class="titulo">
-            <h1>LISTA DE EJERCICIOS RECIBIDOS</h1>
-        </div>
+{% block divClass %}
+<div class="listaejercicios">
+{% endblock %}
 
-        {% for ej in ejercicios %}
-        <div class="ejercicio">
-            <!-- No entiendo por que hay que poner aqui el nombre de la persona -->
-            <p><strong>Persona: </strong><em>PLACEHOLDER NOMBRE DE LA PERSONA</em></p>
-            <p><strong>Fecha: </strong><em>{{ ej['fecha'] }}</em></p>
-            <div class="botonesPrincipales">
-                <!-- Habrá que concatenarle a la URL el ID del ejercicio para que se cargue -->
-                <!-- Sólo corrige el ejercicio si es facilitador -->
-                {% if esFacilitador %}
-                <a href="corregirEjercicio.php" class="button">CORREGIR EJERCICIO</a>
-                {% endif %}
-            </div>
-        </div>
-        {% endfor %}
+{% block body %}
+<div class="titulo">
+    <h1>LISTA DE EJERCICIOS RECIBIDOS</h1>
+</div>
+
+{% for ej in ejercicios %}
+<div class="ejercicio">
+    <!-- No entiendo por que hay que poner aqui el nombre de la persona -->
+    <p><strong>Persona: </strong><em>PLACEHOLDER NOMBRE DE LA PERSONA</em></p>
+    <p><strong>Fecha: </strong><em>{{ ej['fecha'] }}</em></p>
+    <div class="botonesPrincipales">
+        <!-- Habrá que concatenarle a la URL el ID del ejercicio para que se cargue -->
+        <!-- Sólo corrige el ejercicio si es facilitador -->
+        {% if esFacilitador %}
+        <a href="corregirEjercicio.php" class="button">CORREGIR EJERCICIO</a>
+        {% endif %}
     </div>
-</body>
+</div>
+{% endfor %}
 {% endblock %}

@@ -4,16 +4,18 @@
 <title>Crear Grupo</title>
 {% endblock %}
 
+{% block divClass %}
+<div class="idFormularioCrearGrupo"></div>
+{% endblock %}
+
 {% block body %}
-<div class="idFormularioCrearGrupo">
-    <div class="Titulo">
-        <h1>Crear grupo</h1>
-    </div>
-    <form action="principalFacilitador.php" method="post" id="addgrupo" enctype="multipart/form-data">
-        Nombre del Grupo<br> <input type="text" name="nombre" required/><br><br>
-        Descripción<br> <textarea name="titulo" form="addejercicio" required></textarea><br><br>
-        Imagen o vídeo explicativo<br> <input type="file" name="multimedia" required/><br><br>
-        <input type="submit" value="CREAR EJERCICIO" />
-    </form>
+<div class="Titulo">
+    <h1>Crear grupo</h1>
 </div>
+<form action="principalFacilitador.php" method="post" id="addgrupo" enctype="multipart/form-data">
+    Nombre del Grupo<br> <input type="text" name="nombre" required/><br><br>
+    Descripción<br> <textarea name="titulo" form="addejercicio" required></textarea><br><br>
+    Imagen o vídeo explicativo<br> <input type="file" name="multimedia" required/><br><br>
+    <input type="submit" value="CREAR EJERCICIO" />
+</form>
 {% endblock %}

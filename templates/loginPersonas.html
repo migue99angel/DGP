@@ -8,81 +8,81 @@
 <script src="templates/js/loginPersonas.js"></script> 
 {% endblock %}
 
-{% block body %}
-<!--<body style="align-items:center">-->
-
+{% block divClass %}
   <div class="loginPersonas">
-    <div class="Titulo">
-      <h1>Login Personas</h1>
+{% endblock %}
+
+{% block body %}
+<div class="Titulo">
+  <h1>Login Personas</h1>
+</div>
+
+<div class="botonesLoginPersonas">
+  <div class="filaBotonesLoginPersonas">
+    <div class="pictogramaLoginPersonas">
+      <img src="templates/img/llave.png" alt="Llave" id="Pictograma1" onclick="pictogramaPulsado(1)">
     </div>
-
-    <div class="botonesLoginPersonas">
-      <div class="filaBotonesLoginPersonas">
-        <div class="pictogramaLoginPersonas">
-          <img src="templates/img/llave.png" alt="Llave" id="Pictograma1" onclick="pictogramaPulsado(1)">
-        </div>
-        <div class="pictogramaLoginPersonas">
-          <img src="templates/img/playa.png" alt="Playa" id="Pictograma2" onclick="pictogramaPulsado(2)">
-        </div>
-        <div class="pictogramaLoginPersonas">
-          <img src="templates/img/sello.png" alt="Sello" id="Pictograma3" onclick="pictogramaPulsado(3)">
-        </div>
-      </div>
-        
-      <div class="filaBotonesLoginPersonas">
-        <div class="pictogramaLoginPersonas">
-          <img src="templates/img/consola.png" alt="Consola" id="Pictograma4" onclick="pictogramaPulsado(4)">
-        </div>
-        <div class="pictogramaLoginPersonas">
-          <img src="templates/img/coche de carreras.png" alt="Coche de carreras" id="Pictograma5" onclick="pictogramaPulsado(5)">
-        </div>
-        <div class="pictogramaLoginPersonas">
-          <img src="templates/img/coche de rally.png" alt="Coche de rally" id="Pictograma6" onclick="pictogramaPulsado(6)">
-        </div>
-      </div>
-      
-      <div class="filaBotonesLoginPersonas">
-        <div class="pictogramaLoginPersonas">
-          <img src="templates/img/montaña.png" alt="Montaña" id="Pictograma7" onclick="pictogramaPulsado(7)">
-        </div>
-        <div class="pictogramaLoginPersonas">
-          <img src="templates/img/zapatilla.png" alt="Zapatilla" id="Pictograma8" onclick="pictogramaPulsado(8)">
-        </div>
-        <div class="pictogramaLoginPersonas">
-          <img src="templates/img/caballo.png" alt="Caballo" id="Pictograma9" onclick="pictogramaPulsado(9)">
-        </div>
-      </div>
+    <div class="pictogramaLoginPersonas">
+      <img src="templates/img/playa.png" alt="Playa" id="Pictograma2" onclick="pictogramaPulsado(2)">
     </div>
-
-    <div class="Titulo">
-      <h1>Tus pictogramas:</h1>
+    <div class="pictogramaLoginPersonas">
+      <img src="templates/img/sello.png" alt="Sello" id="Pictograma3" onclick="pictogramaPulsado(3)">
     </div>
-
-    <div class="botonesLoginPersonas">
-      <div class="filaBotonesLoginPersonas" id="contraseñaPictogramas" style="padding-top: 5%; padding-bottom: 5%">
-        <div class="pictogramaContraseñaPersonas">
-          <img src="templates/img/cross.png" id="picto1">
-        </div>
-        <div class="pictogramaContraseñaPersonas">
-          <img src="templates/img/cross.png" id="picto2">
-        </div>
-        <div class="pictogramaContraseñaPersonas">
-          <img src="templates/img/cross.png" id="picto3">
-        </div>
-      </div>
-    </div>
-
-    {% if not correcto %}
-    <div class="Titulo">
-      <h4 style="color: red">Pictogramas incorrectos</h4>
-    </div>
-    {% endif %}
-
-    <button onclick="eliminarPictogramasSeleccionados()" type="submit" action="loginPersonas.php" class="botonEliminarPictogramas"><p class="botonConectarPersona">Eliminar pictogramas</p><img src="./templates/img/gomaborrar.png"/></button>
-
-    <form action="loginPersonas.php" method="post" id="loginPersonas" enctype="multipart/form-data">
-      <input type="submit" value="CONECTAR PERSONA" class="botonConectarPersona"/>
-    </form>
   </div>
-<!--</body>-->
+    
+  <div class="filaBotonesLoginPersonas">
+    <div class="pictogramaLoginPersonas">
+      <img src="templates/img/consola.png" alt="Consola" id="Pictograma4" onclick="pictogramaPulsado(4)">
+    </div>
+    <div class="pictogramaLoginPersonas">
+      <img src="templates/img/coche de carreras.png" alt="Coche de carreras" id="Pictograma5" onclick="pictogramaPulsado(5)">
+    </div>
+    <div class="pictogramaLoginPersonas">
+      <img src="templates/img/coche de rally.png" alt="Coche de rally" id="Pictograma6" onclick="pictogramaPulsado(6)">
+    </div>
+  </div>
+  
+  <div class="filaBotonesLoginPersonas">
+    <div class="pictogramaLoginPersonas">
+      <img src="templates/img/montaña.png" alt="Montaña" id="Pictograma7" onclick="pictogramaPulsado(7)">
+    </div>
+    <div class="pictogramaLoginPersonas">
+      <img src="templates/img/zapatilla.png" alt="Zapatilla" id="Pictograma8" onclick="pictogramaPulsado(8)">
+    </div>
+    <div class="pictogramaLoginPersonas">
+      <img src="templates/img/caballo.png" alt="Caballo" id="Pictograma9" onclick="pictogramaPulsado(9)">
+    </div>
+  </div>
+</div>
+
+<div class="Titulo">
+  <h1>Tus pictogramas:</h1>
+</div>
+
+<div class="botonesLoginPersonas">
+  <div class="filaBotonesLoginPersonas" id="contraseñaPictogramas" style="padding-top: 5%; padding-bottom: 5%">
+    <div class="pictogramaContraseñaPersonas">
+      <img src="templates/img/cross.png" id="picto1">
+    </div>
+    <div class="pictogramaContraseñaPersonas">
+      <img src="templates/img/cross.png" id="picto2">
+    </div>
+    <div class="pictogramaContraseñaPersonas">
+      <img src="templates/img/cross.png" id="picto3">
+    </div>
+  </div>
+</div>
+
+{% if not correcto %}
+<div class="Titulo">
+  <h4 style="color: red">Pictogramas incorrectos</h4>
+</div>
+{% endif %}
+
+<button onclick="eliminarPictogramasSeleccionados()" type="submit" action="loginPersonas.php" class="botonEliminarPictogramas"><p class="botonConectarPersona">Eliminar pictogramas</p><img src="./templates/img/gomaborrar.png"/></button>
+
+<form action="loginPersonas.php" method="post" id="loginPersonas" enctype="multipart/form-data">
+  <input type="submit" value="CONECTAR PERSONA" class="botonConectarPersona"/>
+</form>
+</div>
 {% endblock %}

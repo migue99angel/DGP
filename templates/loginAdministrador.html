@@ -4,16 +4,18 @@
   <title>Login Administrador</title>
 {% endblock %}
 
-{% block body %}
+{% block divClass %}
 <div class="loginFacilitador">
-  <div class="Titulo">
-    <h1>Login Administrador</h1>
-  </div>
+{% endblock %}
 
-    <form action="loginAdministrador.php" method="post" id="loginAdministrador" enctype="multipart/form-data">
-      Usuario<br> <input type="text" name="usuario" required/><br><br>
-      Contraseña<br> <input type="password" name="contraseña" required/><br><br>
-      <input type="submit" value="CONECTAR ADMIN" />
-    </form>
+{% block body %}
+<div class="Titulo">
+  <h1>Login Administrador</h1>
 </div>
+
+<form action="loginAdministrador.php" method="post" id="loginAdministrador" enctype="multipart/form-data">
+  Usuario<br> <input type="text" name="usuario" required/><br><br>
+  Contraseña<br> <input type="password" name="contraseña" required/><br><br>
+  <input type="submit" value="CONECTAR ADMIN" />
+</form>
 {% endblock %}

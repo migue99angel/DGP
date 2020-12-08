@@ -1,26 +1,28 @@
-{% extends "principal.html" %}
+{% extends "base.html" %}
 
 {% block titulo %}
   <title>Administración - Principal</title>
 {% endblock %}
 
-{% block cuerpo %}
+{% block divClass %}
 <div class="principalAdministracion">
-  <div class="Titulo">
-    <h1>Página principal administrador</h1>
-  </div>
+{% endblock %}
 
-  <div class="botonesPrincipales">
-    <a href="registrarFacilitador_PlaceHolder.php" class="button">GESTIONAR FACILITADORES</a>
-    <a href="registrarPersona_PlaceHolder.php" class="button">GESTIONAR<br> PERSONAS</a>
-    <a href="registrarAdmin_PlaceHolder.php" class="button">GESTIONAR ADMINISTRADORES</a>
-  </div>
+{% block body %}
+<div class="Titulo">
+  <h1>Página principal administrador</h1>
+</div>
 
-  <div>
-    <form action="principalAdmin.php" method="post" id="loginAdministrador" enctype="multipart/form-data">
-      <input type="submit" class="botonSalir" name="salir" value="SALIR"/>
-      <input name="cerrarSesion" type="hidden" value=1 ></input>
-    </form>
-  </div>
+<div class="botonesPrincipales">
+  <a href="registrarFacilitador_PlaceHolder.php" class="button">GESTIONAR FACILITADORES</a>
+  <a href="registrarPersona_PlaceHolder.php" class="button">GESTIONAR<br> PERSONAS</a>
+  <a href="registrarAdmin_PlaceHolder.php" class="button">GESTIONAR ADMINISTRADORES</a>
+</div>
+
+<div>
+  <form action="principalAdmin.php" method="post" id="loginAdministrador" enctype="multipart/form-data">
+    <input type="submit" class="botonSalir" name="salir" value="SALIR"/>
+    <input name="cerrarSesion" type="hidden" value=1 ></input>
+  </form>
 </div>
 {% endblock %}
