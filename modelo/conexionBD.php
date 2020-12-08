@@ -34,21 +34,42 @@
          */
         public function cargarPersona($idPersona)
         {
-            $res = $this->conexion->query("SELECT * from Persona WHERE idPersona='" . $idPersona . "'");
+            $consulta = "SELECT * from Persona WHERE idPersona=" . $idPersona . ";";
 
              /* Con esto tenemos un array multidimensional para obtener todos los comentarios a la vez */
-            if($res->num_rows > 0)
+            if($res = $this->conexion->query($consulta))
             {
                 $row = $res->fetch_assoc();
-                $persona = new Persona($row['idPersona'],$row['nombre']);
+                $persona = new Persona($row['idPersona'],$row['nombre'],$row['tlfPersona']);
             }
 
             //Faltan cargar chats
-            $persona->setGrupo($this->cargarGruposPersona($idPersona));
-            $persona->setEjercicios($this->cargarEjerciciosPersona($idPersona));
+            //$persona->setGrupo($this->cargarGruposPersona($idPersona));
+            //$persona->setEjercicios($this->cargarEjerciciosPersona($idPersona));
 
             return $persona;
 
+        }
+
+        /**
+         * @method getAllPersonas devuelve un array con todos los personas
+         * @author Miguel Ángel Posadas Arráez y Darío Megías Guerrero
+         * @return personas Array de objetos persona
+         */
+        public function getAllPersonas()
+        {
+            $consulta = "SELECT idPersona,nombre from Persona ORDER BY nombre ASC";
+            $personas = array();
+
+            if ($res = $this->conexion->query($consulta))
+            {
+                while($row = $res->fetch_assoc())
+                {
+                    $personas[] = $this->cargarPersona($row['idPersona']);
+                }
+            }
+
+            return $personas;
         }
 
         /**
@@ -207,7 +228,7 @@
         public function cargarEjerciciosResueltos()
         {
             $consulta = "SELECT * from Resuelve LEFT JOIN Corrige ON (Resuelve.idEjercicio = Corrige.idEjercicio AND Resuelve.idPersona = Corrige.idPersona";
-            
+
             $ejercicios = array();
             if($res = $this->conexion->query($consulta))
             {
@@ -305,26 +326,6 @@
             }
 
             return $admin;
-        }
-
-        /**
-         * @method getAllPersonas devuelve un array con todos los personas
-         * @author Miguel Ángel Posadas Arráez
-         * @return personas Array de objetos persona
-         */
-        public function getAllPersonas()
-        {
-            $res = $this->conexion->query("SELECT * from Persona");
-            $personas = array();
-            $i = 0;
-
-            while($row = mysqli_fetch_row($res))
-            {
-                $personas[$i] = cargarPersona($row['idPersona']);
-                $i++;
-            }
-
-            return $personas;
         }
 
         /**

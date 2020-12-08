@@ -5,9 +5,10 @@
         </div>
 
         <div class="listaCheckbox">
+                <!-- Los elementos tipo radio no funcionan bien, hay que emularlos con JS -->
                 {% for elemento in elementos %}
                     <div>
-                        <input type="checkbox" id="elemento{{ loop.index0 }}" name="elemento{{ loop.index0 }}" value="elemento{{ loop.index0 }}">
+                        <input type="{{ tipoInput|default('checkbox') }}" id="elemento{{ loop.index0 }}" name="elementos[]" value="{% block valor %}{% endblock valor %}">
                         <label for="elemento{{ loop.index0 }}"> {% block elementoLista %}{% endblock elementoLista %} </label><br>
                     </div>
                 {% endfor %}

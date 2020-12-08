@@ -1,5 +1,9 @@
 {% extends "lista.html" %}
 
+{% block valor %}
+    {{ elemento.idPersona }}
+{% endblock valor %}
+
 {% block elementoLista %}
     {{ elemento.nombre }} | {{ elemento.tlfPersona }}
 {% endblock elementoLista %}

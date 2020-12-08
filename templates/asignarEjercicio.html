@@ -1,16 +1,20 @@
 {% extends "base.html" %}
 
 {% block body %}
-<div class="titulo">
-  <h1>Asignar Ejercicios</h1>
-</div>
+  <div class="titulo">
+    <h1>Asignar Ejercicios</h1>
+  </div>
 
-{% if tipoLista == "ejercicios" %}
-  {% embed "listaEjerciciosCheckbox.html" %}
-  {% endembed %}
-{% elseif tipoLista == "personas" %}
-  {% embed "listaPersonasCheckbox.html" %}
-  {% endembed %}
-{% endif %}
+  {% block errores %}
+    {% embed "errores.html" %}{% endembed %}
+  {% endblock errores %}
+
+  {% if tipoLista == "ejercicios" %}
+    {% embed "listaEjerciciosCheckbox.html" %}
+    {% endembed %}
+  {% elseif tipoLista == "personas" %}
+    {% embed "listaPersonasCheckbox.html" %}
+    {% endembed %}
+  {% endif %}
 
 {% endblock body %}

@@ -6,45 +6,47 @@
     class Persona
     {
         private $idPersona;         //Identificador de la persona
-        private $nombrePersona;     //String con el nombre de la persona
+        private $tlfPersona;        //Teléfono de una persona
+        private $nombre;     //String con el nombre de la persona
         private $grupos;            //Array con los grupos asociados a esta persona
         private $ejercicios;       //Array con las ejercicios asociadas a esta persona
 
         /**
          * @method Constructor con todos los parámetros
          * @author Miguel Ángel Posadas
-         * @param nombrePersona El nombre de esta persona 
+         * @param nombre El nombre de esta persona
          * @param grupos Array con los grupos asociados a esta persona
          * @param ejercicios Array con las ejercicios asociadas a esta persona
          */
-        public function __construct($idPersona=NULL,$nombrePersona="")
+        public function __construct($idPersona=NULL,$nombre="",$tlfPersona)
         {
             $this->idPersona = $idPersona;
-            $this->nombrePersona = $nombrePersona;
+            $this->tlfPersona = $tlfPersona;
+            $this->nombre = $nombre;
             $this->grupos = array();
             $this->ejercicios = array();
         }
-        
+
         /**
-         * Getter del atributo de clase $nombrePersona
-         * @method getNombrePersona
+         * Getter del atributo de clase $nombre
+         * @method getNombre
          * @author Miguel Ángel Posadas
-         * @return nombrePersona
+         * @return nombre
          */
-        public function getNombrePersona()
+        public function getNombre()
         {
-            return $this->nombrePersona;
+            return $this->nombre;
         }
 
         /**
-         * Setter del atributo de clase $nombrePersona
+         * Setter del atributo de clase $nombre
          * @method setNombrePersona
          * @author Miguel Ángel Posadas
-         * @param nombrePersona
+         * @param nombre
          */
-        public function setNombrePersona($nombrePersona)
+        public function setNombrePersona($nombre)
         {
-            $this->nombrePersona = $nombrePersona;
+            $this->nombre = $nombre;
         }
 
         /**
@@ -100,6 +102,28 @@
         public function getIdPersona()
 		{
 			return $this->idPersona;
+		}
+
+        /**
+         * Setter del atributo de clase $tlfPersona
+         * @method setTlfPersona
+         * @author Miguel Ángel Posadas y Darío Megías Guerrero
+         * @param tlf
+         */
+        public function setTlfPersona($tlf)
+        {
+            $this->tlfPersona = $tlf;
+        }
+
+        /**
+         * Getter del atributo de clase $tlfPersona
+         * @method getTlfPersona
+         * @author Miguel Ángel Posadas y Darío Megías Guerrero
+         * @return tlfPersona
+         */
+        public function getTlfPersona()
+		{
+			return $this->tlfPersona;
 		}
 
     }

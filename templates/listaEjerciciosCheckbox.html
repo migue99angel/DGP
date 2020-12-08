@@ -1,5 +1,9 @@
 {% extends "lista.html" %}
 
+{% block valor %}
+    {{ elemento.idEjercicio }}
+{% endblock valor %}
+
 {% block elementoLista %}
     {{ elemento.titulo }} | {{ elemento.fechaCreacion }}
 {% endblock elementoLista %}
