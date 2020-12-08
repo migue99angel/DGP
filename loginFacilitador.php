@@ -24,6 +24,8 @@
     header("Location: principalFacilitador.php");
   }
 
+  $variablesParaTwig['botonAtras'] = true;
+  $variablesParaTwig['paginaAnterior'] = "index.php";
 
   echo $twig->render('loginFacilitador.html', $variablesParaTwig);
 

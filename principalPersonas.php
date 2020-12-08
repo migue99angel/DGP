@@ -1,6 +1,7 @@
 <?php
 
   require_once "/usr/local/lib/php/vendor/autoload.php";
+  require "modelo/persona.php";
 
   $loader = new \Twig\Loader\FilesystemLoader('templates');
   $twig = new \Twig\Environment($loader);
@@ -13,7 +14,7 @@
     header("Location: loginPersonas.php");
   }
 
-  //$variablesParaTwig['nombre'] = $_SESSION['persona']->getNombrePersona();
+  $variablesParaTwig['nombre'] = $_SESSION['persona']->getNombre();
 
   echo $twig->render('principalPersonas.html', $variablesParaTwig);
 

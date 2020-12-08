@@ -24,6 +24,8 @@
     header("Location: principalAdmin.php");
   }
 
+  $variablesParaTwig['botonAtras'] = true;
+  $variablesParaTwig['paginaAnterior'] = "index.php";
 
   echo $twig->render('loginAdministrador.html', $variablesParaTwig);
 

@@ -39,6 +39,9 @@
     header("Location: principalPersonas.php");
   }
 
+  $variablesParaTwig['botonAtras'] = true;
+  $variablesParaTwig['paginaAnterior'] = "index.php";
+
   echo $twig->render('loginPersonas.html', $variablesParaTwig);
 
 ?>
