@@ -8,17 +8,6 @@
 		private $nombreGrupo;		//String con el nombre del grupo
 		private $idGrupo;			//Int con el identificador del grupo
 		private $participantes;		//Array con los participantes del grupo
-		
-		/**
-		 * @method Constructor por defecto
-		 * @author Miguel Muñoz Molina
-		 */
-		public function __construct()
-		{
-			$this->$nombreGrupo = "";
-			$this->$idGrupo = "";
-			$this->$participantes = array();
-		}
 
 		/**
 		 * @method Constructor con parámetros
@@ -27,11 +16,11 @@
 		 * @param $participantes Array con los participantes del grupo
 		 * @param $idGrupo identificador del grupo
 		 */
-		public function __construct1($nombreGrupo, $participantes, $idGrupo)
+		public function __construct($nombreGrupo="", $participantes="", $idGrupo="")
 		{
-			$this->$nombreGrupo = $nombreGrupo;
-			$this->$idGrupo = $idGrupo;
-			$this->$paticipantes = $participantes;
+			$this->nombreGrupo = $nombreGrupo;
+			$this->idGrupo = $idGrupo;
+			$this->paticipantes = $participantes;
 		}
 
 		/**
@@ -42,7 +31,7 @@
 		 */
 		public function getIdGrupo()
 		{
-			return $this->$idGrupo;
+			return $this->idGrupo;
 		}
 
 		/**
@@ -53,7 +42,7 @@
 		 */
 		public function getNombreGrupo()
 		{
-			return $this->$nombreGrupo;
+			return $this->nombreGrupo;
 		}
 
 		/**
@@ -64,7 +53,7 @@
 		 */
 		public function getAllParticipantes()
 		{
-			return $this->$participantes;
+			return $this->participantes;
 		}
 
 		/**
@@ -75,7 +64,7 @@
 		 */
 		public function setNombreGrupo($nombre)
 		{
-			$this->$nombreGrupo = $nombre;
+			$this->nombreGrupo = $nombre;
 		}
 
 		/**
@@ -86,7 +75,7 @@
 		 */
 		public function eliminarParticipante($p)
 		{
-			if (($key = array_search($p, $this->$participantes)) !== false)
+			if (($key = array_search($p, $this->participantes)) !== false)
 			{
 				unset($p[$key]);
 			}
@@ -100,7 +89,7 @@
 		 */
 		public function addParticipante($p)
 		{
-			array_push($this->$participantes, $p);
+			array_push($this->participantes, $p);
 		}
 	}
 

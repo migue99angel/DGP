@@ -18,7 +18,7 @@
         public function __construct()
         {
             //Aquí cada uno tiene que introducir sus credenciales para acceder a la base de datos
-            $this->$conexion = new mysqli("mysql", "equipomumos", "practicasDGP", "Comunica2");
+            $this->conexion = new mysqli("mysql", "equipomumos", "practicasDGP", "Comunica2");
 
             if($conexion->connect_errno)
             {
@@ -34,7 +34,7 @@
          */
         public function cargarPersona($idPersona)
         {
-            $res = $this->$conexion->query("SELECT * from Persona WHERE idPersona='" . $idPersona . "'");
+            $res = $this->conexion->query("SELECT * from Persona WHERE idPersona='" . $idPersona . "'");
 
              /* Con esto tenemos un array multidimensional para obtener todos los comentarios a la vez */
             if($res->num_rows > 0)
@@ -43,7 +43,7 @@
                 $persona = new Persona($row['idPersona'],$row['nombre']);
             }
 
-            $persona->setChat($this->cargarChatsPersona($idPersona));
+            //Faltan cargar chats
             $persona->setGrupo($this->cargarGruposPersona($idPersona));
             $persona->setEjercicios($this->cargarEjerciciosPersona($idPersona));
 
@@ -59,7 +59,7 @@
          */
         public function cargarChatsPersona($idPersona)
         {
-            $res = $this->$conexion->query("SELECT * from Tiene_Chat WHERE idPersona='" . $idPersona . "'");
+            $res = $this->conexion->query("SELECT * from Tiene_Chat WHERE idPersona='" . $idPersona . "'");
             $chats = array();
             $i = 0;
 
@@ -81,7 +81,7 @@
          */
         public function cargarGruposPersona($idPersona)
         {
-            $res = $this->$conexion->query("SELECT * from Pertenece WHERE idPersona=$idPersona");
+            $res = $this->conexion->query("SELECT * from Pertenece WHERE idPersona=$idPersona");
             $grupos = array();
             $i = 0;
 
@@ -102,7 +102,7 @@
          */
         public function cargarGrupo($idGrupo)
         {
-            $res = $this->$conexion->query("SELECT * from Pertenece WHERE idGrupo=$idGrupo");
+            $res = $this->conexion->query("SELECT * from Pertenece WHERE idGrupo=$idGrupo");
             $participantes = array();
             $i = 0;
 
@@ -112,7 +112,7 @@
                 $i += 1;
             }
 
-            $res = $this->$conexion->query("SELECT * from Crea_Grupo WHERE idGrupo=$idGrupo");
+            $res = $this->conexion->query("SELECT * from Crea_Grupo WHERE idGrupo=$idGrupo");
             if($res->num_rows > 0)
             {
                 $row = $res->fetch_assoc();
@@ -132,7 +132,7 @@
          */
         public function cargarEjerciciosPersona()
         {
-            $res = $this->$conexion->query("SELECT * from Asigna WHERE idPersona='" . $idPersona . "'");
+            $res = $this->conexion->query("SELECT * from Asigna WHERE idPersona='" . $idPersona . "'");
             $ejercicios = array();
             $i = 0;
 
@@ -156,7 +156,7 @@
             $consulta = "SELECT * from Crea_Ejercicio WHERE idEjercicio=" . $idEjercicio . ";";
             $ejercicio = new Ejercicio();
 
-            if($res = $this->$conexion->query($consulta))
+            if($res = $this->conexion->query($consulta))
             {
                 $row = $res->fetch_assoc();
                 $nombreEjercicio = $row['titulo'];
@@ -165,7 +165,7 @@
                 $fechaCreacion = $row['fechaCreacion'];
                 $mAdjunto = $row['multimediaAdjunto'];
                 $iAdjunta = $row['imagenAdjunta'];
-                $ejercicio = Ejercicio::crearConParametros($nombreEjercicio, $tipoEjercicio, $descripcion,
+                $ejercicio = new Ejercicio($nombreEjercicio, $tipoEjercicio, $descripcion,
                                                            $fechaCreacion, $mAdjunto, $iAdjunta, $idEjercicio);
             }
 
@@ -188,7 +188,7 @@
 
             $consulta = 'SELECT * FROM Crea_Ejercicio '.$ordenFecha.';';
 
-            if ($res = $this->$conexion->query($consulta)) {
+            if ($res = $this->conexion->query($consulta)) {
                 while ($fila = $res->fetch_assoc()) {
                     $ejercicios[] = $this->cargarEjercicio($fila['idEjercicio']);
                 }
@@ -204,7 +204,7 @@
          */
         public function cargarEjerciciosResueltos()
         {
-            $res = $this->$conexion->query("SELECT * from Resuelve LEFT JOIN Corrige ON (Resuelve.idEjercicio = Corrige.idEjercicio AND Resuelve.idPersona = Corrige.idPersona");
+            $res = $this->conexion->query("SELECT * from Resuelve LEFT JOIN Corrige ON (Resuelve.idEjercicio = Corrige.idEjercicio AND Resuelve.idPersona = Corrige.idPersona");
             $ejercicios = array();
 
             while($row = mysqli_fetch_row($res)) {
@@ -221,15 +221,15 @@
          */
         public function corregirEjercicio($idEjercicio, $idFacilitador, $idPersona, $comentario, $adjunto, $valoracion)
         {
-            $idEjercicio = $this->$conexion->real_escape_string($idEjecicio);
-            $idFacilitador = $this->$conexion->real_escape_string($idFacilitador);
-            $idPersona = $this->$conexion->real_escape_string($idPersona);
+            $idEjercicio = $this->conexion->real_escape_string($idEjecicio);
+            $idFacilitador = $this->conexion->real_escape_string($idFacilitador);
+            $idPersona = $this->conexion->real_escape_string($idPersona);
             $fechaCorrecion = date("Y-m-d");
-            $comentario = $this->$conexion->real_escape_string($comentario);
-            $adjunto = $this->$conexion->real_escape_string($adjunto);
-            $valoracion = $this->$conexion->real_escape_string($valoracion);
+            $comentario = $this->conexion->real_escape_string($comentario);
+            $adjunto = $this->conexion->real_escape_string($adjunto);
+            $valoracion = $this->conexion->real_escape_string($valoracion);
 
-            $res = $this->$conexion->query("INSERT INTO Corrige (idEjercicio, idFacilitador, idPersona, fechaCorrecion, comentario, archivoAdjuntoCorrecion, valoracionFacilitadorbre)
+            $res = $this->conexion->query("INSERT INTO Corrige (idEjercicio, idFacilitador, idPersona, fechaCorrecion, comentario, archivoAdjuntoCorrecion, valoracionFacilitadorbre)
             VALUES ('$idEjercicio','$idFacilitador','$idPersona','$fechaCorrecion','$comentario','$adjunto','$valoracion')" ) ;
 
             return $res;
@@ -245,7 +245,7 @@
         public function inicioSesionPersona($pass)
         {
             $persona = null;
-            $res = $this->$conexion->query("SELECT * from Persona WHERE contraseña= '". $pass ."' ");
+            $res = $this->conexion->query("SELECT * from Persona WHERE contraseña= '". $pass ."' ");
 
             if($res->num_rows > 0)
             {
@@ -267,7 +267,7 @@
         public function inicioSesionFacilitador($nombreFacilitador,$pass)
         {
             $facilitador = null;
-            $res = $this->$conexion->query("SELECT * from Facilitador WHERE nombre='" . $nombreFacilitador . "' AND contraseña= '". $pass ."' ");
+            $res = $this->conexion->query("SELECT * from Facilitador WHERE nombre='" . $nombreFacilitador . "' AND contraseña= '". $pass ."' ");
 
             if($res->num_rows > 0)
             {
@@ -290,7 +290,7 @@
         {
             $admin = null;
 
-            $res = $this->$conexion->query("SELECT * FROM Administrador WHERE nombre ='$nombreAdministrador' AND contraseña = '$pass'");
+            $res = $this->conexion->query("SELECT * FROM Administrador WHERE nombre ='$nombreAdministrador' AND contraseña = '$pass'");
 
             if($res->num_rows > 0)
             {
@@ -308,7 +308,7 @@
          */
         public function getAllPersonas()
         {
-            $res = $this->$conexion->query("SELECT * from Persona");
+            $res = $this->conexion->query("SELECT * from Persona");
             $personas = array();
             $i = 0;
 
@@ -328,7 +328,7 @@
          */
         public function getAllFacilitadores()
         {
-            $res = $this->$conexion->query("SELECT * from Facilitador");
+            $res = $this->conexion->query("SELECT * from Facilitador");
             $facilitadores = array();
             $i = 0;
 
@@ -350,7 +350,7 @@
          */
         public function getAllAdministradores()
         {
-            $res = $this->$conexion->query("SELECT * from Facilitador");
+            $res = $this->conexion->query("SELECT * from Facilitador");
             $administradores = array();
             $i = 0;
 
@@ -374,11 +374,11 @@
          */
         public function registrarPersonas($nombrePersona,$telefono,$pass)
         {
-            $nombrePersona = $this->$conexion->real_escape_string($nombreFacilitador);
-            $telefono = $this->$conexion->real_escape_string($telefono);
-            $pass = $this->$conexion->real_escape_string($pass);
+            $nombrePersona = $this->conexion->real_escape_string($nombreFacilitador);
+            $telefono = $this->conexion->real_escape_string($telefono);
+            $pass = $this->conexion->real_escape_string($pass);
 
-            $res = $this->$conexion->query("INSERT INTO Persona (tlfPersona,nombre,contraseña) VALUES ('$telefono','$nombrePersona','$pass')" ) ;
+            $res = $this->conexion->query("INSERT INTO Persona (tlfPersona,nombre,contraseña) VALUES ('$telefono','$nombrePersona','$pass')" ) ;
 
             return $res;
         }
@@ -394,11 +394,11 @@
          */
         public function registrarFacilitador($nombreFacilitador,$telefono,$pass)
         {
-            $nombreFacilitador = $this->$conexion->real_escape_string($nombreFacilitador);
-            $telefono = $this->$conexion->real_escape_string($telefono);
-            $pass = $this->$conexion->real_escape_string($pass);
+            $nombreFacilitador = $this->conexion->real_escape_string($nombreFacilitador);
+            $telefono = $this->conexion->real_escape_string($telefono);
+            $pass = $this->conexion->real_escape_string($pass);
 
-            $res = $this->$conexion->query("INSERT INTO Facilitador (tlfFacilitador,nombre,contraseña) VALUES ('$telefono','$nombreFacilitador','$pass')" ) ;
+            $res = $this->conexion->query("INSERT INTO Facilitador (tlfFacilitador,nombre,contraseña) VALUES ('$telefono','$nombreFacilitador','$pass')" ) ;
 
             return $res;
         }
@@ -414,11 +414,11 @@
          */
         public function registrarAdministrador($nombreAdministrador,$telefono,$pass)
         {
-            $nombreAdministrador = $this->$conexion->real_escape_string($nombreAdministrador);
-            $telefono = $this->$conexion->real_escape_string($telefono);
-            $pass = $this->$conexion->real_escape_string($pass);
+            $nombreAdministrador = $this->conexion->real_escape_string($nombreAdministrador);
+            $telefono = $this->conexion->real_escape_string($telefono);
+            $pass = $this->conexion->real_escape_string($pass);
 
-            $res = $this->$conexion->query("INSERT INTO Administrador (tlfAdministrador,nombre,contraseña) VALUES ('$telefono','$nombreAdministrador','$pass')" ) ;
+            $res = $this->conexion->query("INSERT INTO Administrador (tlfAdministrador,nombre,contraseña) VALUES ('$telefono','$nombreAdministrador','$pass')" ) ;
 
             return $res;
         }
@@ -431,7 +431,7 @@
          */
         public function eliminarPersona($idPersona)
         {
-            $res = $this->$conexion->query("DELETE FROM Persona WHERE idPersona=$idPersona") ;
+            $res = $this->conexion->query("DELETE FROM Persona WHERE idPersona=$idPersona") ;
 
             return $res;
         }
@@ -444,7 +444,7 @@
          */
         public function eliminarFacilitador($idFacilitador)
         {
-            $res = $this->$conexion->query("DELETE FROM Facilitador WHERE idFacilitador=$idFacilitador");
+            $res = $this->conexion->query("DELETE FROM Facilitador WHERE idFacilitador=$idFacilitador");
 
             return $res;
         }
@@ -457,7 +457,7 @@
          */
         public function eliminarAdministrador($idAdministrador)
         {
-            $res = $this->$conexion->query("DELETE FROM Administrador WHERE idAdministrador=$idAdministrador") ;
+            $res = $this->conexion->query("DELETE FROM Administrador WHERE idAdministrador=$idAdministrador") ;
 
             return $res;
         }
@@ -473,11 +473,11 @@
          */
         public function modificarPersona($idPersona,$nombrePersona,$telefono,$pass)
         {
-            $nombrePersona = $this->$conexion->real_escape_string($nombrePersona);
-            $telefono = $this->$conexion->real_escape_string($telefono);
-            $pass = $this->$conexion->real_escape_string($pass);
+            $nombrePersona = $this->conexion->real_escape_string($nombrePersona);
+            $telefono = $this->conexion->real_escape_string($telefono);
+            $pass = $this->conexion->real_escape_string($pass);
             //FALTA HASHEAR contraseña
-            $res =  $this->$conexion->query("UPDATE Persona SET  nombre='$nombrePersona' contraseña='$pass',tlfPersona='$telefono'  WHERE idPersona='$idPersona'");
+            $res =  $this->conexion->query("UPDATE Persona SET  nombre='$nombrePersona' contraseña='$pass',tlfPersona='$telefono'  WHERE idPersona='$idPersona'");
 
             return $res;
         }
@@ -493,11 +493,11 @@
          */
         public function modificarFacilitador($idFacilitador, $nombreFacilitador, $telefono, $pass)
         {
-            $nombreFacilitador = $this->$conexion->real_escape_string($nombreFacilitador);
-            $telefono = $this->$conexion->real_escape_string($telefono);
-            $pass = $this->$conexion->real_escape_string($pass);
+            $nombreFacilitador = $this->conexion->real_escape_string($nombreFacilitador);
+            $telefono = $this->conexion->real_escape_string($telefono);
+            $pass = $this->conexion->real_escape_string($pass);
             //FALTA HASHEAR contraseña
-            $res = $this->$conexion->query("UPDATE Facilitador SET idPersona='$idFacilitador', tlfFacilitador='$telefono', nombre='$nombreFacilitador', contraseña='$pass' WHERE idPersona='$idFacilitador'");
+            $res = $this->conexion->query("UPDATE Facilitador SET idPersona='$idFacilitador', tlfFacilitador='$telefono', nombre='$nombreFacilitador', contraseña='$pass' WHERE idPersona='$idFacilitador'");
 
             return $res;
         }
@@ -513,11 +513,11 @@
          */
         public function modificarAdministrador($idAdministrador,$nombreAdministrador,$telefono,$pass)
         {
-            $nombreAdministrador = $this->$conexion->real_escape_string($nombreAdministrador);
-            $telefono = $this->$conexion->real_escape_string($telefono);
-            $pass = $this->$conexion->real_escape_string($pass);
+            $nombreAdministrador = $this->conexion->real_escape_string($nombreAdministrador);
+            $telefono = $this->conexion->real_escape_string($telefono);
+            $pass = $this->conexion->real_escape_string($pass);
             //FALTA HASHEAR contraseña
-            $res =  $this->$conexion->query("UPDATE Administrador SET  nombre='$nombreAdministrador' contraseña='$pass',tlfPersona='$telefono'  WHERE idAdministrador='$idAdministrador'");
+            $res =  $this->conexion->query("UPDATE Administrador SET  nombre='$nombreAdministrador' contraseña='$pass',tlfPersona='$telefono'  WHERE idAdministrador='$idAdministrador'");
 
             return $res;
         }

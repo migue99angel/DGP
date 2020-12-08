@@ -10,15 +10,6 @@
         private $conexion;    //Conexion a la base de datos
         private $idFacilitador;     //Identificador del facilitador
         
-         /**
-         * @method Constructor por defecto
-         * @author Miguel Ángel Posadas
-         */
-        public function __construct()
-        {
-            $this->nombreFacilitador = "";
-            $this->telefono = 0;
-        }
 
         /**
          * @method Constructor con parámetros
@@ -27,10 +18,10 @@
          * @param telefono El número de teléfono del facilitador
          * @param idFacilitador El identificador del facilitador
          */
-        public function __construct1($nombreFacilitador, $telefono, $idFacilitador)
+        public function __construct($nombreFacilitador="", $telefono=0, $idFacilitador)
         {
-            $this->$nombreFacilitador = $nombreFacilitador;
-            $this->$telefono = $telefono;
+            $this->nombreFacilitador = $nombreFacilitador;
+            $this->telefono = $telefono;
             $this->conexion = new ConexionBD();
             $this->idFacilitador = $idFacilitador;
         }
@@ -47,7 +38,7 @@
          */
         public function crearEjercicio($nombreEjercicio,$tipoEjercicio,$descripcion,$fechas,$adjuntos)
         {
-            $this->conexion->crearEjercicio($this->$idFacilitador,$nombreEjercicio,$tipoEjercicio,$descripcion,$fechas,$adjuntos);
+            $this->conexion->crearEjercicio($this->idFacilitador,$nombreEjercicio,$tipoEjercicio,$descripcion,$fechas,$adjuntos);
         }
 
         /**
@@ -74,7 +65,7 @@
          */
         public function modificarEjercicio($nombreEjercicio,$tipoEjercicio,$descripcion,$fechas,$adjuntos,$idEjercicio)
         {
-            $this->conexion->modificarEjercicio($this->$idFacilitador,$nombreEjercicio,$tipoEjercicio,$descripcion,$fechas,$adjuntos,$idEjercicio);
+            $this->conexion->modificarEjercicio($this->idFacilitador,$nombreEjercicio,$tipoEjercicio,$descripcion,$fechas,$adjuntos,$idEjercicio);
         }
 
         /**
@@ -87,7 +78,7 @@
          */
         public function registrarPersona($nombrePersona,$email,$password)
         {
-            $this->conexion->registrarPersona($this->$idFacilitador,$nombrePersona,$email,$password);
+            $this->conexion->registrarPersona($this->idFacilitador,$nombrePersona,$email,$password);
         }
 
         /**
@@ -110,7 +101,7 @@
          */
         public function crearGrupo($nombreGrupo,$participantes)
         {
-            $this->conexion->crearGrupo($this->$idFacilitador,$nombreGrupo,$participantes);
+            $this->conexion->crearGrupo($this->idFacilitador,$nombreGrupo,$participantes);
         }
 
         /**
@@ -161,7 +152,7 @@
          */
         public function getnombreFacilitador()
         {
-            return $this->$nombreFacilitador;
+            return $this->nombreFacilitador;
         }
 
         /**
@@ -172,7 +163,7 @@
          */
         public function setnombreFacilitador($nombreFacilitador)
         {
-            $this->$nombreFacilitador = $nombreFacilitador;
+            $this->nombreFacilitador = $nombreFacilitador;
         }
 
         /**
@@ -183,7 +174,7 @@
          */
         public function getTelefono()
         {
-            return $this->$telefono;
+            return $this->telefono;
         }
 
         /**
@@ -194,7 +185,7 @@
          */
         public function setTelefono($telefono)
         {
-            $this->$telefono = $telefono;
+            $this->telefono = $telefono;
         }
 
         /**
@@ -205,7 +196,7 @@
          */
         public function getidFacilitador()
         {
-            return $this->$idFacilitador;
+            return $this->idFacilitador;
         }
 
         /**
@@ -216,7 +207,7 @@
          */
         public function setidFacilitador($idFacilitador)
         {
-            $this->$idFacilitador = $idFacilitador;
+            $this->idFacilitador = $idFacilitador;
         }
     }
 

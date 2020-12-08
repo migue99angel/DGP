@@ -18,9 +18,9 @@
          */
         public function __construct($idChat, $idEjercicio, $idPersona)
         {
-            $this->$idChat = $idChat;
-            $this->$idEjercicio = $idEjercicio;
-            $this->$idPersona = $idPersona; 
+            $this->idChat = $idChat;
+            $this->idEjercicio = $idEjercicio;
+            $this->idPersona = $idPersona; 
         }
 
         /**
@@ -30,7 +30,7 @@
          */
         public function getUsuario()
         {
-            return $this->$idPersona;
+            return $this->idPersona;
         }
 
         /**
@@ -40,7 +40,7 @@
          */
         public function getEjercicio()
         {
-            return $this->$idEjercicio;
+            return $this->idEjercicio;
         }
 
         /**
@@ -50,7 +50,7 @@
          */
         public function setUsuario($idPersona)
         {
-            $this->$idPersona = $idPersona;
+            $this->idPersona = $idPersona;
         }
 
         /**
@@ -60,7 +60,7 @@
          */
         public function setEjercicio($idEjercicio)
         {
-            return $this->$idEjercicio = $idEjercicio;
+            return $this->idEjercicio = $idEjercicio;
         }
 
 

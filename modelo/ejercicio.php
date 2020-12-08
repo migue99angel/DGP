@@ -11,30 +11,15 @@
 
 
 
-		public function __construct()
+		public function __construct($titulo="", $categoria="", $descripcion="", $fechaCreacion="", $mAdjunto="", $iAdjunta="", $idEjercicio=-1)
 		{
-			$this->titulo = "";
-			$this->categoria = "";
-			$this->descripcion = "";
-			$this->fechaCreacion = "";
-			$this->multimediaAdjunto = "";
-			$this->imagenAdjunta = "";
-			$this->idEjercicio = -1;
-		}
-
-		public static function crearConParametros($titulo, $categoria, $descripcion, $fechaCreacion, $mAdjunto, $iAdjunta, $idEjercicio)
-		{
-			$instancia = new Ejercicio();
-
-			$instancia->setTitulo($titulo);
-			$instancia->setCategoria($categoria);
-			$instancia->setDescripcion($descripcion);
-			$instancia->setFechaCreacion($fechaCreacion);
-			$instancia->setMultimediaAdjunto($mAdjunto);
-			$instancia->setImagenAdjunta($iAdjunta);
-			$instancia->setIdEjercicio($idEjercicio);
-
-			return $instancia;
+			$this->titulo = $titulo;
+			$this->categoria = $categoria;
+			$this->descripcion = $descripcion;
+			$this->fechaCreacion = $fechaCreacion;
+			$this->multimediaAdjunto = $mAdjunto;
+			$this->imagenAdjunta = $mAdjunto;
+			$this->idEjercicio = $idEjercicio;
 		}
 
 		public function getTitulo()
