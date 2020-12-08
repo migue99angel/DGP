@@ -267,27 +267,17 @@
          */
         public function corregirEjercicio($idEjercicio, $idFacilitador, $idPersona, $comentario, $adjunto, $valoracion)
         {
-            $idEjercicio = (int) $this->conexion->real_escape_string($idEjercicio);
-            $idFacilitador = (int) $this->conexion->real_escape_string($idFacilitador);
-            $idPersona = (int) $this->conexion->real_escape_string($idPersona);
+            $idEjercicio = $this->conexion->real_escape_string($idEjercicio);
+            $idFacilitador = $this->conexion->real_escape_string($idFacilitador);
+            $idPersona = $this->conexion->real_escape_string($idPersona);
             $fechaCorreccion = date("Y-m-d");
             $comentario = $this->conexion->real_escape_string($comentario);
             $adjunto = $this->conexion->real_escape_string($adjunto);
-            $valoracion = (int) $this->conexion->real_escape_string($valoracion);
-
-            var_dump($idEjercicio);
-            var_dump($idFacilitador);
-            var_dump($idPersona);
-            var_dump($fechaCorreccion);
-            var_dump($comentario);
-            var_dump($adjunto);
-            var_dump($valoracion);
+            $valoracion = $this->conexion->real_escape_string($valoracion);
 
             $res = $this->conexion->query("INSERT INTO Corrige (idEjercicio, idFacilitador, idPersona,
             fechaCorreccion, comentario, archivoAdjuntoCorreccion, valoracionFacilitador)
             VALUES ('$idEjercicio','$idFacilitador','$idPersona','$fechaCorrecion','$comentario','$adjunto','$valoracion')");
-
-            var_dump($res);
 
             return $res;
         }
