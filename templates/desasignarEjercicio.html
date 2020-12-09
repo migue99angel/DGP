@@ -1,15 +1,20 @@
-{% extends "padre.html" %}
+{% extends "base.html" %}
 
 {% block titulo %}
 <title>Desasignar Ejercicio</title>
 {% endblock %}
 
 {% block divClass %}
-<div class="desasignarEjercicio">
+<div class="principal">
 {% endblock %}
 
 {% block body %}
-<div class="listaEjerciciosDesasignar">
-  <!-- Aquí va un for en Twig con los ejercicios de cada usuario mandados por el facilitador logeado -->
-</div>  
+
+<div class="Titulo">
+    <h1>Desasignar Ejercicio</h1>
+</div>
+
+{% embed "listaEjerciciosAsignadosCheckbox.html" %}
+{% endembed %}
+
 {% endblock %}
