@@ -43,7 +43,7 @@
             
             $extensions= array("jpeg","jpg","png","mp3","mp4","mov");
   
-            $rutaFichero = 'img/'. $file_name;
+            $rutaFichero = 'data/upload/'. $file_name;
   
             if(in_array($file_ext,$extensions) === true && $file_size < 2097152){
               move_uploaded_file($file_tmp, $rutaFichero);
@@ -51,6 +51,8 @@
 
             $res = $conexion->corregirEjercicio($idEjercicio, $_SESSION['facilitador']->getidFacilitador(), $idPersona, $comentario, $rutaFichero, $valoracion);
 
+            if($res)
+              header("Location: listaEjercicios.php");
           }
     }
   }
