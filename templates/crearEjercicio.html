@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block divClass %}
-<div class="idFormularioCrearEjercicio"></div>
+<div class="idFormularioCrearEjercicio">
 {% endblock %}
 
 {% block body %}
@@ -13,18 +13,23 @@
     <h1>Crear ejercicio</h1>
 </div>
 
-<form action="principalFacilitador.php" method="post" id="addejercicio" enctype="multipart/form-data">
+{% if mostrarResultado %}
+{% if res %}
+<div class="Titulo">
+  <h4 style="color: Green">Ejercicio creado correctamente</h4>
+</div>
+{% else %}
+<div class="Titulo">
+  <h4 style="color: Red">Ejercicio incorrecto</h4>
+</div>
+{% endif %}
+{% endif %}
+
+<form method="post" id="addejercicio" enctype="multipart/form-data">
     Titulo del Ejercicio<br> <input type="text" name="titulo" required/><br><br>
-    Descripción<br> <textarea name="titulo" form="addejercicio" required></textarea><br><br>
-    Imagen o vídeo explicativo<br> <input type="file" name="multimedia" required/><br><br>
-    Grupos<br>
-    <p id="atajo"><em>(mantener pulsado tecla CTRL para seleccionar varios)</em></p><br>
-    <select id="grupos" name="grupos" multiple>
-        <option value="grupo1">Grupo1</option>
-        <option value="grupo2">Grupo2</option>
-        <option value="grupo3">Grupo3</option>
-        <option value="grupo4">Grupo4</option>
-    </select><br><br>
+    Descripción<br> <textarea name="descripcion" form="addejercicio" required></textarea><br><br>
+    Imagen<br> <input type="file" name="imagen" accept=".jpg,.jpeg,.png" required/><br><br>
+    Vídeo o audio explicativo<br> <input type="file" name="multimedia" accept=".avi,.mov,.flv,.mp4,.mkv,.wmv,.mp3,.wav,.aiff,.wma,.flac"/><br><br>
     <input type="submit" value="CREAR EJERCICIO" />
 </form>
 {% endblock %}
