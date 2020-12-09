@@ -646,6 +646,31 @@
 
             return $res;
         }
+        
+        public function crearEjercicio($idFacilitador, $titulo, $descripcion, $imagen)
+        {
+            $idFacilitador = $this->conexion->real_escape_string($idFacilitador);
+            $fechaCreacion = date("Y-m-d");
+            $titulo = $this->conexion->real_escape_string($titulo);
+            $descripcion = $this->conexion->real_escape_string($descripcion);
+            $imagen = $this->conexion->real_escape_string($imagen);
+            $res = $this->conexion->query("INSERT INTO Crea_Ejercicio (idFacilitador, fechaCreacion, titulo, categoria, fecha, descripcion, multimediaAdjunto, imagenAdjunta) VALUES ('$idFacilitador', '$fechaCreacion', '$titulo', NULL, NULL, '$descripcion', NULL, '$imagen')" ) ;
+            
+            return $res;
+        }
+        
+        public function crearEjercicioMultimedia($idFacilitador, $titulo, $descripcion, $imagen, $multimedia)
+        {
+            $idFacilitador = $this->conexion->real_escape_string($idFacilitador);
+            $fechaCreacion = date("Y-m-d");
+            $titulo = $this->conexion->real_escape_string($titulo);
+            $descripcion = $this->conexion->real_escape_string($descripcion);
+            $imagen = $this->conexion->real_escape_string($imagen);
+            $multimedia = $this->conexion->real_escape_string($multimedia);
+            $res = $this->conexion->query("INSERT INTO Crea_Ejercicio (idFacilitador, fechaCreacion, titulo, categoria, fecha, descripcion, multimediaAdjunto, imagenAdjunta) VALUES ('$idFacilitador', '$fechaCreacion', '$titulo', NULL, NULL, '$descripcion', '$multimedia', '$imagen')" ) ;
+
+            return $res;
+        }
     }
 
 
