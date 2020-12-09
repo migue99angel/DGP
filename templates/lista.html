@@ -1,42 +1,26 @@
 <div class="contenedorListaCheckbox">
-    <form action="{{ accionCheckbox }}" method="post" id="{{ idCheckbox }}" enctype="{{ encCheckbox }}">
+    <form action="{{ lista.accionCheckbox }}" method="post" id="{{ lista.idCheckbox }}" enctype="{{ lista.encCheckbox }}">
         <div class="tituloLista">
-            <p>{{ tituloLista }}</p>
+            <p>{{ lista.tituloLista }}</p>
         </div>
 
-        <div class="listaCheckbox">
+        <div class="{{ lista.claseCheckbox|default('listaCheckbox') }}">
                 <!-- Los elementos tipo radio no funcionan bien, hay que emularlos con JS -->
-                {% for elemento in elementos %}
+                {% for elemento in lista.elementos %}
                     <div>
-                        <input type="{{ tipoInput|default('checkbox') }}" id="elemento{{ loop.index0 }}" name="elementos[]" value="{% block valor %}{% endblock valor %}">
+                        <input type="{{ lista.tipoInput|default('checkbox') }}" id="elemento{{ loop.index0 }}" name="{{ lista.nombreInput|default('elementos[]') }}" value="{% block valor %}{% endblock valor %}">
                         <label for="elemento{{ loop.index0 }}"> {% block elementoLista %}{% endblock elementoLista %} </label><br>
                     </div>
                 {% endfor %}
-                <div>
-                    <input type="checkbox" id="persona0" name="persona0" value="persona0">
-                    <label for="persona0">Benito Pérez Galdós</label><br>
-                </div>
-                <div>
-                    <input type="checkbox" id="persona1" name="persona1" value="persona1">
-                    <label for="persona1"> Lucas El Pato González</label><br>
-                </div>
-                <div>
-                    <input type="checkbox" id="persona2" name="persona2" value="persona2">
-                    <label for="persona2"> Lorena Trujillos Yévenez</label><br>
-                </div>
-                <div>
-                    <input type="checkbox" id="persona3" name="persona3" value="persona3">
-                    <label for="persona3"> Adrián Julián de los Ríos Martín de Villodres</label><br>
-                </div>
         </div>
-        {% if numeroOcultos is not null %}
-                <input type="hidden" id="numeroOcultos" name="numeroOcultos" value="{{ numeroOcultos }}">
-            {% for inputOculto in inputOcultos %}
+        {% if lista.numeroOcultos is not null %}
+                <input type="hidden" id="numeroOcultos" name="numeroOcultos" value="{{ lista.numeroOcultos }}">
+            {% for inputOculto in lista.inputOcultos %}
                 <input type="hidden" id="oculto{{ loop.index0 }}" name="oculto{{ loop.index0 }}" value="{{ inputOculto }}">
             {% endfor %}
         {% endif %}
         <div>
-            <input type="submit" class="botonEnviar" value="{{ valorSubmitCheckbox }}" />
+            <input type="submit" class="botonEnviar" value="{{ lista.valorSubmitCheckbox }}" />
         </div>
     </form>
 </div>

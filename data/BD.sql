@@ -1,3 +1,7 @@
+/*
+PRECAUCION: Este archivo no está actualizado
+*/
+
 CREATE TABLE Persona(
     idPersona INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     tlfPersona VARCHAR(10) UNIQUE,

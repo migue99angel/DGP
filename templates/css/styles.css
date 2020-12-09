@@ -282,12 +282,20 @@ input[type=submit], .botonSemana, .botonEnviar {
   flex-flow: column nowrap;
   align-items: flex-start;
   left: 1rem;
+  text-align: justify;
 }
 
 .error {
   color: red;
   background-color: lightcoral;
   border: 2px solid red;
+  border-radius: 15px;
+}
+
+.ejerciciosAsignados {
+  color: #359B8A;
+  background-color: mintcream;
+  border: 2px solid#359B8A;
   border-radius: 15px;
 }
 

@@ -1,0 +1,9 @@
+{% extends "lista.html" %}
+
+{% block valor %}
+    {{ elemento.idGrupo }}
+{% endblock valor %}
+
+{% block elementoLista %}
+    Nombre: {{ elemento.getNombreGrupo() }} | Fecha de creación: {{ elemento.getFechaCreacion() }}
+{% endblock elementoLista %}

@@ -20,30 +20,24 @@
 
   $conexion = new ConexionBD();
 
-  if (isset($_SESSION['ejerciciosAsignar'])) {
-    foreach ($_SESSION['ejerciciosAsignar'] as $ejercicio) {
-      // Asignar un ejercicio a la persona (falta hacer el método)
-      var_dump($ejercicio);
-    }
-  }
-
   if (!isset($_POST['numeroOcultos'])) {
     unset($_SESSION['ejerciciosAsignar']);
 
     $variablesParaTwig['paginaAnterior'] = 'principalFacilitador.php';
-    $variablesParaTwig['accionCheckbox'] = 'asignarEjercicio.php';
-    $variablesParaTwig['idCheckbox'] = 'listaEjercicios';
-    $variablesParaTwig['encCheckbox'] = 'multipart/form-data';
-    $variablesParaTwig['tituloLista'] = 'Lista de Ejercicios';
+
+    $variablesParaTwig['lista'] = array(
+      'accionCheckbox' => 'asignarEjercicio.php',
+      'idCheckbox'     => 'listaEjercicios',
+      'encCheckbox'    => 'multipart/form-data',
+      'tituloLista'    => 'Lista de Ejercicios',
+      'elementos'      => $conexion->getAllEjercicios(),
+      'numeroOcultos'  => 1,
+      'inputOcultos'   => array('listaPersonas'),
+      'valorSubmitCheckbox' => 'Siguiente'
+    );
 
     $variablesParaTwig['tipoLista'] = 'ejercicios';
 
-    $variablesParaTwig['elementos'] = $conexion->getAllEjercicios();
-
-    $variablesParaTwig['numeroOcultos'] = 1;
-    $variablesParaTwig['inputOcultos'] = array('listaPersonas');
-
-    $variablesParaTwig['valorSubmitCheckbox'] = 'Siguiente';
   } else if (isset($_POST['oculto0']) && $_POST['oculto0'] == 'listaPersonas') {
     $ejerciciosAsignar = array();
 
@@ -57,16 +51,55 @@
     }
 
     $variablesParaTwig['paginaAnterior'] = 'asignarEjercicio.php';
-    $variablesParaTwig['accionCheckbox'] = 'asignarEjercicio.php';
-    $variablesParaTwig['idCheckbox'] = 'listaPersonas';
-    $variablesParaTwig['encCheckbox'] = 'multipart/form-data';
-    $variablesParaTwig['tituloLista'] = 'Lista de Personas';
+
+    $variablesParaTwig['lista'] = array(
+      'accionCheckbox' => 'asignarEjercicio.php',
+      'idCheckbox'     => 'listaPersonas',
+      'encCheckbox'    => 'multipart/form-data',
+      'tituloLista'    => 'Lista de Personas',
+      'elementos'      => $conexion->getAllPersonas(),
+      'numeroOcultos'  => 1,
+      'inputOcultos'   => array('asignarEjercicios'),
+      'valorSubmitCheckbox' => 'Asignar a estas Personas'
+    );
+
+    $variablesParaTwig['listaGrupos'] = array(
+      'accionCheckbox' => 'asignarEjercicio.php',
+      'idCheckbox'     => 'listaGrupos',
+      'encCheckbox'    => 'multipart/form-data',
+      'tituloLista'    => 'Lista de Grupos',
+      'elementos'      => $conexion->getAllGrupos(),
+      'numeroOcultos'  => 2,
+      'inputOcultos'   => array('asignarEjercicios','asignarGrupos'),
+      'valorSubmitCheckbox' => 'Asignar a estos Grupos'
+    );
 
     $variablesParaTwig['tipoLista'] = 'personas';
 
-    $variablesParaTwig['elementos'] = $conexion->getAllPersonas();
+  } else if (isset($_POST['oculto0']) && $_POST['oculto0'] == 'asignarEjercicios') {
+    if (isset($_SESSION['ejerciciosAsignar'])) {
 
-    $variablesParaTwig['valorSubmitCheckbox'] = 'Asignar';
+      foreach ($_SESSION['ejerciciosAsignar'] as $ejercicio) {
+        foreach ($_POST['elementos'] as $persona) {
+
+          if (isset($_POST['oculto1']) && $_POST['oculto1'] == 'asignarGrupos') {
+            $exito = $conexion->asignarEjercicioGrupo($ejercicio,$_SESSION['facilitador']->getIdFacilitador(),$persona);
+          } else {
+            $exito = $conexion->asignarEjercicioPersona($ejercicio,$_SESSION['facilitador']->getIdFacilitador(),$persona);
+          }
+
+          if ($exito) {
+            $variablesParaTwig['exito'] = $exito;
+          } else {
+            $variablesParaTwig['errores'] = array('No se han podido asignar los ejercicios');
+          }
+
+        }
+      }
+
+    } else {
+      $variablesParaTwig['errores'] = array('Error de la página, no se han podido asignar los ejercicios');
+    }
   }
 
   echo $twig->render('asignarEjercicio.html', $variablesParaTwig);

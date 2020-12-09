@@ -125,26 +125,47 @@
          */
         public function cargarGrupo($idGrupo)
         {
-            $res = $this->conexion->query("SELECT * from Pertenece WHERE idGrupo=$idGrupo");
+            $consultaPertenece = "SELECT * from Pertenece WHERE idGrupo=$idGrupo";
+            $consultaGrupo = "SELECT * from Crea_Grupo WHERE idGrupo=$idGrupo";
             $participantes = array();
-            $i = 0;
 
-            while($row = mysqli_fetch_row($res))
-            {
-                $participantes[$i] = $row['idPersona'];
-                $i += 1;
+            if ($res = $this->conexion->query($consultaPertenece)) {
+                while($row = $res->fetch_assoc())
+                {
+                    $participantes[] = $row['idPersona'];
+                }
             }
 
-            $res = $this->conexion->query("SELECT * from Crea_Grupo WHERE idGrupo=$idGrupo");
-            if($res->num_rows > 0)
+            if($res = $this->conexion->query($consultaGrupo))
             {
                 $row = $res->fetch_assoc();
                 $nombreGrupo = $row['nombre'];
+                $fechaCreacion = $row['fechaCreacion'];
             }
 
-            $grupo = new Grupos($nombreGrupo,$participantes,$idGrupo);
+            $grupo = new Grupos($nombreGrupo,$participantes,$idGrupo,$fechaCreacion);
 
             return $grupo;
+        }
+
+        /**
+         * @method getAllGrupos obtiene todos los grupos de la base de datos
+         * @author Darío Megías Guerrero
+         * @return grupos Array que contiene todos los grupos de la base de datos
+         */
+        public function getAllGrupos()
+        {
+            $consulta = "SELECT idGrupo,fechaCreacion from Crea_Grupo ORDER BY fechaCreacion ASC;";
+            $grupos = array();
+
+            if ($res = $this->conexion->query($consulta)) {
+                while($row = $res->fetch_assoc())
+                {
+                    $grupos[] = $this->cargarGrupo($row['idGrupo']);
+                }
+            }
+
+            return $grupos;
         }
 
         /**
@@ -218,6 +239,83 @@
             }
 
             return $ejercicios;
+        }
+
+        /**
+         * @method asignarEjercicioPersona Plasma en la base de datos que un ejercicio queda asignado a una Persona
+         * @author Darío Megías Guerrero
+         * @param idEjercicio Id de la base de datos para un ejercicio
+         * @param idFacilitador Id de la base de datos para un facilitador
+         * @param idPersona Id de la base de datos para una persona
+         * @return exito Si ha habido éxito al asignar o no
+         */
+        public function asignarEjercicioPersona($idEjercicio,$idFacilitador,$idPersona)
+        {
+            $exito = True;
+
+            $consulta = "INSERT INTO Resuelve_Asigna (idEjercicio,idPersona,idFacilitador,fechaAsignacion)".
+                                "VALUES ($idEjercicio,$idPersona,$idFacilitador,NOW());";
+
+            if ($res = $this->conexion->query($consulta)) {
+                $exito = True;
+            } else {
+                var_dump($this->conexion->error);
+                var_dump($consulta);
+                $res->close();
+                $exito = False;
+            }
+
+
+            return $exito;
+        }
+
+        /**
+         * @method asignarEjercicioPersona Plasma en la base de datos que un ejercicio queda asignado a una Persona
+         * @author Darío Megías Guerrero
+         * @param idEjercicio Id de la base de datos para un ejercicio
+         * @param idFacilitador Id de la base de datos para un facilitador
+         * @param idPersona Id de la base de datos para una persona
+         * @return exito Si ha habido éxito al asignar o no
+         */
+        public function asignarEjercicioGrupo($idEjecicio,$idFacilitador,$idGrupo)
+        {
+            $exito = True;
+
+            $grupo = $this->cargarGrupo($idGrupo);
+
+            // Vamos a realizar una transacción en la BD que puede fallar y queremos que,
+            // si falla, se deshagan todos ls pasos. Para ello priero tenemos
+            // desacctivar el autocommit.
+            $this->conexion->autocommit(TRUE);
+
+            // Iniciamos la transacción. Se le podría dar un nombre, pero
+            // no creo que haga falta.
+            $this->conexion->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
+
+            // Recorremos los participantes, que son ids de personas, para asignar
+            // una a una el ejercicio
+            foreach ($grupo->getAllParticipantes() as $participante) {
+                // Si no se ha podido asignar, vamos a devolver que no ha habido éxito
+                // y nos salimos inmediatamente del bucle
+                if (!$this->asignarEjercicioPersona($idEjecicio,$idFacilitador,$participante)) {
+                    $exito = False;
+                    // :s Creo que es necesario
+                    break;
+                }
+            }
+
+            // Si NO ha habido éxito, "desenrollamos" la transacción
+            // Si SÍ ha habido éxito, hacemos commit de la transacción
+            if (!$exito) {
+                $this->conexion->rollback();
+            } else {
+                $this->conexion->commit();
+            }
+
+            // Volvemos a activar el autocommit para que todo funcione normalmente
+            $this->conexion->autocommit(TRUE);
+
+            return $exito;
         }
 
         /**

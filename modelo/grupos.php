@@ -8,6 +8,7 @@
 		private $nombreGrupo;		//String con el nombre del grupo
 		private $idGrupo;			//Int con el identificador del grupo
 		private $participantes;		//Array con los participantes del grupo
+		private $fechaCreacion;     //Fecha de creación
 
 		/**
 		 * @method Constructor con parámetros
@@ -16,11 +17,12 @@
 		 * @param $participantes Array con los participantes del grupo
 		 * @param $idGrupo identificador del grupo
 		 */
-		public function __construct($nombreGrupo="", $participantes="", $idGrupo="")
+		public function __construct($nombreGrupo="", $participantes=array(), $idGrupo="", $fechaCreacion="")
 		{
 			$this->nombreGrupo = $nombreGrupo;
 			$this->idGrupo = $idGrupo;
-			$this->paticipantes = $participantes;
+			$this->participantes = $participantes;
+			$this->fechaCreacion = $fechaCreacion;
 		}
 
 		/**
@@ -65,6 +67,27 @@
 		public function setNombreGrupo($nombre)
 		{
 			$this->nombreGrupo = $nombre;
+		}
+
+		/**
+		 * Setter del atributo de clase $fechaCreacion
+		 * @method setFechaCreacion
+		 * @author Miguel Muñoz Molina y Darío Megías Guerrero
+		 * @param $fecha La fecha de creación del grupo
+		 */
+		public function setFechaCreacion($fecha)
+		{
+			$this->setFechaCreacion = $fechaCreacion;
+		}
+
+		/**
+		 * Getter del atributo de clase $fechaCreacion
+		 * @method getFechaCreacion
+		 * @author Miguel Muñoz Molina y Darío Megías Guerrero
+		 */
+		public function getFechaCreacion()
+		{
+			return $this->fechaCreacion;
 		}
 
 		/**
