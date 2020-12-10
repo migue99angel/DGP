@@ -6,7 +6,8 @@
   $twig = new \Twig\Environment($loader);
 
   $variablesParaTwig = [];
+  $variablesParaTwig['tipoUsuario'] = $_GET['tipoUsuario'];
 
-  echo $twig->render('registrarAdmin_PlaceHolder.html', $variablesParaTwig);
+  echo $twig->render('registro.html', $variablesParaTwig);
 
 ?>

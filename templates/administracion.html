@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+<title>Gestión de {{ tipoUsuario }}</title>
+{% endblock %}
+
+{% block body %}
+<div class="botonesPrincipales">
+    <a href="registro.php?tipoUsuario={{ tipoUsuario }}" class="button">REGISTRAR {{ tipoUsuario }}</a>
+</div>
+{% endblock %}
