@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql:3306
--- Generation Time: Dec 09, 2020 at 02:00 AM
+-- Generation Time: Dec 10, 2020 at 10:11 AM
 -- Server version: 8.0.19
 -- PHP Version: 7.4.1
 
@@ -132,7 +132,7 @@ CREATE TABLE `Persona` (
   `idPersona` int UNSIGNED NOT NULL,
   `tlfPersona` varchar(10) DEFAULT NULL,
   `nombre` varchar(100) NOT NULL,
-  `contraseña` varchar(100) NOT NULL
+  `contraseña` varchar(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -237,6 +237,7 @@ ALTER TABLE `GestionaPersona`
 --
 ALTER TABLE `Persona`
   ADD PRIMARY KEY (`idPersona`),
+  ADD UNIQUE KEY `contraseña` (`contraseña`),
   ADD UNIQUE KEY `tlfPersona` (`tlfPersona`);
 
 --
@@ -314,7 +315,7 @@ ALTER TABLE `Tiene_Chat`
 ALTER TABLE `Corrige`
   ADD CONSTRAINT `Corrige_ibfk_1` FOREIGN KEY (`idEjercicio`) REFERENCES `Resuelve_Asigna` (`idEjercicio`),
   ADD CONSTRAINT `Corrige_ibfk_2` FOREIGN KEY (`idFacilitador`) REFERENCES `Facilitador` (`idFacilitador`),
-  ADD CONSTRAINT `Corrige_ibfk_3` FOREIGN KEY (`idPersona`) REFERENCES `Persona` (`idPersona`),
+  ADD CONSTRAINT `Corrige_ibfk_3` FOREIGN KEY (`idPersona`) REFERENCES `Resuelve_Asigna` (`idPersona`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `Corrige_ibfk_4` FOREIGN KEY (`fechaAsignacionEjercicio`) REFERENCES `Resuelve_Asigna` (`fechaAsignacion`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --

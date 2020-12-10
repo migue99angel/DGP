@@ -299,6 +299,55 @@ input[type=submit], .botonSemana, .botonEnviar {
   border-radius: 15px;
 }
 
+.reiniciarBoton {
+  display: inline-block;
+  text-decoration: none;
+  font-family: sans-serif;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.botonDiaSemana {
+  color: black;
+  font-weight: bold;
+  border: 2px solid black;
+  border-radius: 15px;
+  background-color: #359B8A;
+  width: 90%;
+  height: 30%;
+  margin-top: 1rem;
+}
+
+.imagenDiaSemana {
+  width: 20%;
+}
+
+.previewEjercicio {
+  display: flex;
+  flex-flow: column nowrap;
+  width: 90%;
+  border: 2px solid black;
+  border-radius: 15px;
+  background-color: #359B8A;
+  margin-top: 1.5rem;
+}
+
+.imagenPreviewEjercicio {
+  width: 40%;
+  margin-top: 1rem;
+}
+
+.tituloPreviewEjercicio {
+  color: black;
+  font-weight: bold;
+  font-size: 110%;
+}
+
+.imagenDefectoPreviewEjercicio {
+  width: 60%;
+}
+
 @media screen and (max-width: 1100px) {
   input[type=submit] {
       padding: 3% 6%;

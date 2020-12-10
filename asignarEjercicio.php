@@ -83,9 +83,11 @@
         foreach ($_POST['elementos'] as $persona) {
 
           if (isset($_POST['oculto1']) && $_POST['oculto1'] == 'asignarGrupos') {
-            $exito = $conexion->asignarEjercicioGrupo($ejercicio,$_SESSION['facilitador']->getIdFacilitador(),$persona);
+            $exito = $conexion->asignarEjercicioGrupo($ejercicio,$_SESSION['facilitador']->getIdFacilitador(),
+                                                      $persona,$_POST['fechaGrupo'.trim($persona)]);
           } else {
-            $exito = $conexion->asignarEjercicioPersona($ejercicio,$_SESSION['facilitador']->getIdFacilitador(),$persona);
+            $exito = $conexion->asignarEjercicioPersona($ejercicio,$_SESSION['facilitador']->getIdFacilitador(),
+                                                        $persona,$_POST['fecha'.trim($persona)]);
           }
 
           if ($exito) {

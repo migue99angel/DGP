@@ -7,14 +7,46 @@
   $twig = new \Twig\Environment($loader);
 
   session_start();
+  $conexion = new ConexionBD();
+  $variablesParaTwig = array();
+
+  $variablesParaTwig['botonAtras'] = True;
+
 
   if(isset($_SESSION['facilitador'])) {
-    $conexion = new ConexionBD();
+    $variablesParaTwig['paginaAnterior'] = 'principalFacilitador.php';
+
     $ejercicios = $conexion->cargarEjerciciosResueltos();
     $esFacilitador = true;
-  }
 
-  $variablesParaTwig = ['ejercicios' => $ejercicios, 'esFacilitador' => true];
+    // Lo he puesto así porque esto ahora añade al final
+    // y no sobreescribe lo que ya hay
+    $variablesParaTwig['ejercicios'] = $ejercicios;
+    $variablesParaTwig['esFacilitador'] = true;
+
+  } else if (isset($_SESSION['persona'])) {
+      $variablesParaTwig['nombrePersona'] = $_SESSION['persona']->getNombre();
+      if (!isset($_POST['diaSemana'])) {
+        $variablesParaTwig['paginaAnterior'] = 'principalPersonas.php';
+      } else {
+        $variablesParaTwig['paginaAnterior'] = 'listaEjercicios.php';
+
+        $variablesParaTwig['esListado'] = true;
+        $variablesParaTwig['diaSemana'] = $_POST['diaSemana'];
+        $diasSemana = array(
+          'lunes'     => 0,
+          'martes'    => 1,
+          'miercoles' => 2,
+          'jueves'    => 3,
+          'viernes'   => 4,
+          'sabado'    => 5,
+          'domingo'   => 6
+        );
+        $variablesParaTwig['ejercicios'] = $conexion->cargarEjerciciosPersona($_SESSION['persona']->getIdPersona(),
+                                                                              $diasSemana[$_POST['diaSemana']]);
+        // Filtrar por día semana
+      }
+  }
 
   echo $twig->render('listaEjercicios.html', $variablesParaTwig);
 

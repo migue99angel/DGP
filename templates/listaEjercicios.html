@@ -9,22 +9,87 @@
 {% endblock %}
 
 {% block body %}
-<div class="titulo">
-    <h1>LISTA DE EJERCICIOS RECIBIDOS</h1>
-</div>
 
-{% for ej in ejercicios %}
-<div class="ejercicio">
-    <!-- No entiendo por que hay que poner aqui el nombre de la persona -->
-    <p><strong>Persona: </strong><em>{{ ej['nombre'] }}</em></p>
-    <p><strong>Fecha: </strong><em>{{ ej['fechaResolucion'] }}</em></p>
-    <div class="botonesPrincipales">
-        <!-- Habrá que concatenarle a la URL el ID del ejercicio para que se cargue -->
-        <!-- Sólo corrige el ejercicio si es facilitador -->
-        {% if esFacilitador %}
-        <a href="corregirEjercicio.php?idEjercicio={{ ej['idEjercicio'] }}&idPersona={{ ej['idPersona'] }}" class="button">CORREGIR EJERCICIO</a>
-        {% endif %}
+{% if esFacilitador %}
+    {% for ej in ejercicios %}
+        <div class="titulo">
+            <h1>LISTA DE EJERCICIOS RECIBIDOS</h1>
+        </div>
+        <div class="ejercicio">
+            <!-- No entiendo por que hay que poner aqui el nombre de la persona -->
+            <p><strong>Persona: </strong><em>{{ ej['nombre'] }}</em></p>
+            <p><strong>Fecha: </strong><em>{{ ej['fechaResolucion'] }}</em></p>
+            <div class="botonesPrincipales">
+                <!-- Habrá que concatenarle a la URL el ID del ejercicio para que se cargue -->
+                <!-- Sólo corrige el ejercicio si es facilitador -->
+
+                <a href="corregirEjercicio.php?idEjercicio={{ ej['idEjercicio'] }}&idPersona={{ ej['idPersona'] }}" class="button">CORREGIR EJERCICIO</a>
+
+            </div>
+        </div>
+    {% endfor %}
+
+{% elseif esListado %}
+    <div class="titulo">
+        <h1>Ejercicios para el {{ diaSemana }}</h1>
     </div>
-</div>
-{% endfor %}
+    {% if ejercicios|length == 0 %}
+    <div>
+        <img src="templates/img/correcto.png" alt="Falta alt" class="imagenDefectoPreviewEjercicio">
+    </div>
+    {% endif %}
+    {% for ej in ejercicios %}
+        <button id="{{ ej.idEjercicio }}" class="reiniciarBoton previewEjercicio">
+            <div>
+                <img src="{{ ej.imagenAdjunta|default('templates/img/cross.png') }}" alt="Falta alt" class="imagenPreviewEjercicio">
+            </div>
+            <div class ="tituloPreviewEjercicio">
+                <p>{{ ej.titulo }}</p>
+            </div>
+        </button>
+    {% endfor %}
+    <form id="irEjercicio" action="mostrarEjercicio.php" method="post" enctype="multipart/form-data">
+        <input type="hidden" id="idEjercicio" name="idEjercicio" value="">
+    </form>
+{% else %}
+    <div class="titulo">
+        <h1>Ejercicios de {{ nombrePersona }}</h1>
+    </div>
+
+    <button id="lunes" class="reiniciarBoton botonDiaSemana">
+        <img src="templates/img/dias/lunes.png" alt="Ejercicios del lunes" class="imagenDiaSemana">
+    </button>
+
+    <button id="martes" class="reiniciarBoton botonDiaSemana">
+        <img src="templates/img/dias/martes.png" alt="Ejercicios del martes" class="imagenDiaSemana">
+    </button>
+
+    <button id="miercoles" class="reiniciarBoton botonDiaSemana">
+        <img src="templates/img/dias/miercoles.png" alt="Ejercicios del miércoles" class="imagenDiaSemana">
+    </button>
+
+    <button id="jueves" class="reiniciarBoton botonDiaSemana">
+        <img src="templates/img/dias/jueves.png" alt="Ejercicios del jueves" class="imagenDiaSemana">
+    </button>
+
+    <button id="viernes" class="reiniciarBoton botonDiaSemana">
+        <img src="templates/img/dias/viernes.png" alt="Ejercicios del viernes" class="imagenDiaSemana">
+    </button>
+
+    <button id="sabado" class="reiniciarBoton botonDiaSemana">
+        <img src="templates/img/dias/sabado.png" alt="Ejercicios del sábado" class="imagenDiaSemana">
+    </button>
+
+    <button id="domingo" class="reiniciarBoton botonDiaSemana">
+        <img src="templates/img/dias/domingo.png" alt="Ejercicios del domingo" class="imagenDiaSemana">
+    </button>
+
+    <form id="diaEnviar" action="listaEjercicios.php" method="post" enctype="multipart/form-data">
+        <input type="hidden" id="inputDia" name="diaSemana" value="">
+    </form>
+{% endif %}
 {% endblock %}
+
+{% block postScripts %}
+<script type="text/javascript" src="templates/js/listaEjercicios.js"></script>
+{% endblock postScripts %}
