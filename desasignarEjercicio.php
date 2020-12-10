@@ -28,6 +28,25 @@
     'valorSubmitCheckbox' => 'Desasignar ejercicios'
   );
   
+  if (isset($_POST['elementos'])) {
+    foreach ($_POST['elementos'] as $ejercicio) {
+      $ejerciciosDesasignar[] = $ejercicio;
+      echo("<script>console.log('PHP: EJERCICIOaefsefsg " . $ejercicio . "');</script>");
+    }
+    $_SESSION['ejerciciosDesasignar'] = $ejerciciosDesasignar;
+  } else {
+    unset($_SESSION['ejerciciosDesasignar']);
+  }
+  
+  if (isset($_SESSION['ejerciciosDesasignar'])) {
+    foreach ($_SESSION['ejerciciosDesasignar'] as $ejercicio) {
+    	echo("<script>console.log('PHP: EJERCICIO " . $ejercicio . "');</script>");
+      $datos = explode('&', $ejercicio);
+      $resultado = $conexion->desasignarEjercicio($datos[0], $datos[1], $datos[2], $datos[3]);
+    }
+    unset($_SESSION['ejerciciosDesasignar']);
+  } 
+  
   $variablesParaTwig['botonAtras'] = true;
   $variablesParaTwig['paginaAnterior'] = 'principalFacilitador.php';
 

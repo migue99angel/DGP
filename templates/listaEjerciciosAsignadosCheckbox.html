@@ -1,8 +1,6 @@
 {% extends "lista.html" %}
 
-{% block valor %}
-    {{ elemento.idEjercicio }}
-{% endblock valor %}
+{% block valor %}{{ elemento.idEjercicio }}&{{ elemento.idFacilitador }}&{{ elemento.idPersona }}&{{ elemento.fechaAsignacion}}{% endblock valor %}
 
 {% block elementoLista %}
     {{ elemento.titulo }} | {{ elemento.nombrePersona }} | {{ elemento.fechaAsignacion }}
