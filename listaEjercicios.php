@@ -44,7 +44,6 @@
         );
         $variablesParaTwig['ejercicios'] = $conexion->cargarEjerciciosPersona($_SESSION['persona']->getIdPersona(),
                                                                               $diasSemana[$_POST['diaSemana']]);
-        // Filtrar por día semana
       }
   }
 

@@ -22,6 +22,8 @@ if (ejercicios.length > 0) {
     for (const ej of ejercicios) {
         ej.addEventListener('click', (event) => {
             document.getElementById('idEjercicio').value = ej.getAttribute('id').trim();
+            document.getElementById('idFacilitador').value = ej.getAttribute('data-idfacilitador').trim();
+            document.getElementById('fechaAsignacion').value = ej.getAttribute('data-fechaasignacion').trim();
 
             document.getElementById('irEjercicio').submit();
         });

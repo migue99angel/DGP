@@ -4,4 +4,16 @@
     <div class="titulo">
         <h1>Ejercicio {{ idEjercicio }}</h1>
     </div>
+
+    {% block errores %}
+    {% embed "errores.html" %}{% endembed %}
+  {% endblock errores %}
+
+    <button id="botonChat" class="reiniciarBoton botonChat">
+        <img src="templates/img/preguntar.png" alt="Hablar con la persona facilitadora" class="imagenChat">
+    </button>
 {% endblock %}
+
+{% block postScripts %}
+<script type="text/javascript" src="templates/js/mostrarEjercicio.js"></script>
+{% endblock postScripts %}

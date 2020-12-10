@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql:3306
--- Generation Time: Dec 10, 2020 at 10:11 AM
+-- Generation Time: Dec 10, 2020 at 07:26 PM
 -- Server version: 8.0.19
 -- PHP Version: 7.4.1
 
@@ -173,6 +173,8 @@ CREATE TABLE `Tiene_Chat` (
   `idChat` int UNSIGNED NOT NULL,
   `idEjercicio` int UNSIGNED NOT NULL,
   `idPersona` int UNSIGNED NOT NULL,
+  `fechaAsignacion` datetime DEFAULT NULL,
+  `idFacilitador` int UNSIGNED DEFAULT NULL,
   `ruta` varchar(1000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -263,7 +265,9 @@ ALTER TABLE `Resuelve_Asigna`
 ALTER TABLE `Tiene_Chat`
   ADD PRIMARY KEY (`idChat`),
   ADD UNIQUE KEY `idEjercicio` (`idEjercicio`),
-  ADD UNIQUE KEY `idPersona` (`idPersona`);
+  ADD UNIQUE KEY `idPersona` (`idPersona`),
+  ADD KEY `fechaAsignacion` (`fechaAsignacion`),
+  ADD KEY `idFacilitador` (`idFacilitador`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -363,7 +367,9 @@ ALTER TABLE `Resuelve_Asigna`
 --
 ALTER TABLE `Tiene_Chat`
   ADD CONSTRAINT `Tiene_Chat_ibfk_1` FOREIGN KEY (`idEjercicio`) REFERENCES `Resuelve_Asigna` (`idEjercicio`),
-  ADD CONSTRAINT `Tiene_Chat_ibfk_2` FOREIGN KEY (`idPersona`) REFERENCES `Resuelve_Asigna` (`idPersona`);
+  ADD CONSTRAINT `Tiene_Chat_ibfk_2` FOREIGN KEY (`idPersona`) REFERENCES `Resuelve_Asigna` (`idPersona`),
+  ADD CONSTRAINT `Tiene_Chat_ibfk_3` FOREIGN KEY (`fechaAsignacion`) REFERENCES `Resuelve_Asigna` (`fechaAsignacion`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `Tiene_Chat_ibfk_4` FOREIGN KEY (`idFacilitador`) REFERENCES `Resuelve_Asigna` (`idFacilitador`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -348,6 +348,19 @@ input[type=submit], .botonSemana, .botonEnviar {
   width: 60%;
 }
 
+.botonChat {
+  color: black;
+  border: 2px solid black;
+  border-radius: 15px;
+  background-color: #359B8A;
+  width: 50%;
+  height:50%;
+}
+
+.imagenChat {
+  width: 45%;
+}
+
 @media screen and (max-width: 1100px) {
   input[type=submit] {
       padding: 3% 6%;

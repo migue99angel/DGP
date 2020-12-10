@@ -1,9 +1,10 @@
 <?php
-    require "administrador.php";
-    require "facilitador.php";
-    require "persona.php";
-    require "grupos.php";
-    require "ejercicio.php";
+    require_once "administrador.php";
+    require_once "facilitador.php";
+    require_once "persona.php";
+    require_once "grupos.php";
+    require_once "ejercicio.php";
+    require_once "asigna.php";
     /**
      * @class ConexionBD
      * @author Miguel Ángel Posadas
@@ -191,7 +192,7 @@
             if ($res = $this->conexion->query($consulta)) {
                 while($row = $res->fetch_assoc())
                 {
-                    $ejercicios[] = $this->cargarEjercicio($row['idEjercicio']);
+                    $ejercicios[] = $this->getEjercicioAsignado($row['idEjercicio'],$row['idPersona'],$row['fechaAsignacion'],$row['idFacilitador']);
                 }
             }
 

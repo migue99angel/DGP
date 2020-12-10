@@ -39,17 +39,20 @@
     </div>
     {% endif %}
     {% for ej in ejercicios %}
-        <button id="{{ ej.idEjercicio }}" class="reiniciarBoton previewEjercicio">
+        <button id="{{ ej.idEjercicio }}" class="reiniciarBoton previewEjercicio" data-idFacilitador="{{ ej.idFacilitador }}" data-fechaAsignacion="{{ ej.fechaAsignacion }}">
             <div>
                 <img src="{{ ej.imagenAdjunta|default('templates/img/cross.png') }}" alt="Falta alt" class="imagenPreviewEjercicio">
             </div>
             <div class ="tituloPreviewEjercicio">
                 <p>{{ ej.titulo }}</p>
             </div>
+
         </button>
     {% endfor %}
     <form id="irEjercicio" action="mostrarEjercicio.php" method="post" enctype="multipart/form-data">
         <input type="hidden" id="idEjercicio" name="idEjercicio" value="">
+        <input type="hidden" id="idFacilitador" name="idFacilitador" value="">
+        <input type="hidden" id="fechaAsignacion" name="fechaAsignacion" value="">
     </form>
 {% else %}
     <div class="titulo">
