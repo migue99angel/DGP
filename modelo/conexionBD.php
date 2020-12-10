@@ -149,6 +149,25 @@
             return $grupo;
         }
 
+	/**
+         * @method cargarGrupoNombre obtiene la id de un grupo a partir de su nombre
+         * @author Sergio Campos Megias
+         * @param nombre El nombre del grupo
+         * @return idGrupo String con la id del grupo
+         */
+        public function cargarGrupoNombre($nombre)
+        {
+          $consultaGrupo = "SELECT * from Crea_Grupo WHERE nombre='$nombre'";
+
+
+            if($res = $this->conexion->query($consultaGrupo)){
+              $row = $res->fetch_assoc();
+              $idGrupo = $row['idGrupo'];
+            }
+
+            return $idGrupo;
+        }
+
         /**
          * @method getAllGrupos obtiene todos los grupos de la base de datos
          * @author Darío Megías Guerrero
@@ -249,6 +268,33 @@
             }
 
             return $ejercicios;
+        }
+
+	/**
+         * @method asignarGrupo Plasma en la base de datos que una persona pertenece a un grupo
+         * @author Sergio Campos Megias
+         * @param idGrupo Id de la base de datos para un grupo
+         * @param idPersona Id de la base de datos para una persona
+         * @return exito Si ha habido éxito al asignar o no
+         */
+        public function asignarGrupo($idGrupo,$idPersona)
+        {
+            $exito = True;
+
+            $consulta = "INSERT INTO Pertenece (idGrupo,idPersona)".
+                                "VALUES ($idGrupo,$idPersona);";
+
+            if ($res = $this->conexion->query($consulta)) {
+                $exito = True;
+            } else {
+                var_dump($this->conexion->error);
+                var_dump($consulta);
+                $res->close();
+                $exito = False;
+            }
+
+
+            return $exito;
         }
 
         /**
@@ -724,6 +770,16 @@
             }
 
             return $asignados;
+        }
+
+        public function crearGrupo($idFacilitador, $nombre)
+        {
+            $idFacilitador = $this->conexion->real_escape_string($idFacilitador);
+            $fechaCreacion = date("Y-m-d");
+            $nombre = $this->conexion->real_escape_string($nombre);
+            $res = $this->conexion->query("INSERT INTO Crea_Grupo (idFacilitador, fechaCreacion, nombre) VALUES ('$idFacilitador', '$fechaCreacion', '$nombre')" ) ;
+
+            return $res;
         }
 
         public function desasignarEjercicio($idEjercicio, $idFacilitador, $idPersona, $fechaAsignacion) {

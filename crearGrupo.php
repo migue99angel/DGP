@@ -12,26 +12,36 @@
 
   session_start();
   $conexion = new ConexionBD();
-
+  $ejerciciosAsignar = array();
 
   if(!isset($_POST['nombre'])){
     $variablesParaTwig['paginaAnterior'] = 'principalFacilitador.php';
     $variablesParaTwig['seleccionMiembros'] = False;
 
   }
-  else{
-    //$_SESSION['facilitador'].crearGrupo($_POST['nombre']);
+  else if($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nombre = $_POST['nombre'];
+    $variablesParaTwig['exitoGrupos'] = $conexion->crearGrupo($_SESSION['facilitador']->getidFacilitador(),$nombre);
+    $idGrupo = $conexion->cargarGrupoNombre($nombre);
+    $_SESSION['id'] = $idGrupo;
+    $variablesParaTwig['lista'] = array(
+      'accionCheckbox' => 'crearGrupo.php',
+      'idCheckbox'     => 'listaPersonas',
+      'encCheckbox'    => 'multipart/form-data',
+      'elementos'      => $conexion->getAllPersonas(),
+      'valorSubmitCheckbox' => 'Insertar en el Grupo'
+    );
     $variablesParaTwig['paginaAnterior'] = 'crearGrupo.php';
-    $variablesParaTwig['accionCheckbox'] = 'crearGrupo.php';
-    $variablesParaTwig['idCheckbox'] = 'listaPersonas';
-    $variablesParaTwig['encCheckbox'] = 'multipart/form-data';
-    $variablesParaTwig['tituloLista'] = 'Lista de Personas';
     $variablesParaTwig['tipoLista'] = 'personas';
-    //$variablesParaTwig['elementos'] = $conexion->getAllPersonas();
-    $variablesParaTwig['valorSubmitCheckbox'] = 'Insertar en el Grupo';
     $variablesParaTwig['seleccionMiembros'] = True;
   }
+  if (isset($_POST['elementos'])) {
+    foreach ($_POST['elementos'] as $personas) {
+      $variablesParaTwig['exitoPersonas'] = $conexion->asignarGrupo($_SESSION['id'],$personas);
+    }
+  }
 
+  $variablesParaTwig['test'] = $id;
   echo $twig->render('crearGrupo.html', $variablesParaTwig);
 
 ?>
