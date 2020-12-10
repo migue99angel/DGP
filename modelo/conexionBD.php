@@ -174,16 +174,25 @@
          * @param idPersona El identificador de la persona
          * @return ejercicios Array de objetos de la clase ejercicio
          */
-        public function cargarEjerciciosPersona()
+        public function cargarEjerciciosPersona($idPersona, $diaSemana=NULL)
         {
-            $res = $this->conexion->query("SELECT * from Asigna WHERE idPersona='" . $idPersona . "'");
-            $ejercicios = array();
-            $i = 0;
+            if ($diaSemana !== NULL) {
+                $consulta =
+                    "SELECT x.* FROM (".
+                        "SELECT *, WEEKDAY(fechaAsignacion) as diaSemana FROM Resuelve_Asigna WHERE idPersona=$idPersona".
+                    ") AS x ".
+                    "WHERE x.diaSemana=$diaSemana;";
+            } else {
+                $consulta = "SELECT * FROM Resuelve_Asigna WHERE idPersona=" . $idPersona . ";";
+            }
 
-            while($row = mysqli_fetch_row($res))
-            {
-                $ejercicios[$i] = cargarEjercicio($row['idEjercicio']);
-                $i += 1;
+            $ejercicios = array();
+
+            if ($res = $this->conexion->query($consulta)) {
+                while($row = $res->fetch_assoc())
+                {
+                    $ejercicios[] = $this->cargarEjercicio($row['idEjercicio']);
+                }
             }
 
             return $ejercicios;
@@ -249,22 +258,21 @@
          * @param idPersona Id de la base de datos para una persona
          * @return exito Si ha habido éxito al asignar o no
          */
-        public function asignarEjercicioPersona($idEjercicio,$idFacilitador,$idPersona)
+        public function asignarEjercicioPersona($idEjercicio,$idFacilitador,$idPersona,$fechaResolucion)
         {
             $exito = True;
 
-            $consulta = "INSERT INTO Resuelve_Asigna (idEjercicio,idPersona,idFacilitador,fechaAsignacion)".
-                                "VALUES ($idEjercicio,$idPersona,$idFacilitador,NOW());";
+            $consulta = "INSERT INTO Resuelve_Asigna (idEjercicio,idPersona,idFacilitador,fechaAsignacion,fechaResolucion)".
+                                "VALUES ($idEjercicio,$idPersona,$idFacilitador,NOW(),'$fechaResolucion');";
 
             if ($res = $this->conexion->query($consulta)) {
                 $exito = True;
             } else {
                 var_dump($this->conexion->error);
                 var_dump($consulta);
-                $res->close();
+                var_dump($res);
                 $exito = False;
             }
-
 
             return $exito;
         }
@@ -277,7 +285,7 @@
          * @param idPersona Id de la base de datos para una persona
          * @return exito Si ha habido éxito al asignar o no
          */
-        public function asignarEjercicioGrupo($idEjecicio,$idFacilitador,$idGrupo)
+        public function asignarEjercicioGrupo($idEjecicio,$idFacilitador,$idGrupo,$fechaResolucion)
         {
             $exito = True;
 
@@ -297,7 +305,7 @@
             foreach ($grupo->getAllParticipantes() as $participante) {
                 // Si no se ha podido asignar, vamos a devolver que no ha habido éxito
                 // y nos salimos inmediatamente del bucle
-                if (!$this->asignarEjercicioPersona($idEjecicio,$idFacilitador,$participante)) {
+                if (!$this->asignarEjercicioPersona($idEjecicio,$idFacilitador,$participante,$fechaResolucion)) {
                     $exito = False;
                     // :s Creo que es necesario
                     break;
@@ -326,7 +334,7 @@
         public function cargarEjerciciosResueltos()
         {
             $consulta = "SELECT *, Persona.nombre FROM Resuelve_Asigna INNER JOIN Persona ON Resuelve_Asigna.idPersona = Persona.idPersona
-             WHERE NOT EXISTS (SELECT 1 FROM Corrige WHERE Resuelve_Asigna.idEjercicio = Corrige.idEjercicio
+            WHERE NOT EXISTS (SELECT 1 FROM Corrige WHERE Resuelve_Asigna.idEjercicio = Corrige.idEjercicio
             AND Resuelve_Asigna.idPersona = Corrige.idPersona)";
 
             $ejercicios = array();
@@ -379,13 +387,12 @@
             if($consulta->num_rows > 0) {
                 $fila = $consulta->fetch_assoc();
                 $fechaAsignacionEjercicio = $fila["fechaAsignacion"];
-            }
+                }
 
             $res = $this->conexion->query("INSERT INTO Corrige (idFacilitador, idEjercicio, idPersona,
             fechaAsignacionEjercicio, fechaCorreccion, comentario, archivoAdjuntoCorreccion, valoracionFacilitador)
             VALUES ('$idFacilitador', '$idEjercicio', '$idPersona', '$fechaAsignacionEjercicio', '$fechaCorreccion', '$comentario', '$adjunto', '$valoracion')");
-
-            return $res;    
+            return $res;
         }
 
         /**
@@ -654,7 +661,7 @@
 
             return $res;
         }
-        
+
         public function crearEjercicio($idFacilitador, $titulo, $descripcion, $imagen)
         {
             $idFacilitador = $this->conexion->real_escape_string($idFacilitador);
@@ -663,10 +670,10 @@
             $descripcion = $this->conexion->real_escape_string($descripcion);
             $imagen = $this->conexion->real_escape_string($imagen);
             $res = $this->conexion->query("INSERT INTO Crea_Ejercicio (idFacilitador, fechaCreacion, titulo, categoria, fecha, descripcion, multimediaAdjunto, imagenAdjunta) VALUES ('$idFacilitador', '$fechaCreacion', '$titulo', NULL, NULL, '$descripcion', NULL, '$imagen')" ) ;
-            
+
             return $res;
         }
-        
+
         public function crearEjercicioMultimedia($idFacilitador, $titulo, $descripcion, $imagen, $multimedia)
         {
             $idFacilitador = $this->conexion->real_escape_string($idFacilitador);
@@ -679,11 +686,11 @@
 
             return $res;
         }
-        
+
         public function getEjercicioAsignado($idEjercicio, $idPersona, $fechaAsignacion, $idFacilitador) {
             $consulta = "SELECT Resuelve_Asigna.idEjercicio, Resuelve_Asigna.fechaAsignacion, Resuelve_Asigna.idFacilitador, Resuelve_Asigna.idPersona, Crea_Ejercicio.titulo, Facilitador.nombre AS nombreFacilitador, Persona.nombre AS nombrePersona FROM Resuelve_Asigna, Crea_Ejercicio, Facilitador, Persona WHERE Resuelve_Asigna.idEjercicio = Crea_Ejercicio.idEjercicio AND Resuelve_Asigna.idFacilitador = Facilitador.idFacilitador AND Resuelve_Asigna.idPersona = Persona.idPersona AND Resuelve_Asigna.idEjercicio = '$idEjercicio' AND Resuelve_Asigna.idPersona = '$idPersona' AND Resuelve_Asigna.fechaAsignacion = '$fechaAsignacion' AND Resuelve_Asigna.idFacilitador = '$idFacilitador';";
             $asignado = new Asigna();
-            
+
             if($res = $this->conexion->query($consulta))
             {
                 $row = $res->fetch_assoc();
@@ -697,13 +704,13 @@
                 $asignado = new Asigna($idEjercicio, $idFacilitador, $idPersona, $fechaAsignacion, $titulo, $nombreFacilitador, $nombrePersona);
                 echo("<script>console.log('PHP: getEjercicioAsignado " . $asignado->getIdEjercicio() . " " . $asignado->getIdFacilitador() . " " . $asignado->getIdPersona() . " " . $fechaAsignacion . " " . $titulo . " " . $nombreFacilitador . " " . $nombrePersona . "');</script>");
             }
-            
+
             return $asignado;
-        }        
-        
+        }
+
         public function getAllEjerciciosAsignados() {
             $consulta = "SELECT Resuelve_Asigna.idEjercicio, Resuelve_Asigna.fechaAsignacion, Resuelve_Asigna.idFacilitador, Resuelve_Asigna.idPersona, Crea_Ejercicio.titulo, Facilitador.nombre AS nombreFacilitador, Persona.nombre AS nombrePersona FROM Resuelve_Asigna, Crea_Ejercicio, Facilitador, Persona WHERE Resuelve_Asigna.idEjercicio = Crea_Ejercicio.idEjercicio AND Resuelve_Asigna.idFacilitador = Facilitador.idFacilitador AND Resuelve_Asigna.idPersona = Persona.idPersona;";
-            
+
             $asignados = array();
             $i = 0;
 
@@ -717,11 +724,12 @@
 
             return $asignados;
         }
-        
+
         public function desasignarEjercicio($idEjercicio, $idFacilitador, $idPersona, $fechaAsignacion) {
             $res = $this->conexion->query("DELETE FROM Resuelve_Asigna WHERE idEjercicio = '$idEjercicio' AND idPersona = '$idPersona' AND idFacilitador = '$idFacilitador' AND fechaAsignacion = '$fechaAsignacion';");
 
             return $res;
+
         }
     }
 
