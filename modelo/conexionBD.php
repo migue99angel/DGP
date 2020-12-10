@@ -717,6 +717,12 @@
 
             return $asignados;
         }
+        
+        public function desasignarEjercicio($idEjercicio, $idFacilitador, $idPersona, $fechaAsignacion) {
+            $res = $this->conexion->query("DELETE FROM Resuelve_Asigna WHERE idEjercicio = '$idEjercicio' AND idPersona = '$idPersona' AND idFacilitador = '$idFacilitador' AND fechaAsignacion = '$fechaAsignacion';");
+
+            return $res;
+        }
     }
 
 
