@@ -15,18 +15,6 @@
   }
   
   $conexion = new ConexionBD();
-  $res = $conexion->getAllEjerciciosAsignados();
-
-  $variablesParaTwig['lista'] = array(
-    'accionCheckbox' => 'desasignarEjercicio.php',
-    'idCheckbox'     => 'listaEjerciciosAsignados',
-    'encCheckbox'    => 'multipart/form-data',
-    'tituloLista'    => 'Lista de Ejercicios Asignados',
-    'elementos'      => $res,
-    //'numeroOcultos'  => 0,
-    //'inputOcultos'   => array('listaPersonas'),
-    'valorSubmitCheckbox' => 'Desasignar ejercicios'
-  );
   
   if (isset($_POST['elementos'])) {
     foreach ($_POST['elementos'] as $ejercicio) {
@@ -45,7 +33,20 @@
       $resultado = $conexion->desasignarEjercicio($datos[0], $datos[1], $datos[2], $datos[3]);
     }
     unset($_SESSION['ejerciciosDesasignar']);
-  } 
+  }
+  
+  $res = $conexion->getAllEjerciciosAsignados();
+
+  $variablesParaTwig['lista'] = array(
+    'accionCheckbox' => 'desasignarEjercicio.php',
+    'idCheckbox'     => 'listaEjerciciosAsignados',
+    'encCheckbox'    => 'multipart/form-data',
+    'tituloLista'    => 'Lista de Ejercicios Asignados',
+    'elementos'      => $res,
+    //'numeroOcultos'  => 0,
+    //'inputOcultos'   => array('listaPersonas'),
+    'valorSubmitCheckbox' => 'Desasignar ejercicios'
+  );
   
   $variablesParaTwig['botonAtras'] = true;
   $variablesParaTwig['paginaAnterior'] = 'principalFacilitador.php';
