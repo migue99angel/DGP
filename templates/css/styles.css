@@ -285,6 +285,18 @@ input[type=submit], .botonSemana, .botonEnviar {
   text-align: justify;
 }
 
+.listaCheckbox input {
+  display: inline;
+  margin-right: 2%;
+  margin-top: 2%;
+  height: 1.5em;
+  width: 1.5em;
+}
+
+.listaCheckbox div {
+  width: 100%;
+}
+
 .error {
   color: red;
   background-color: lightcoral;

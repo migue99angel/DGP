@@ -8,8 +8,8 @@
   $variablesParaTwig = [];
   $variablesParaTwig['tipoUsuario'] = $_GET['tipoUsuario'];
   $variablesParaTwig['botonAtras'] = true;
-  $variablesParaTwig['paginaAnterior'] = "principalAdmin.php";
+  $variablesParaTwig['paginaAnterior'] = "administracion.php?tipoUsuario=" . $_GET['tipoUsuario'];;
 
-  echo $twig->render('administracion.html', $variablesParaTwig);
+  echo $twig->render('modificarUsuario.html', $variablesParaTwig);
 
 ?>

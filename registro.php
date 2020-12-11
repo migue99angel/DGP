@@ -7,6 +7,8 @@
 
   $variablesParaTwig = [];
   $variablesParaTwig['tipoUsuario'] = $_GET['tipoUsuario'];
+  $variablesParaTwig['botonAtras'] = true;
+  $variablesParaTwig['paginaAnterior'] = "administracion.php?tipoUsuario=" . $_GET['tipoUsuario'];
 
   echo $twig->render('registro.html', $variablesParaTwig);
 

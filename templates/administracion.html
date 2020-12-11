@@ -5,7 +5,28 @@
 {% endblock %}
 
 {% block body %}
+<div class="contenedorListaCheckbox">
+    <form action="{{ lista.accionCheckbox }}" method="post" id="{{ lista.idCheckbox }}" enctype="{{ lista.encCheckbox }}">
+        <div class="tituloLista">
+            <p>Lista de {{ tipoUsuario }}es</p>
+        </div>
+
+        <div class="listaCheckbox">
+            {% for elemento in lista.elementos %}
+                <div>
+                    <input type="hidden" name="id" value="{{ elemento['id'] }}">
+                    <input type=image src="templates/img/pencil.png" formaction="modificarUsuario.php">
+                    <input type=image src="templates/img/borrar.png" formaction="eliminarUsuario.php">
+                    <label for="elemento{{ loop.index0 }}"> {% block nombre %}{% endblock nombre %} </label><br>
+                </div>
+            {% endfor %}
+        </div>
+    </form>
+</div>
+
+<hr/>
+
 <div class="botonesPrincipales">
-    <a href="registro.php?tipoUsuario={{ tipoUsuario }}" class="button">REGISTRAR {{ tipoUsuario }}</a>
+    <a href="registro.php?tipoUsuario={{ tipoUsuario }}" class="button">Registrar nuevo {{ tipoUsuario }}</a>
 </div>
 {% endblock %}
