@@ -550,14 +550,14 @@
          * @return facilitadores Array de objetos facilitadores
          */
         public function getAllFacilitadores()
-        {   
+        {
             $consulta = "SELECT * from Facilitador";
             $facilitadores = array();
             $i = 0;
 
-            if ($res = $this->conexion->query($consulta)) 
+            if ($res = $this->conexion->query($consulta))
             {
-                while ($row = $res->fetch_assoc()) 
+                while ($row = $res->fetch_assoc())
                 {
                     $facilitadores[$i] =  new Facilitador($row['nombre'],$row['tlfFacilitador'],$row['idFacilitador']);
                     $i++;
@@ -581,7 +581,7 @@
             $i = 0;
 
             if ($res = $this->conexion->query($consulta)) {
-                while ($row = $res->fetch_assoc()) 
+                while ($row = $res->fetch_assoc())
                 {
                     $administradores[$i] = new Administrador($row['nombre'],$row['tlfAdministrador'],$row['idAdministrador']);
                     $i++;
@@ -658,9 +658,9 @@
          * @return resultado True en caso de eliminación False en caso contrario
          */
         public function eliminarPersona($idPersona)
-        {   
+        {
             $res = $this->conexion->query("DELETE FROM Persona WHERE idPersona=$idPersona") ;
-            
+
             return $res;
         }
 
@@ -701,21 +701,18 @@
          */
         public function modificarPersona($idPersona,$nombrePersona,$telefono,$pass)
         {
-            var_dump($idPersona);
-            var_dump($pass);
-            var_dump($telefono);
 
             $nombrePersona = $this->conexion->real_escape_string($nombrePersona);
             $telefono = $this->conexion->real_escape_string($telefono);
 
-            if($pass != "")
+            if($pass==='')
             {
-                $res =  $this->conexion->query("UPDATE Persona SET  nombre='$nombrePersona',tlfPersona='$telefono'  WHERE idPersona='$idPersona'");
+                $res =  $this->conexion->query("UPDATE Persona SET nombre='$nombrePersona',tlfPersona='$telefono'  WHERE idPersona='$idPersona'");
             }
             else
             {
                 $pass = $this->conexion->real_escape_string($pass);
-                $res =  $this->conexion->query("UPDATE Persona SET  nombre='$nombrePersona' contraseña='$pass',tlfPersona='$telefono'  WHERE idPersona='$idPersona'");
+                $res =  $this->conexion->query("UPDATE Persona SET nombre='$nombrePersona', contraseña='$pass',tlfPersona='$telefono'  WHERE idPersona='$idPersona'");
             }
 
             return $res;
@@ -734,15 +731,16 @@
         {
             $nombreFacilitador = $this->conexion->real_escape_string($nombreFacilitador);
             $telefono = $this->conexion->real_escape_string($telefono);
-            if(!isset($pass))
+
+            if($pass==='')
             {
-                
-                $res = $this->conexion->query("UPDATE Facilitador SET idPersona='$idFacilitador', tlfFacilitador='$telefono', nombre='$nombreFacilitador' WHERE idPersona='$idFacilitador'");
+
+                $res = $this->conexion->query("UPDATE Facilitador SET tlfFacilitador='$telefono', nombre='$nombreFacilitador' WHERE idFacilitador='$idFacilitador'");
             }
             else
             {
                 $pass = $this->conexion->real_escape_string($pass);
-                $res = $this->conexion->query("UPDATE Facilitador SET idPersona='$idFacilitador', tlfFacilitador='$telefono', nombre='$nombreFacilitador', contraseña='$pass' WHERE idPersona='$idFacilitador'");
+                $res = $this->conexion->query("UPDATE Facilitador SET tlfFacilitador='$telefono', nombre='$nombreFacilitador', contraseña='$pass' WHERE idFacilitador='$idFacilitador'");
             }
 
             return $res;
@@ -761,18 +759,18 @@
         {
             $nombreAdministrador = $this->conexion->real_escape_string($nombreAdministrador);
             $telefono = $this->conexion->real_escape_string($telefono);
-            if(!isset($pass))
+            if($pass==='')
             {
-                $res =  $this->conexion->query("UPDATE Administrador SET  nombre='$nombreAdministrador' ,tlfPersona='$telefono'  WHERE idAdministrador='$idAdministrador'");
-    
+                $res =  $this->conexion->query("UPDATE Administrador SET  nombre='$nombreAdministrador' ,tlfAdministrador='$telefono'  WHERE idAdministrador='$idAdministrador'");
+
             }
             else
             {
                 $pass = $this->conexion->real_escape_string($pass);
-                $res =  $this->conexion->query("UPDATE Administrador SET  nombre='$nombreAdministrador' contraseña='$pass',tlfPersona='$telefono'  WHERE idAdministrador='$idAdministrador'");
-    
+                $res =  $this->conexion->query("UPDATE Administrador SET  nombre='$nombreAdministrador' ,contraseña='$pass',tlfAdministrador='$telefono'  WHERE idAdministrador='$idAdministrador'");
+
             }
-           
+
             return $res;
         }
 

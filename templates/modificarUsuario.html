@@ -11,9 +11,10 @@
 
 <form action="modificarUsuario.php" method="post" id="loginFacilitador" enctype="multipart/form-data">
     Nombre<br> <input type="text" name="usuario" value="{{ nombre }}" required/><br><br>
-    Contraseña<br> <input type="password" name="contraseña" required/><br><br>
+    Contraseña<br> <input type="password" name="contraseña" placeholder="Sólo si quieres cambiarla"/><br><br>
     Teléfono<br> <input type="text" name="telefono" value="{{ telefono }}" required/><br><br>
-    <input type="submit" value="Modificar {{ tipoUsuario }}" />
+    <input type="submit" name="submit" value="Modificar {{tipoUsuario}}" />
+    <input type="hidden" name="tipo" value="{{ tipoUsuario }}">
     <input type="hidden" name="id" value="{{ id }}">
 </form>
 {% endblock %}

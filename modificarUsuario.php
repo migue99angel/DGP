@@ -6,17 +6,16 @@
   $loader = new \Twig\Loader\FilesystemLoader('templates');
   $twig = new \Twig\Environment($loader);
 
-  $variablesParaTwig = [];
   $conexion = new ConexionBD();
   session_start();
 
-  $variablesParaTwig['tipoUsuario'] = $_GET['tipoUsuario'];
-  $variablesParaTwig['botonAtras'] = true;
-  $variablesParaTwig['paginaAnterior'] = "administracion.php?tipoUsuario=" . $_GET['tipoUsuario'];
 
-
-  if (isset($_SESSION['admin']) && isset($_GET['id']))
+  if (isset($_SESSION['admin']) && isset($_GET['id']) && !isset($_POST['nombre']))
   {
+    $variablesParaTwig = [];
+    $variablesParaTwig['tipoUsuario'] = $_GET['tipoUsuario'];
+    $variablesParaTwig['botonAtras'] = true;
+    $variablesParaTwig['paginaAnterior'] = "administracion.php?tipoUsuario=" . $_GET['tipoUsuario'];
     if($_GET['tipoUsuario'] == "Persona")
     {
       $persona = $conexion->cargarPersona($_GET['id']);
@@ -32,33 +31,35 @@
       $variablesParaTwig['id'] = $facilitador->getidFacilitador();
     }
     else if($_GET['tipoUsuario'] == "Administrador")
-    {    
+    {
       $administrador = $conexion->cargarAdministrador($_GET['id']);
       $variablesParaTwig['nombre'] = $administrador->getNombre();
       $variablesParaTwig['telefono'] = $administrador->getTelefono();
       $variablesParaTwig['id'] = $administrador->getIdAdministrador();
     }
   }
- 
 
-  if ( isset($_SESSION['admin']) && isset($_POST['nombre']))
+
+  if ( isset($_SESSION['admin']) && isset($_POST['tipo']))
   {
-    if($variablesParaTwig['tipoUsuario'] == "Persona")
+    if($_POST['tipo'] == "Persona")
     {
       $conexion->modificarPersona($_POST['id'],$_POST['usuario'],$_POST['telefono'],$_POST['contraseña']);
     }
-    else if($variablesParaTwig['tipoUsuario'] == "Facilitador")
+    else if($_POST['tipo'] == "Facilitador")
     {
       $conexion->modificarFacilitador($_POST['id'],$_POST['usuario'],$_POST['telefono'],$_POST['contraseña']);
     }
-    else if($variablesParaTwig['tipoUsuario'] == "Administrador")
+    else if($_POST['tipo'] == "Administrador")
     {
       $conexion->modificarAdministrador($_POST['id'],$_POST['usuario'],$_POST['telefono'],$_POST['contraseña']);
     }
 
-    //header("Location: " .$variablesParaTwig['paginaAnterior'] );
-  }
-
-  echo $twig->render('modificarUsuario.html', $variablesParaTwig);
+    header("Location: principalAdmin.php");
+ }
+ else
+ {
+   echo $twig->render('modificarUsuario.html', $variablesParaTwig);
+ }
 
 ?>
