@@ -6,20 +6,45 @@
 
 {% block body %}
 <div class="contenedorListaCheckbox">
-    <form action="{{ lista.accionCheckbox }}" method="post" id="{{ lista.idCheckbox }}" enctype="{{ lista.encCheckbox }}">
+    <form action="{{ lista.accionCheckbox }}" method="post"  enctype="{{ lista.encCheckbox }}">
         <div class="tituloLista">
             <p>Lista de {{ tipoUsuario }}es</p>
         </div>
 
         <div class="listaCheckbox">
-            {% for elemento in lista.elementos %}
-                <div>
-                    <input type="hidden" name="id" value="{{ elemento['id'] }}">
-                    <input type=image src="templates/img/pencil.png" formaction="modificarUsuario.php">
-                    <input type=image src="templates/img/borrar.png" formaction="eliminarUsuario.php">
-                    <label for="elemento{{ loop.index0 }}"> {% block nombre %}{% endblock nombre %} </label><br>
-                </div>
-            {% endfor %}
+           
+            {% if tipoUsuario == "Facilitador" %}
+                {% for elemento in lista %}
+                    <div>
+                        <input type="hidden" name="id" value="{{ elemento.idFacilitador }}">
+                        <input type=image src="templates/img/pencil.png" formaction="modificarUsuario.php?tipoUsuario=Facilitador&id={{elemento.idFacilitador}}">
+                        <input type=image src="templates/img/borrar.png" formaction="eliminarUsuario.php?tipoUsuario=Facilitador&id={{elemento.idFacilitador}}">
+                        <label name="elemnto"> Nombre: {{ elemento.nombreFacilitador }} Telefono: {{ elemento.telefono }}  </label> <br>
+                    </div>
+                {% endfor %}
+            {%endif%}
+
+            {% if tipoUsuario == "Administrador" %}
+                {% for elemento in lista %}
+                    <div>
+                        <input type="hidden" name="id" value="{{ elemento.idAdministrador }}">
+                        <input type=image src="templates/img/pencil.png" formaction="modificarUsuario.php?tipoUsuario=Administrador&id={{elemento.idAdministrador}}">
+                        <input type=image src="templates/img/borrar.png" formaction="eliminarUsuario.php?tipoUsuario=Administrador&id={{elemento.idAdministrador}}">
+                        <label name="elemnto"> Nombre: {{ elemento.nombre }} Telefono: {{ elemento.telefono }}  </label> <br>
+                    </div>
+                {% endfor %}
+            {%endif%}
+
+            {% if tipoUsuario == "Persona" %}
+                {% for elemento in lista %}
+                    <div>
+                        <input type="hidden" name="id" value="{{ elemento.idPersona }}">
+                        <input type=image src="templates/img/pencil.png" formaction="modificarUsuario.php?tipoUsuario=Persona&id={{elemento.idPersona}}">
+                        <input type=image src="templates/img/borrar.png" formaction="eliminarUsuario.php?tipoUsuario=Persona&id={{elemento.idPersona}}">
+                        <label name="elemnto"> Nombre: {{ elemento.nombre }} Telefono: {{ elemento.tlfPersona }}  </label> <br>
+                    </div>
+                {% endfor %}
+            {%endif%}
         </div>
     </form>
 </div>
@@ -29,4 +54,5 @@
 <div class="botonesPrincipales">
     <a href="registro.php?tipoUsuario={{ tipoUsuario }}" class="button">Registrar nuevo {{ tipoUsuario }}</a>
 </div>
+
 {% endblock %}

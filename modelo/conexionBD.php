@@ -44,11 +44,47 @@
                 $persona = new Persona($row['idPersona'],$row['nombre'],$row['tlfPersona']);
             }
 
-            //Faltan cargar chats
-            //$persona->setGrupo($this->cargarGruposPersona($idPersona));
-            //$persona->setEjercicios($this->cargarEjerciciosPersona($idPersona));
-
             return $persona;
+
+        }
+
+        /**
+         * @method cargarFacilitador crea una instancia de un objeto Facilitador
+         * @author Miguel Ángel Posadas
+         * @param idFacilitador El identificador del facilitador
+         * @return facilitador El facilitador
+         */
+        public function cargarFacilitador($idFacilitador)
+        {
+            $consulta = "SELECT * from Facilitador WHERE idFacilitador=" . $idFacilitador . ";";
+
+            if($res = $this->conexion->query($consulta))
+            {
+                $row = $res->fetch_assoc();
+                $facilitador = new Facilitador($row['nombre'],$row['tlfFacilitador'],$row['idFacilitador']);
+            }
+
+            return $facilitador;
+
+        }
+
+        /**
+         * @method cargarAdministrador crea una instancia de un objeto Administrador
+         * @author Miguel Ángel Posadas
+         * @param idAdministrador El identificador del administrador
+         * @return administrador El administrador
+         */
+        public function cargarAdministrador($idAdministrador)
+        {
+            $consulta = "SELECT * from Administrador WHERE idAdministrador=" . $idAdministrador . ";";
+
+            if($res = $this->conexion->query($consulta))
+            {
+                $row = $res->fetch_assoc();
+                $administrador = new Administrador($row['nombre'],$row['tlfAdministrador'],$row['idAdministrador']);
+            }
+
+            return $administrador;
 
         }
 
@@ -514,15 +550,18 @@
          * @return facilitadores Array de objetos facilitadores
          */
         public function getAllFacilitadores()
-        {
-            $res = $this->conexion->query("SELECT * from Facilitador");
+        {   
+            $consulta = "SELECT * from Facilitador";
             $facilitadores = array();
             $i = 0;
 
-            while($row = mysqli_fetch_row($res))
+            if ($res = $this->conexion->query($consulta)) 
             {
-                $facilitadores[$i] =  new Facilitdor($row['nombre'],$row['tlfFacilitador'],$row['idFacilitador']);
-                $i++;
+                while ($row = $res->fetch_assoc()) 
+                {
+                    $facilitadores[$i] =  new Facilitador($row['nombre'],$row['tlfFacilitador'],$row['idFacilitador']);
+                    $i++;
+                }
             }
 
             return $facilitadores;
@@ -537,14 +576,16 @@
          */
         public function getAllAdministradores()
         {
-            $res = $this->conexion->query("SELECT * from Facilitador");
+            $consulta = "SELECT * from Administrador";
             $administradores = array();
             $i = 0;
 
-            while($row = mysqli_fetch_row($res))
-            {
-                $administradores[i] = new Administrador($row['nombre'],$row['tlfAdministrador'],$row['idAdministrador']);
-                $i++;
+            if ($res = $this->conexion->query($consulta)) {
+                while ($row = $res->fetch_assoc()) 
+                {
+                    $administradores[$i] = new Administrador($row['nombre'],$row['tlfAdministrador'],$row['idAdministrador']);
+                    $i++;
+                }
             }
 
             return $administradores;
@@ -561,7 +602,7 @@
          */
         public function registrarPersonas($nombrePersona,$telefono,$pass)
         {
-            $nombrePersona = $this->conexion->real_escape_string($nombreFacilitador);
+            $nombrePersona = $this->conexion->real_escape_string($nombrePersona);
             $telefono = $this->conexion->real_escape_string($telefono);
             $pass = $this->conexion->real_escape_string($pass);
 
@@ -617,9 +658,9 @@
          * @return resultado True en caso de eliminación False en caso contrario
          */
         public function eliminarPersona($idPersona)
-        {
+        {   
             $res = $this->conexion->query("DELETE FROM Persona WHERE idPersona=$idPersona") ;
-
+            
             return $res;
         }
 
@@ -660,11 +701,22 @@
          */
         public function modificarPersona($idPersona,$nombrePersona,$telefono,$pass)
         {
+            var_dump($idPersona);
+            var_dump($pass);
+            var_dump($telefono);
+
             $nombrePersona = $this->conexion->real_escape_string($nombrePersona);
             $telefono = $this->conexion->real_escape_string($telefono);
-            $pass = $this->conexion->real_escape_string($pass);
-            //FALTA HASHEAR contraseña
-            $res =  $this->conexion->query("UPDATE Persona SET  nombre='$nombrePersona' contraseña='$pass',tlfPersona='$telefono'  WHERE idPersona='$idPersona'");
+
+            if($pass != "")
+            {
+                $res =  $this->conexion->query("UPDATE Persona SET  nombre='$nombrePersona',tlfPersona='$telefono'  WHERE idPersona='$idPersona'");
+            }
+            else
+            {
+                $pass = $this->conexion->real_escape_string($pass);
+                $res =  $this->conexion->query("UPDATE Persona SET  nombre='$nombrePersona' contraseña='$pass',tlfPersona='$telefono'  WHERE idPersona='$idPersona'");
+            }
 
             return $res;
         }
@@ -682,9 +734,16 @@
         {
             $nombreFacilitador = $this->conexion->real_escape_string($nombreFacilitador);
             $telefono = $this->conexion->real_escape_string($telefono);
-            $pass = $this->conexion->real_escape_string($pass);
-            //FALTA HASHEAR contraseña
-            $res = $this->conexion->query("UPDATE Facilitador SET idPersona='$idFacilitador', tlfFacilitador='$telefono', nombre='$nombreFacilitador', contraseña='$pass' WHERE idPersona='$idFacilitador'");
+            if(!isset($pass))
+            {
+                
+                $res = $this->conexion->query("UPDATE Facilitador SET idPersona='$idFacilitador', tlfFacilitador='$telefono', nombre='$nombreFacilitador' WHERE idPersona='$idFacilitador'");
+            }
+            else
+            {
+                $pass = $this->conexion->real_escape_string($pass);
+                $res = $this->conexion->query("UPDATE Facilitador SET idPersona='$idFacilitador', tlfFacilitador='$telefono', nombre='$nombreFacilitador', contraseña='$pass' WHERE idPersona='$idFacilitador'");
+            }
 
             return $res;
         }
@@ -702,10 +761,18 @@
         {
             $nombreAdministrador = $this->conexion->real_escape_string($nombreAdministrador);
             $telefono = $this->conexion->real_escape_string($telefono);
-            $pass = $this->conexion->real_escape_string($pass);
-            //FALTA HASHEAR contraseña
-            $res =  $this->conexion->query("UPDATE Administrador SET  nombre='$nombreAdministrador' contraseña='$pass',tlfPersona='$telefono'  WHERE idAdministrador='$idAdministrador'");
-
+            if(!isset($pass))
+            {
+                $res =  $this->conexion->query("UPDATE Administrador SET  nombre='$nombreAdministrador' ,tlfPersona='$telefono'  WHERE idAdministrador='$idAdministrador'");
+    
+            }
+            else
+            {
+                $pass = $this->conexion->real_escape_string($pass);
+                $res =  $this->conexion->query("UPDATE Administrador SET  nombre='$nombreAdministrador' contraseña='$pass',tlfPersona='$telefono'  WHERE idAdministrador='$idAdministrador'");
+    
+            }
+           
             return $res;
         }
 
