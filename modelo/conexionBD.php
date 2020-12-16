@@ -234,9 +234,10 @@
         {
             if ($diaSemana !== NULL) {
                 $consulta =
-                    "SELECT x.* FROM (".
-                        "SELECT *, WEEKDAY(fechaAsignacion) as diaSemana FROM Resuelve_Asigna WHERE idPersona=$idPersona".
+                    "SELECT x.*, ce.imagenAdjunta FROM (".
+                        "SELECT *, WEEKDAY(fechaResolucion) as diaSemana FROM Resuelve_Asigna WHERE idPersona=$idPersona".
                     ") AS x ".
+                    "INNER JOIN Crea_Ejercicio ce ON x.idEjercicio = ce.idEjercicio ".
                     "WHERE x.diaSemana=$diaSemana;";
             } else {
                 $consulta = "SELECT * FROM Resuelve_Asigna WHERE idPersona=" . $idPersona . ";";
@@ -248,6 +249,7 @@
                 while($row = $res->fetch_assoc())
                 {
                     $ejercicios[] = $this->getEjercicioAsignado($row['idEjercicio'],$row['idPersona'],$row['fechaAsignacion'],$row['idFacilitador']);
+                    end($ejercicios)->imagenAdjunta = $row['imagenAdjunta'];
                 }
             }
 
@@ -345,15 +347,12 @@
         {
             $exito = True;
 
-            $consulta = "INSERT INTO Resuelve_Asigna (idEjercicio,idPersona,idFacilitador,fechaAsignacion,fechaResolucion)".
+            $consulta = "INSERT IGNORE INTO Resuelve_Asigna (idEjercicio,idPersona,idFacilitador,fechaAsignacion,fechaResolucion)".
                                 "VALUES ($idEjercicio,$idPersona,$idFacilitador,NOW(),'$fechaResolucion');";
 
             if ($res = $this->conexion->query($consulta)) {
                 $exito = True;
             } else {
-                var_dump($this->conexion->error);
-                var_dump($consulta);
-                var_dump($res);
                 $exito = False;
             }
 
