@@ -33,7 +33,7 @@
       'elementos'      => $conexion->getAllEjercicios(),
       'numeroOcultos'  => 1,
       'inputOcultos'   => array('listaPersonas'),
-      'valorSubmitCheckbox' => 'Siguiente'
+      'valorSubmitCheckbox' => 'SIGUIENTE'
     );
 
     $variablesParaTwig['tipoLista'] = 'ejercicios';
@@ -60,7 +60,7 @@
       'elementos'      => $conexion->getAllPersonas(),
       'numeroOcultos'  => 1,
       'inputOcultos'   => array('asignarEjercicios'),
-      'valorSubmitCheckbox' => 'Asignar a estas Personas'
+      'valorSubmitCheckbox' => 'ASIGNAR'
     );
 
     $variablesParaTwig['listaGrupos'] = array(
@@ -71,7 +71,7 @@
       'elementos'      => $conexion->getAllGrupos(),
       'numeroOcultos'  => 2,
       'inputOcultos'   => array('asignarEjercicios','asignarGrupos'),
-      'valorSubmitCheckbox' => 'Asignar a estos Grupos'
+      'valorSubmitCheckbox' => 'ASIGNAR'
     );
 
     $variablesParaTwig['tipoLista'] = 'personas';
