@@ -4,6 +4,10 @@
     <title>Lista de Ejercicios</title>
 {% endblock %}
 
+{% block preScripts %}
+<script type="text/javascript" src="templates/js/peticionesAjax.js"></script>
+{% endblock preScripts %}
+
 {% block divClass %}
 <div class="listaejercicios">
 {% endblock %}
@@ -54,11 +58,6 @@
 
         </button>
     {% endfor %}
-    <form id="irEjercicio" action="mostrarEjercicio.php" method="post" enctype="multipart/form-data">
-        <input type="hidden" id="idEjercicio" name="idEjercicio" value="">
-        <input type="hidden" id="idFacilitador" name="idFacilitador" value="">
-        <input type="hidden" id="fechaAsignacion" name="fechaAsignacion" value="">
-    </form>
 {% else %}
     <div class="titulo">
         <h1>Ejercicios de {{ nombrePersona }}</h1>

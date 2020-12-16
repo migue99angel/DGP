@@ -7,9 +7,9 @@
     {
         private $idPersona;         //Identificador de la persona
         private $tlfPersona;        //Teléfono de una persona
-        private $nombre;     //String con el nombre de la persona
+        private $nombre;            //String con el nombre de la persona
         private $grupos;            //Array con los grupos asociados a esta persona
-        private $ejercicios;       //Array con las ejercicios asociadas a esta persona
+        private $ejercicios;        //Array con las ejercicios asociadas a esta persona
 
         /**
          * @method Constructor con todos los parámetros

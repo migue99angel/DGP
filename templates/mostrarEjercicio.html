@@ -2,8 +2,18 @@
 
 {% block body %}
     <div class="titulo">
-        <h1>Ejercicio {{ idEjercicio }}</h1>
+        <h1>Ejercicio: {{ ejercicio.titulo }}</h1>
     </div>
+
+    <div class="ejercicio">
+
+        <p><strong>Descripcion: </strong><em>{{ ejercicio.descripcion }}</em></p>
+        <p><strong>Fecha asignación: </strong><em>{{ ejercicio.fechaAsignacion }}</em></p>
+        
+        <p><strong>Texto: </strong><em>{{ ejercicio['texto'] }}</em></p>
+        <p><strong>Valoración de la Persona al ejercicio: </strong><em>{{ ejercicio['valoracionPersona'] }}</em></p>
+        <p><strong>Archivo Adjunto: </strong><em>{{ ejercicio['archivoAdjuntoSolucion'] }}</em></p>
+      </div>
 
     {% block errores %}
     {% embed "errores.html" %}{% endembed %}

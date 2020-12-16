@@ -14,10 +14,12 @@
 </div>
 
 <div class="ejercicio">
-  <p><strong>Persona: </strong><em>{{ ejercicio['idPersona'] }}</em></p>
-  <p><strong>Fecha: </strong><em>{{ ejercicio['fechaResolucion'] }}</em></p>
+  <p><strong>Realizado por: </strong><em>{{ autor.nombre }}</em></p>
+  <p><strong>Fecha resolución: </strong><em>{{ ejercicio['fechaResolucion'] }}</em></p>
+  <p><strong>Fecha asignación: </strong><em>{{ ejercicio['fechaAsignacion'] }}</em></p>
+  <p><strong>Título del ejercicio: </strong><em>{{ enunciado.titulo }}</em></p>
   <p><strong>Texto: </strong><em>{{ ejercicio['texto'] }}</em></p>
-  <p><strong>Valoración de la Persona: </strong><em>{{ ejercicio['valoracionPersona'] }}</em></p>
+  <p><strong>Valoración de la Persona al ejercicio: </strong><em>{{ ejercicio['valoracionPersona'] }}</em></p>
   <p><strong>Archivo Adjunto: </strong><em>{{ ejercicio['archivoAdjuntoSolucion'] }}</em></p>
 </div>
 
@@ -33,7 +35,7 @@
     <!-- Añadir JS para que muestre el valor actual del rango -->
 
     <label for="multimedia">Imagen o vídeo explicativo</label><br>
-    <input type="file" name="multimedia" required/><br><br>
+    <input type="file" name="multimedia" /><br><br>
     <input type="submit" value="CORREGIR" />
 </form>
 </div>

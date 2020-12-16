@@ -21,11 +21,14 @@ var ejercicios = document.getElementsByClassName('reiniciarBoton previewEjercici
 if (ejercicios.length > 0) {
     for (const ej of ejercicios) {
         ej.addEventListener('click', (event) => {
-            document.getElementById('idEjercicio').value = ej.getAttribute('id').trim();
-            document.getElementById('idFacilitador').value = ej.getAttribute('data-idfacilitador').trim();
-            document.getElementById('fechaAsignacion').value = ej.getAttribute('data-fechaasignacion').trim();
+            var idEjercicio = ej.getAttribute('id').trim();
+            var idFacilitador = ej.getAttribute('data-idfacilitador').trim();
+            var fechaAsignacion = ej.getAttribute('data-fechaasignacion').trim();
 
-            document.getElementById('irEjercicio').submit();
+            var script = 'http://localhost/ajax/cargarEjercicioAsignado.php';
+            var redireccion = 'http://localhost/mostrarEjercicio.php';
+            var params = `idEjercicio=${idEjercicio}&idFacilitador=${idFacilitador}&fechaAsignacion=${fechaAsignacion}`;
+            peticionAjaxRedireccion(script,redireccion,params);
         });
     }
 }

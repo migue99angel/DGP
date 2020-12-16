@@ -12,30 +12,36 @@
     $variablesParaTwig['botonAtras'] = true;
     $variablesParaTwig['paginaAnterior'] = "listaEjercicios.php";
 
-    $vieneDePost = NULL;
+    if (isset($_SESSION['ejercicioAsignado'])) {
+        $variablesParaTwig['idEjercicio'] = $_SESSION['ejercicioAsignado']->getIdEjercicio();
+        $ejercicio = $conexion->cargarEjercicio($_SESSION['ejercicioAsignado']->getIdEjercicio());
+        var_dump($ejercicio);
+        $variablesParaTwig['ejercicio'] = $ejercicio;
+        $variablesParaTwig['enunciado'] = $conexion->getEjercicio($_SESSION['ejercicioAsignado']->getIdEjercicio());
 
-    if (isset($_POST['idEjercicio'])) {
-        $vieneDePost = true;
-    } else if (isset($_SESSION['ejercicioAsignado'])) {
-        $vieneDePost = false;
+  
+
+        //Pueden darse 3 casos
+        // 0 - > El ejercicio está asignado pero no está resuelto
+        // 1 - > El ejercicio está resuelto, pero no está corregido
+        // 2 - > El ejercicio está resuelto y corregido
+        $estadoEjercicio = $conexion->obtenerEstadoEjercicio($variablesParaTwig['idEjercicio'],$_SESSION['persona']->getIdPersona());
+        switch($estadoEjercicio)
+        {
+            case 0:
+            break;
+
+            case 1:
+            break;
+
+            case 2:
+            break;
+        }
     } else {
         $variablesParaTwig['errores'] = array('No se ha podido cargar el ejercicio');
     }
 
-    if ($vieneDePost !== NULL) {
-        if ($vieneDePost) {
-            $_SESSION['ejercicioAsignado'] = new Asigna($_POST['idEjercicio'],$_POST['idFacilitador'],
-                                             $_SESSION['persona']->getIdPersona(),$_POST['fechaAsignacion']);
 
-            $variablesParaTwig['idEjercicio'] = $_POST['idEjercicio'];
-            // Por si sirve
-            $ejercicio = $conexion->cargarEjercicio($_POST['idEjercicio']);
-        } else {
-            $variablesParaTwig['idEjercicio'] = $_SESSION['ejercicioAsignado']->getIdEjercicio();
-            // Por si sirve
-            $ejercicio = $conexion->cargarEjercicio($_SESSION['ejercicioAsignado']->getIdEjercicio());
-        }
-    }
 
     echo $twig->render('mostrarEjercicio.html', $variablesParaTwig);
 
