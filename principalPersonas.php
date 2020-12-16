@@ -8,7 +8,7 @@
 
   $variablesParaTwig = [];
   session_start();
-  if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['persona']) && isset($_POST['cerrarSesion']))
+  if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_SESSION['persona']) && isset($_GET['cerrarSesion']))
   {
     session_destroy();
     header("Location: loginPersonas.php");
