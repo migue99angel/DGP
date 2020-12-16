@@ -887,7 +887,7 @@
         }
 
         public function getEjercicioAsignado($idEjercicio, $idPersona, $fechaAsignacion, $idFacilitador) {
-            $consulta = "SELECT Resuelve_Asigna.idEjercicio, Resuelve_Asigna.fechaAsignacion, Resuelve_Asigna.idFacilitador, Resuelve_Asigna.idPersona, Crea_Ejercicio.titulo, Facilitador.nombre AS nombreFacilitador, Persona.nombre AS nombrePersona FROM Resuelve_Asigna, Crea_Ejercicio, Facilitador, Persona WHERE Resuelve_Asigna.idEjercicio = Crea_Ejercicio.idEjercicio AND Resuelve_Asigna.idFacilitador = Facilitador.idFacilitador AND Resuelve_Asigna.idPersona = Persona.idPersona AND Resuelve_Asigna.idEjercicio = '$idEjercicio' AND Resuelve_Asigna.idPersona = '$idPersona' AND Resuelve_Asigna.fechaAsignacion = '$fechaAsignacion' AND Resuelve_Asigna.idFacilitador = '$idFacilitador';";
+            $consulta = "SELECT Resuelve_Asigna.idEjercicio, Resuelve_Asigna.fechaAsignacion, Resuelve_Asigna.idFacilitador, Resuelve_Asigna.idPersona, Crea_Ejercicio.titulo, Facilitador.nombre AS nombreFacilitador, Persona.nombre AS nombrePersona, Resuelve_Asigna.fechaResolucion, Resuelve_Asigna.valoracionPersona, Resuelve_Asigna.archivoAdjuntoSolucion FROM Resuelve_Asigna, Crea_Ejercicio, Facilitador, Persona WHERE Resuelve_Asigna.idEjercicio = Crea_Ejercicio.idEjercicio AND Resuelve_Asigna.idFacilitador = Facilitador.idFacilitador AND Resuelve_Asigna.idPersona = Persona.idPersona AND Resuelve_Asigna.idEjercicio = '$idEjercicio' AND Resuelve_Asigna.idPersona = '$idPersona' AND Resuelve_Asigna.fechaAsignacion = '$fechaAsignacion' AND Resuelve_Asigna.idFacilitador = '$idFacilitador';";
             $asignado = new Asigna();
 
             if($res = $this->conexion->query($consulta))
@@ -900,15 +900,17 @@
                 $titulo = $row['titulo'];
                 $nombreFacilitador = $row['nombreFacilitador'];
                 $nombrePersona = $row['nombrePersona'];
-                $asignado = new Asigna($idEjercicio, $idFacilitador, $idPersona, $fechaAsignacion, $titulo, $nombreFacilitador, $nombrePersona);
-                echo("<script>console.log('PHP: getEjercicioAsignado " . $asignado->getIdEjercicio() . " " . $asignado->getIdFacilitador() . " " . $asignado->getIdPersona() . " " . $fechaAsignacion . " " . $titulo . " " . $nombreFacilitador . " " . $nombrePersona . "');</script>");
+                $fechaResolucion = $row['fechaResolucion'];
+	        $valoracionPersona = $row['valoracionPersona'];
+	        $archivoAdjuntoSolucion = $row['archivoAdjuntoSolucion'];
+                $asignado = new Asigna($idEjercicio, $idFacilitador, $idPersona, $fechaAsignacion, $titulo, $nombreFacilitador, $nombrePersona, $fechaResolucion, $valoracionPersona, $archivoAdjuntoSolucion);
             }
 
             return $asignado;
         }
 
         public function getAllEjerciciosAsignados() {
-            $consulta = "SELECT Resuelve_Asigna.idEjercicio, Resuelve_Asigna.fechaAsignacion, Resuelve_Asigna.idFacilitador, Resuelve_Asigna.idPersona, Crea_Ejercicio.titulo, Facilitador.nombre AS nombreFacilitador, Persona.nombre AS nombrePersona FROM Resuelve_Asigna, Crea_Ejercicio, Facilitador, Persona WHERE Resuelve_Asigna.idEjercicio = Crea_Ejercicio.idEjercicio AND Resuelve_Asigna.idFacilitador = Facilitador.idFacilitador AND Resuelve_Asigna.idPersona = Persona.idPersona;";
+            $consulta = "SELECT Resuelve_Asigna.idEjercicio, Resuelve_Asigna.fechaAsignacion, Resuelve_Asigna.idFacilitador, Resuelve_Asigna.idPersona, Crea_Ejercicio.titulo, Facilitador.nombre AS nombreFacilitador, Persona.nombre AS nombrePersona FROM Resuelve_Asigna, Crea_Ejercicio, Facilitador, Persona WHERE Resuelve_Asigna.idEjercicio = Crea_Ejercicio.idEjercicio AND Resuelve_Asigna.idFacilitador = Facilitador.idFacilitador AND Resuelve_Asigna.idPersona = Persona.idPersona ORDER BY titulo, nombrePersona, fechaResolucion;";
 
             $asignados = array();
             $i = 0;
@@ -916,7 +918,22 @@
             if ($res = $this->conexion->query($consulta)) {
                 while ($fila = $res->fetch_assoc()) {
                     $asignados[] = $this->getEjercicioAsignado($fila['idEjercicio'], $fila['idPersona'], $fila['fechaAsignacion'], $fila['idFacilitador']);
-                    echo("<script>console.log('PHP: GetAllEjerciciosAsignados " . count($asignados) . " - " . $asignados[$i]->getIdEjercicio() . " " . $asignados[$i]->getIdFacilitador() . " " . $asignados[$i]->getIdPersona() . " " . $asignados[$i]->getFechaAsignacion() . " " . $asignados[$i]->getTitulo() . " " . $asignados[$i]->getNombreFacilitador() . " " . $asignados[$i]->getNombrePersona() . "');</script>");
+                    $i++;
+                }
+            }
+
+            return $asignados;
+        }
+        
+        public function getAllEjerciciosAsignadosByFacilitador($idFacilitador) {
+            $consulta = "SELECT Resuelve_Asigna.idEjercicio, Resuelve_Asigna.fechaAsignacion, Resuelve_Asigna.idFacilitador, Resuelve_Asigna.idPersona, Crea_Ejercicio.titulo, Facilitador.nombre AS nombreFacilitador, Persona.nombre AS nombrePersona FROM Resuelve_Asigna, Crea_Ejercicio, Facilitador, Persona WHERE Resuelve_Asigna.idFacilitador = '$idFacilitador' AND Resuelve_Asigna.idEjercicio = Crea_Ejercicio.idEjercicio AND Resuelve_Asigna.idFacilitador = Facilitador.idFacilitador AND Resuelve_Asigna.idPersona = Persona.idPersona ORDER BY titulo, nombrePersona, fechaResolucion;";
+
+            $asignados = array();
+            $i = 0;
+
+            if ($res = $this->conexion->query($consulta)) {
+                while ($fila = $res->fetch_assoc()) {
+                    $asignados[] = $this->getEjercicioAsignado($fila['idEjercicio'], $fila['idPersona'], $fila['fechaAsignacion'], $fila['idFacilitador']);
                     $i++;
                 }
             }
