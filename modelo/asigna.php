@@ -12,6 +12,9 @@
 		private $titulo;			//Titulo del ejercicio
 		private $nombreFacilitador;	//Nombre del Facilitador
 		private $nombrePersona;		//Nombre de la persona
+		private $fechaResolucion;	//Fecha de resolución
+		private $valoracionPersona;	//Valoración del ejercicio
+		private $archivoAdjuntoSolucion;	//Archivo adjunto a la solución
 		
 		/**
 		 * @method Constructor con parámetros y sin parámetros
@@ -23,8 +26,11 @@
 		 * @param titulo
 		 * @param nombreFacilitador
 		 * @param nombrePersona
+		 * @param fechaResolucion
+		 * @param valoracionPersona
+		 * @param archivoAdjuntoSolucion
 		 */
-		public function __construct($idEjercicio=-1, $idFacilitador=-1, $idPersona=-1, $fechaAsignacion="", $titulo="", $nombreFacilitador="", $nombrePersona="")
+		public function __construct($idEjercicio=-1, $idFacilitador=-1, $idPersona=-1, $fechaAsignacion="", $titulo="", $nombreFacilitador="", $nombrePersona="", $fechaResolucion="", $valoracionPersona="", $archivoAdjuntoSolucion="")
 		{
 			$this->idEjercicio = $idEjercicio;
 			$this->idFacilitador = $idFacilitador;
@@ -178,31 +184,61 @@
 			$this->nombrePersona = $nombrePersona;
 		}
 		
+		/**
+		 * @method getFechaResolucion Devuelve la fecha de resolución
+		 * @author José María Gómez García
+		 * @return fechaResolucion
+		 */
 		public function getFechaResolucion()
 		{
 			return $this->fechaResolucion;
 		}
 		
+		/**
+		 * @method setFechaResolucion Asigna la fecha de resolución
+		 * @author José María Gómez García
+		 * @param fechaResolucion
+		 */
 		public function setFechaResolucion($fechaResolucion)
 		{
 			$this->fechaResolucion = $fechaResolucion;
 		}
 		
+		/**
+		 * @method getValoracionPersona Devuelve la valoración
+		 * @author José María Gómez García
+		 * @return valoracionPersona
+		 */
 		public function getValoracionPersona()
 		{
 			return $this->valoracionPersona;
 		}
 		
+		/**
+		 * @method setValoracionPersona Asigna la valoración
+		 * @author José María Gómez García
+		 * @param valoracionPersona
+		 */
 		public function setValoracionPersona($valoracionPersona)
 		{
 			$this->valoracionPersona = $valoracionPersona;
 		}
 		
+		/**
+		 * @method getArchivoAdjuntoSolucion Devuelve el archivo adjunto
+		 * @author José María Gómez García
+		 * @return archivoAdjuntoSolucion
+		 */
 		public function getArchivoAdjuntoSolucion()
 		{
 			return $this->archivoAdjuntoSolucion;
 		}
 		
+		/**
+		 * @method setArchivoAdjuntoSolucion Asigna el archivo adjunto
+		 * @author José María Gómez García
+		 * @param archivoAdjuntoSolucion
+		 */
 		public function setArchivoAdjuntoSolucion($archivoAdjuntoSolucion)
 		{
 			$this->archivoAdjuntoSolucion = $archivoAdjuntoSolucion;
