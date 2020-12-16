@@ -460,11 +460,12 @@
          * @author Francisco Domínguez Lorente
          * @return ejercicios Array de los ejercicios resueltos que no han sido corregidos
          */
-        public function cargarEjerciciosResueltos()
+        public function cargarEjerciciosResueltos($idFacilitador)
         {
-            $consulta = "SELECT *, Persona.nombre FROM Resuelve_Asigna INNER JOIN Persona ON Resuelve_Asigna.idPersona = Persona.idPersona
+            $consulta = "SELECT *, Persona.nombre FROM Resuelve_Asigna
+            INNER JOIN Persona ON Resuelve_Asigna.idPersona = Persona.idPersona
             WHERE NOT EXISTS (SELECT 1 FROM Corrige WHERE Resuelve_Asigna.idEjercicio = Corrige.idEjercicio
-            AND Resuelve_Asigna.idPersona = Corrige.idPersona)";
+            AND Resuelve_Asigna.idPersona = Corrige.idPersona) AND idFacilitador = '". $idFacilitador ."'";
 
             $ejercicios = array();
             if($res = $this->conexion->query($consulta))
