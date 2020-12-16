@@ -19,7 +19,6 @@
   if (isset($_POST['elementos'])) {
     foreach ($_POST['elementos'] as $ejercicio) {
       $ejerciciosDesasignar[] = $ejercicio;
-      echo("<script>console.log('PHP: EJERCICIOaefsefsg " . $ejercicio . "');</script>");
     }
     $_SESSION['ejerciciosDesasignar'] = $ejerciciosDesasignar;
   } else {
@@ -28,14 +27,13 @@
   
   if (isset($_SESSION['ejerciciosDesasignar'])) {
     foreach ($_SESSION['ejerciciosDesasignar'] as $ejercicio) {
-    	echo("<script>console.log('PHP: EJERCICIO " . $ejercicio . "');</script>");
       $datos = explode('&', $ejercicio);
       $resultado = $conexion->desasignarEjercicio($datos[0], $datos[1], $datos[2], $datos[3]);
     }
     unset($_SESSION['ejerciciosDesasignar']);
   }
   
-  $res = $conexion->getAllEjerciciosAsignados();
+  $res = $conexion->getAllEjerciciosAsignadosByFacilitador($_SESSION['facilitador']->getidFacilitador());
 
   $variablesParaTwig['lista'] = array(
     'accionCheckbox' => 'desasignarEjercicio.php',
@@ -43,8 +41,6 @@
     'encCheckbox'    => 'multipart/form-data',
     'tituloLista'    => 'Lista de Ejercicios Asignados',
     'elementos'      => $res,
-    //'numeroOcultos'  => 0,
-    //'inputOcultos'   => array('listaPersonas'),
     'valorSubmitCheckbox' => 'Desasignar ejercicios'
   );
   
