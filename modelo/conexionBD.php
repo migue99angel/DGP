@@ -96,7 +96,7 @@
          */
         public function cargarPersonasFueraGrupo($idGrupo)
         {
-            $consulta = "SELECT * from Persona WHERE idPersona not in (select idPersona from Pertence where idGrupo=$idGrupo)";
+            $consulta = "SELECT * from Persona WHERE idPersona not in (select idPersona from Pertenece where idGrupo=$idGrupo)";
             $personas = array();
             $i = 0;
             echo("test");
@@ -120,7 +120,7 @@
          */
         public function cargarPersonasGrupo($idGrupo)
         {
-            $consulta = "SELECT * from Pertence WHERE idGrupo=$idGrupo";
+            $consulta = "SELECT * from Pertenece WHERE idGrupo=$idGrupo";
             $personas = array();
             $i = 0;
             if($res = $this->conexion->query($consulta))
@@ -758,7 +758,7 @@
          */
         public function eliminarDeGrupo($idGrupo,$idPersona)
         {
-          $res = $this->conexion->query("DELETE FROM Pertence WHERE idGrupo=$idGrupo && idPersona=$idPersona") ;
+          $res = $this->conexion->query("DELETE FROM Pertenece WHERE idGrupo=$idGrupo && idPersona=$idPersona") ;
           return $res;
         }
 
