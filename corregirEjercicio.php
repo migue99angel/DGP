@@ -60,7 +60,9 @@
     }
   }
 
-  $variablesParaTwig = ['ejercicio' => $ejercicio, 'idEjercicio' => $_GET['idEjercicio'], 'idPersona' => $_GET['idPersona'], 'autor' => $autor, 'enunciado' => $enunciado];
+  $paginaAnterior = 'listaEjercicios.php';
+  $variablesParaTwig = ['ejercicio' => $ejercicio, 'idEjercicio' => $_GET['idEjercicio'], 'idPersona' => $_GET['idPersona'], 'autor' => $autor,
+  'enunciado' => $enunciado, 'botonAtras' => true, 'paginaAnterior' => $paginaAnterior];
 
   echo $twig->render('corregirEjercicio.html', $variablesParaTwig);
 

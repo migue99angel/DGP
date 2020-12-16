@@ -14,15 +14,16 @@
 
 {% block body %}
 
+<div class="titulo">
+    <h1>LISTA DE EJERCICIOS RECIBIDOS</h1>
+</div>
+
 {% if esFacilitador %}
     {% for ej in ejercicios %}
-        <div class="titulo">
-            <h1>LISTA DE EJERCICIOS RECIBIDOS</h1>
-        </div>
         <div class="ejercicio">
             <!-- No entiendo por que hay que poner aqui el nombre de la persona -->
             <p><strong>Persona: </strong><em>{{ ej['nombre'] }}</em></p>
-            <p><strong>Fecha: </strong><em>{{ ej['fechaResolucion'] }}</em></p>
+            <p><strong>Fecha: </strong><em>{{ ej['fechaResolucion']|date("d/m/Y") }}</em></p>
             <div class="botonesPrincipales">
                 <!-- Habrá que concatenarle a la URL el ID del ejercicio para que se cargue -->
                 <!-- Sólo corrige el ejercicio si es facilitador -->
