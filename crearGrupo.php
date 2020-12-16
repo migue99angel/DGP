@@ -15,7 +15,7 @@
   $ejerciciosAsignar = array();
 
   if(!isset($_POST['nombre'])){
-    $variablesParaTwig['paginaAnterior'] = 'principalFacilitador.php';
+    $variablesParaTwig['paginaAnterior'] = 'administracionGrupo.php';
     $variablesParaTwig['seleccionMiembros'] = False;
 
   }

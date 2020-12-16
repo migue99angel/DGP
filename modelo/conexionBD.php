@@ -89,6 +89,53 @@
         }
 
         /**
+         * @method cargarPersonasFueraGrupo obtiene todas las personas que no están en ese grupo
+         * @author Sergio Campos Megías
+         * @param idGrupo El identificador del grupo
+         * @return personas Array con las personas que no están en este grupo
+         */
+        public function cargarPersonasFueraGrupo($idGrupo)
+        {
+            $consulta = "SELECT * from Persona WHERE idPersona not in (select idPersona from Pertence where idGrupo=$idGrupo)";
+            $personas = array();
+            $i = 0;
+            echo("test");
+            if($res = $this->conexion->query($consulta))
+            {
+                while($row = $res->fetch_assoc())
+                {
+                    $personas[$i] = $this->cargarPersona($row['idPersona']);
+                    $i += 1;
+                }
+            }
+
+            return $personas;
+        }
+
+        /**
+         * @method cargarPersonasGrupo obtiene todas las personas correspondientes a un grupo
+         * @author Sergio Campos Megías
+         * @param idGrupo El identificador del grupo que se va a cargar
+         * @return personas Array con las personas del grupo
+         */
+        public function cargarPersonasGrupo($idGrupo)
+        {
+            $consulta = "SELECT * from Pertence WHERE idGrupo=$idGrupo";
+            $personas = array();
+            $i = 0;
+            if($res = $this->conexion->query($consulta))
+            {
+                while($row = $res->fetch_assoc())
+                {
+                    $personas[$i] = $this->cargarPersona($row['idPersona']);
+                    $i += 1;
+                }
+            }
+
+            return $personas;
+        }
+
+        /**
          * @method getAllPersonas devuelve un array con todos los personas
          * @author Miguel Ángel Posadas Arráez y Darío Megías Guerrero
          * @return personas Array de objetos persona
@@ -690,6 +737,32 @@
         }
 
         /**
+         * @method eliminarGrupo Elimina un grupo y todas sus relaciones pertenece asociadas de la base de datos
+         * @author Sergio Campos Megias
+         * @param idGrupo
+         * @return resultado True en caso de eliminación False en caso contrario
+         */
+        public function eliminarGrupo($idGrupo)
+        {
+            $res = $this->conexion->query("DELETE FROM Pertenece WHERE idGrupo=$idGrupo") ;
+            $res = $this->conexion->query("DELETE FROM Crea_Grupo WHERE idGrupo=$idGrupo") ;
+            return $res;
+        }
+
+        /**
+         * @method eliminarDeGrupo Elimina una relación pertenece de la base de datos
+         * @author Sergio Campos Megias
+         * @param idGrupo
+         * @param idPersona
+         * @return resultado True en caso de eliminación False en caso contrario
+         */
+        public function eliminarDeGrupo($idGrupo,$idPersona)
+        {
+          $res = $this->conexion->query("DELETE FROM Pertence WHERE idGrupo=$idGrupo && idPersona=$idPersona") ;
+          return $res;
+        }
+
+        /**
          * @method modificarPersona Modifica los datos de una persona en la base de datos
          * @author Miguel Ángel Posadas Arráez
          * @param idPersona
@@ -769,6 +842,21 @@
                 $res =  $this->conexion->query("UPDATE Administrador SET  nombre='$nombreAdministrador' ,contraseña='$pass',tlfAdministrador='$telefono'  WHERE idAdministrador='$idAdministrador'");
 
             }
+
+            return $res;
+        }
+
+        /**
+         * @method modificarGrupo Modifica los datos de un grupo en la base de datos
+         * @author Sergio Campos Megias
+         * @param idGrupo
+         * @param nombreGrupo
+         * @return resultado True en caso de modificación correcta False en caso contrario
+         */
+        public function modificarGrupo($idGrupo,$nombreGrupo)
+        {
+            $nombreGrupo = $this->conexion->real_escape_string($nombreGrupo);
+            $res =  $this->conexion->query("UPDATE Crea_Grupo SET  nombre='$nombreGrupo' WHERE idGrupo='$idGrupo'");
 
             return $res;
         }

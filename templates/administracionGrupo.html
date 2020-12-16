@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+<title>Gestión de Grupos</title>
+{% endblock %}
+
+{% block body %}
+<div class="contenedorListaCheckbox">
+    <form action="{{ lista.accionCheckbox }}" method="post"  enctype="{{ lista.encCheckbox }}">
+        <div class="tituloLista">
+            <p>Lista de grupos</p>
+        </div>
+
+        <div class="listaCheckbox">
+
+          {% for elemento in lista %}
+            <div>
+              <input type="hidden" name="id" value="{{ elemento.idGrupo }}">
+              <input type=image src="templates/img/pencil.png" formaction="modificarGrupo.php?id={{elemento.idGrupo}}">
+              <input type=image src="templates/img/borrar.png" formaction="eliminarGrupo.php?id={{elemento.idGrupo}}">
+              <label name="elemnto"> Nombre: {{ elemento.nombreGrupo }} </label> <br>
+            </div>
+          {% endfor %}
+        </div>
+    </form>
+</div>
+
+<div class="botonesPrincipales">
+  <a href="crearGrupo.php" class="button">Crear un nuevo grupo</a>
+</div>
+
+{% endblock %}
