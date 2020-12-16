@@ -26,7 +26,7 @@
     {% if ejercicio['archivoAdjuntoSolucion'] ends with '.png' or ejercicio['archivoAdjuntoSolucion'] ends with '.jpg' or ejercicio['archivoAdjuntoSolucion'] ends with '.jpeg' %}
       <p><img src="{{ ejercicio['archivoAdjuntoSolucion'] }}" alt="Fotografía de la resolución" width="35%" height="35%"></p>
     {% elseif ejercicio['archivoAdjuntoSolucion'] ends with '.mp4' %}
-    <video width="35%" height="35%" controls>
+    <video width="75%" height="75%" controls>
       <source src="{{ ejercicio['archivoAdjuntoSolucion'] }}" type="video/mp4">
       Your browser does not support the video tag.
     </video>
