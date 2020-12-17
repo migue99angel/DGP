@@ -1,0 +1,16 @@
+[
+    {
+        "tipo": "texto",
+        "emisor": {"tipo":"persona","id":6,"nombre":"Consuelo"},
+        "fechaEmision": "2020-12-02 22:41",
+        "contenido": "Hola, buenos días",
+        "rutaMultimedia": ""
+    },
+    {
+        "tipo": "texto",
+        "emisor": {"tipo":"facilitador","id":3,"nombre":"elFaci"},
+        "fechaEmision": "2020-12-02 23:41",
+        "contenido": "¿Qué tal?",
+        "rutaMultimedia": ""
+    }
+]
