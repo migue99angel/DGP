@@ -462,9 +462,10 @@
          */
         public function cargarEjerciciosResueltos($idFacilitador)
         {
-            $consulta = "SELECT *, Persona.nombre FROM Resuelve_Asigna
-            INNER JOIN Persona ON Resuelve_Asigna.idPersona = Persona.idPersona
-            WHERE NOT EXISTS (SELECT 1 FROM Corrige WHERE Resuelve_Asigna.idEjercicio = Corrige.idEjercicio
+
+            $consulta = "SELECT * FROM Resuelve_Asigna  INNER JOIN Persona ON Resuelve_Asigna.idPersona = Persona.idPersona
+            WHERE (Resuelve_Asigna.texto IS NOT NULL OR Resuelve_Asigna.valoracionPersona IS NOT NULL OR Resuelve_Asigna.archivoAdjuntoSolucion IS NOT NULL)
+            AND NOT EXISTS (SELECT * FROM Corrige WHERE Resuelve_Asigna.idEjercicio = Corrige.idEjercicio
             AND Resuelve_Asigna.idPersona = Corrige.idPersona) AND idFacilitador = '". $idFacilitador ."'";
 
             $ejercicios = array();
@@ -475,7 +476,7 @@
                     $ejercicios[] = $row;
                 }
             }
-
+            var_dump($this->conexion->error);
             return $ejercicios;
         }
 
@@ -1026,32 +1027,89 @@
          * @return 1 Si el ejercicio está asignado y resuelto 
          * @return 2 Si el ejercicio está corregido 
          */
-        public function obtenerEstadoEjercicio($idEjecicio, $idPersona)
+        public function obtenerEstadoEjercicio($idEjercicio, $idPersona)
         {
-            $consultaResolucion = "SELECT * from Resuelve_Asigna WHERE idEjercicio=" . $idEjercicio . "idPersona=" . $idPersona . ";";
-            $consultaCorrecion = "SELECT * from Corrige WHERE idEjercicio=" . $idEjercicio . "idPersona=" . $idPersona . ";";
+            $consultaResolucion = "SELECT * FROM Resuelve_Asigna WHERE idEjercicio ='$idEjercicio' AND idPersona = '$idPersona'";
+            $consultaCorrecion = "SELECT * FROM Corrige WHERE idEjercicio ='$idEjercicio' AND idPersona = '$idPersona'";
 
             if($res = $this->conexion->query($consultaResolucion))
             {  
                 $row = $res->fetch_assoc();
                 $retorno = 0;
 
-                if($row['texto'] != NULL || $row['valoracionPersona'] != NULL || $row['archivoAdjuntoSolucion'] != NULL)
+                if(isset($row['texto'])  || isset($row['valoracionPersona']) || isset($row['archivoAdjuntoSolucion']))
                 {
                     $retorno = 1;
                     if($res = $this->conexion->query($consultaCorrecion))
                     {
+                       
                         $row2 = $res->fetch_assoc();
                         if($row2['comentario'] || $row2['archivoAdjuntoCorreccion'] || $row2['valoracionFacilitador'])
                             $retorno = 2;
                     }
+                    else
+                    {
+                        return "Error en la consulta";
+                    }
                     
                     return $retorno;
                 }
+                else
+                    return "Error en la consulta";
             }
             else
                 return "Error en la consulta";
         }
+
+        /**
+         * @method cargarCorreccionEjercicio Obtiene los datos de las correcciones del ejercicio
+         * @param idEjercicio 
+         * @param idPersona 
+         * @return Array con la informacion de la correccion
+         */
+        public function cargarCorreccionEjercicio($idEjercicio,$idPersona)
+        {
+            $consultaCorrecion = "SELECT * FROM Corrige WHERE idEjercicio ='$idEjercicio' AND idPersona = '$idPersona'";
+
+            if($res = $this->conexion->query($consultaCorrecion))
+            {
+                $row = $res->fetch_assoc();
+
+                return $row;
+                
+            }
+            else
+            {
+                return "Error el ejercicio no esta corregido";
+            }
+
+        }
+
+        /**
+         * @method resolverEjercicio Funcion para añadir la resolucion de un ejercicio a la base de datos
+         * @author Miguel Ángel Posadas Arráez
+         * @param idEjercicio
+         * @param idPersona 
+         * @param comentario Comentario sobre el ejercicio hecho por la persona
+         * @param valoracionPersona Valoracion que la persona hace sobre el ejercicio
+         * @param multimedia Respuesta al ejercicio en formato de imagen video o audio
+         * @return true or false
+         */
+        public function resolverEjercicio($idEjercicio,$idPersona,$fecha,$comentario,$valoracionPersona,$multimedia)
+        {
+
+            $consulta = "UPDATE Resuelve_Asigna SET  valoracionPersona='$valoracionPersona' ,archivoAdjuntoSolucion='$multimedia',texto='$comentario'  WHERE idPersona='$idPersona' AND idEjercicio='$idEjercicio' AND fechaAsignacion='$fecha'";
+
+            if($res = $this->conexion->query($consulta))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }   
     }
 
 
