@@ -11,6 +11,7 @@
                 {% for elemento in lista.elementos %}
                     {% if elemento.titulo != titulo %}
                         {% set titulo = elemento.titulo %}
+                        <br> 
                         <p>{{ titulo }}</p>
                     {% endif %}
                     <div>

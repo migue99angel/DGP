@@ -39,9 +39,8 @@
     'accionCheckbox' => 'desasignarEjercicio.php',
     'idCheckbox'     => 'listaEjerciciosAsignados',
     'encCheckbox'    => 'multipart/form-data',
-    'tituloLista'    => 'Lista de Ejercicios Asignados',
     'elementos'      => $res,
-    'valorSubmitCheckbox' => 'Desasignar ejercicios'
+    'valorSubmitCheckbox' => 'DESASIGNAR EJERCICIOS'
   );
   
   $variablesParaTwig['botonAtras'] = true;
