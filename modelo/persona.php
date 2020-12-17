@@ -8,6 +8,7 @@
         private $idPersona;         //Identificador de la persona
         private $tlfPersona;        //Teléfono de una persona
         private $nombre;            //String con el nombre de la persona
+        private $contraseña;        //String con la contraseña hasheada
         private $grupos;            //Array con los grupos asociados a esta persona
         private $ejercicios;        //Array con las ejercicios asociadas a esta persona
 
@@ -18,11 +19,12 @@
          * @param grupos Array con los grupos asociados a esta persona
          * @param ejercicios Array con las ejercicios asociadas a esta persona
          */
-        public function __construct($idPersona=NULL,$nombre="",$tlfPersona)
+        public function __construct($idPersona=NULL,$nombre="",$contraseña="",$tlfPersona)
         {
             $this->idPersona = $idPersona;
             $this->tlfPersona = $tlfPersona;
             $this->nombre = $nombre;
+            $this->contraseña = $contraseña;
             $this->grupos = array();
             $this->ejercicios = array();
         }
@@ -47,6 +49,28 @@
         public function setNombrePersona($nombre)
         {
             $this->nombre = $nombre;
+        }
+
+        /**
+         * Getter del atributo de clase $contraseña
+         * @method getContraseña
+         * @author Jose Luis Gallego Peña
+         * @return contraseña
+         */
+        public function getContraseña()
+        {
+            return $this->contraseña;
+        }
+
+        /**
+         * Setter del atributo de clase $contraseñ
+         * @method setContraseña
+         * @author Jose Luis Gallego Peña
+         * @param contra
+         */
+        public function setContraseña($contra)
+        {
+            $this->contraseña = $contraseña;
         }
 
         /**

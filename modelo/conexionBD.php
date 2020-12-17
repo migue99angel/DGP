@@ -43,7 +43,7 @@
             if($res = $this->conexion->query($consulta))
             {
                 $row = $res->fetch_assoc();
-                $persona = new Persona($row['idPersona'],$row['nombre'],$row['tlfPersona']);
+                $persona = new Persona($row['idPersona'],$row['nombre'],$row['contraseña'],$row['tlfPersona']);
             }
 
             return $persona;
@@ -144,7 +144,7 @@
          */
         public function getAllPersonas()
         {
-            $consulta = "SELECT idPersona,nombre from Persona ORDER BY nombre ASC";
+            $consulta = "SELECT idPersona,nombre,contraseña from Persona ORDER BY nombre ASC";
             $personas = array();
 
             if ($res = $this->conexion->query($consulta))
@@ -623,20 +623,29 @@
         /**
          * Este método requiere que el controlador parsee los datos
          * @method inicioSesionPersona método que loguea en el sistema a una Persona
-         * @author Miguel Ángel Posadas Arráez
+         * @author Miguel Ángel Posadas Arráez y Jose Luis Gallego Peña
          * @param pass String
          * @return persona Objeto de la clase Persona
          */
         public function inicioSesionPersona($pass)
         {
             $persona = null;
-            $res = $this->conexion->query("SELECT * from Persona WHERE contraseña= '". $pass ."' ");
+            $personas = $this->getAllPersonas();
 
-            if($res->num_rows > 0)
+            foreach ($personas as $p)
+            {
+                $contra = $p->getContraseña();
+                if (password_verify($pass, $contra)) 
+                {
+                    $persona = $this->cargarPersona($p->getIdPersona());
+                }
+            }
+
+            /*if($res->num_rows > 0)
             {
                 $row = $res->fetch_assoc();
                 $persona = $this->cargarPersona($row['idPersona']);
-            }
+            }*/
 
             return $persona;
         }
@@ -644,7 +653,7 @@
         /**
          * Este método requiere que el controlador parsee los datos
          * @method inicioSesionFacilitador método que loguea en el sistema a un Facilitador
-         * @author Miguel Ángel Posadas Arráez
+         * @author Miguel Ángel Posadas Arráez y Jose Luis Gallego Peña
          * @param nombreFacilitador String
          * @param pass String
          * @return facilitador Objeto de la clase Facilitador
@@ -652,12 +661,16 @@
         public function inicioSesionFacilitador($nombreFacilitador,$pass)
         {
             $facilitador = null;
-            $res = $this->conexion->query("SELECT * from Facilitador WHERE nombre='" . $nombreFacilitador . "' AND contraseña= '". $pass ."' ");
+            $res = $this->conexion->query("SELECT * from Facilitador WHERE nombre= '" . $nombreFacilitador . "'");
 
             if($res->num_rows > 0)
             {
                 $row = $res->fetch_assoc();
-                $facilitador = new Facilitador($row['nombre'],$row['tlfFacilitador'],$row['idFacilitador']);
+
+                if (password_verify($pass, $row['contraseña'])) 
+                {
+                    $facilitador = new Facilitador($row['nombre'],$row['tlfFacilitador'],$row['idFacilitador']);
+                }
             }
 
             return $facilitador;
@@ -666,7 +679,7 @@
         /**
          * Este método requiere que el controlador parsee los datos
          * @method inicioSesionAdministrador método que loguea en el sistema a un administrador
-         * @author Miguel Ángel Posadas Arráez
+         * @author Miguel Ángel Posadas Arráez y Jose Luis Gallego Peña
          * @param nombreAdministrador String
          * @param pass String
          * @return administrador Objeto de la clase administrador
@@ -675,12 +688,16 @@
         {
             $admin = null;
 
-            $res = $this->conexion->query("SELECT * FROM Administrador WHERE nombre ='$nombreAdministrador' AND contraseña = '$pass'");
+            $res = $this->conexion->query("SELECT * FROM Administrador WHERE nombre ='$nombreAdministrador'");
 
             if($res->num_rows > 0)
             {
                 $row = $res->fetch_assoc();
-                $admin = new Administrador($row['nombre'],$row['tlfAdministrador'],$row['idAdministrador']);
+
+                if (password_verify($pass, $row['contraseña']))
+                {
+                    $admin = new Administrador($row['nombre'],$row['tlfAdministrador'],$row['idAdministrador']);
+                }
             }
 
             return $admin;
@@ -746,7 +763,8 @@
         {
             $nombrePersona = $this->conexion->real_escape_string($nombrePersona);
             $telefono = $this->conexion->real_escape_string($telefono);
-            $pass = $this->conexion->real_escape_string($pass);
+            // Guardamos en la BD la contraseña encriptada
+            $pass = password_hash($this->conexion->real_escape_string($pass), PASSWORD_DEFAULT);
 
             $res = $this->conexion->query("INSERT INTO Persona (tlfPersona,nombre,contraseña) VALUES ('$telefono','$nombrePersona','$pass')" ) ;
 
@@ -766,7 +784,7 @@
         {
             $nombreFacilitador = $this->conexion->real_escape_string($nombreFacilitador);
             $telefono = $this->conexion->real_escape_string($telefono);
-            $pass = $this->conexion->real_escape_string($pass);
+            $pass = password_hash($this->conexion->real_escape_string($pass), PASSWORD_DEFAULT);
 
             $res = $this->conexion->query("INSERT INTO Facilitador (tlfFacilitador,nombre,contraseña) VALUES ('$telefono','$nombreFacilitador','$pass')" ) ;
 
@@ -786,7 +804,7 @@
         {
             $nombreAdministrador = $this->conexion->real_escape_string($nombreAdministrador);
             $telefono = $this->conexion->real_escape_string($telefono);
-            $pass = $this->conexion->real_escape_string($pass);
+            $pass = password_hash($this->conexion->real_escape_string($pass), PASSWORD_DEFAULT);
 
             $res = $this->conexion->query("INSERT INTO Administrador (tlfAdministrador,nombre,contraseña) VALUES ('$telefono','$nombreAdministrador','$pass')" ) ;
 
@@ -879,7 +897,7 @@
             }
             else
             {
-                $pass = $this->conexion->real_escape_string($pass);
+                $pass = password_hash($this->conexion->real_escape_string($pass), PASSWORD_DEFAULT);
                 $res =  $this->conexion->query("UPDATE Persona SET nombre='$nombrePersona', contraseña='$pass',tlfPersona='$telefono'  WHERE idPersona='$idPersona'");
             }
 
@@ -907,7 +925,7 @@
             }
             else
             {
-                $pass = $this->conexion->real_escape_string($pass);
+                $pass = password_hash($this->conexion->real_escape_string($pass), PASSWORD_DEFAULT);
                 $res = $this->conexion->query("UPDATE Facilitador SET tlfFacilitador='$telefono', nombre='$nombreFacilitador', contraseña='$pass' WHERE idFacilitador='$idFacilitador'");
             }
 
@@ -934,7 +952,7 @@
             }
             else
             {
-                $pass = $this->conexion->real_escape_string($pass);
+                $pass = password_hash($this->conexion->real_escape_string($pass), PASSWORD_DEFAULT);
                 $res =  $this->conexion->query("UPDATE Administrador SET  nombre='$nombreAdministrador' ,contraseña='$pass',tlfAdministrador='$telefono'  WHERE idAdministrador='$idAdministrador'");
 
             }

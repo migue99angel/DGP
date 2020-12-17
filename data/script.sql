@@ -11,4 +11,5 @@ drop table if exists Crea_Ejercicio;
 drop table if exists Facilitador;
 drop table if exists Administrador;
 drop table if exists Persona;
+drop table if exists Resuelve_Asigna;
 SET FOREIGN_KEY_CHECKS=1;
