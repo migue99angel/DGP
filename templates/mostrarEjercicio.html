@@ -8,11 +8,13 @@
     <div class="ejercicio">
 
         <p><strong>Descripcion: </strong><em>{{ ejercicio.descripcion }}</em></p>
-        <p><strong>Fecha asignación: </strong><em>{{ asigna.fechaAsignacion }}</em></p>
+        <p><strong>Fecha asignación: </strong><em>{{ asigna.fechaAsignacion|date("d/m/Y") }}</em></p>
+        <br>
 
-        {% if ejercicio.archivoAdjunto is defined %}
-          {% if ejercicio.archivoAdjunto ends with '.png' or ejercicio.archivoAdjunto ends with '.jpg' or ejercicio.archivoAdjunto ends with '.jpeg' %}
-            <p><img src="{{ ejercicio.archivoAdjunto }}" alt="Fotografía de la resolución" width="35%" height="35%"></p>
+        {% if ejercicio.imagenAdjunta is defined %}
+          {% if ejercicio.imagenAdjunta ends with '.png' or ejercicio.imagenAdjunta ends with '.jpg' or ejercicio.imagenAdjunta ends with '.jpeg' %}
+        
+            <p><img src="{{ ejercicio.imagenAdjunta }}" alt="Fotografía de la resolución" width="35%" height="35%"></p>
 
           {% endif %}
         {% endif %}
@@ -25,20 +27,68 @@
         </video>
         {% endif %}
       {% endif %}
+
+      {% if estado is defined %}
+        {% if estado == 0 %}
+        <div class="formularioCorreccion">
+          <form action="mostrarEjercicio.php?resolucion=true&idEjercicio={{ idEjercicio }}&idPersona={{ idPersona }}" method="post" id="correccion" enctype="multipart/form-data">
+              <label for="comentario"><strong>¿Algo que comentar?</strong></label><br>
+              <textarea name="comentario" ></textarea><br><br>
+             
+              <label for="valoracion">¿Te ha gustado el ejercicio? (entre 0 y 5): <span id="textInput">3</span></label><br>
+              <span>0</span> <input type="range" name="valoracion" min="0" max="5" onchange="updateTextInput(this.value);"> <span>5</span><br><br>
+          
+              <label for="multimedia">Imagen o vídeo con la solución</label><br>
+              <input type="file" name="multimedia"/><br><br>
+              <input type="submit" value="RESOLVER"/>
+          </form>
+          </div>
+          {% endif %}
+          
+          {% if estado == 1 %}
+          <p><strong>El ejercicio ya ha sido resuelto. </strong></p>
+          <p><strong>El facilitador no lo ha corregido todavia </strong></p>
+              {% if asigna.archivoAdjuntoSolucion is defined %}
+                {% if asigna.archivoAdjuntoSolucion ends with '.png' or asigna.archivoAdjuntoSolucion ends with '.jpg' or asigna.archivoAdjuntoSolucion ends with '.jpeg' %}
+                  <p><img src="{{ asigna.archivoAdjuntoSolucion }}" alt="Fotografía de la resolución" width="35%" height="35%"></p>
+                {% elseif asigna.archivoAdjuntoSolucion ends with '.mp4' %}
+                <video width="75%" height="75%" controls>
+                  <source src="{{ asigna.archivoAdjuntoSolucion }}" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                {% endif %}
+            {% endif %}
+          {% endif %}
+
+          {% if estado == 2 %}
+          <br>
+          <p><strong>Nota: </strong></p>
+          <span style="display:none" id="nota">{{ correccion.valoracionFacilitador }}</span>      
+          
+          <form id="estrellas">
+            <p class="clasificacion">
+              <span id="estrella0">★</span>
+              <span id="estrella1">★</span>
+              <span id="estrella2">★</span>
+              <span id="estrella3">★</span>
+              <span id="estrella4">★</span>
+            </p>
+          </form>
+          
+          
+          <p><strong>Comentarios facilitador:</strong> {{ correccion.comentario }}</p>
+
+          {% if correccion.archivoAdjuntoCorreccion is defined %}
+          {% if correccion.archivoAdjuntoCorreccion ends with '.png' or correccion.archivoAdjuntoCorreccion ends with '.jpg' or correccion.archivoAdjuntoCorreccion ends with '.jpeg' %}
         
-      <div class="formularioCorreccion">
-        <form action="mostrarEjercicio.php?resolucion=true&idEjercicio={{ idEjercicio }}&idPersona={{ idPersona }}" method="post" id="correccion" enctype="multipart/form-data">
-            <label for="comentario"><strong>¿Algo que comentar?</strong></label><br>
-            <textarea name="comentario" form="textosolucion" ></textarea><br><br>
-        
-            <label for="valoracion">¿Te ha gustado el ejercicio? (entre 0 y 5): <span id="textInput">3</span></label><br>
-            <span>0</span> <input type="range" form="correccion" name="valoracion" min="0" max="5" onchange="updateTextInput(this.value);"> <span>5</span><br><br>
-        
-            <label for="multimedia">Imagen o vídeo con la solución</label><br>
-            <input type="file" name="multimedia" /><br><br>
-            <input type="submit" value="RESOLVER" />
-        </form>
-        </div>
+            <p><img src="{{  correccion.archivoAdjuntoCorreccion }}" alt="Fotografía de la resolución" width="35%" height="35%"></p>
+
+          {% endif %}
+          {% endif %}
+
+          {% endif %}
+
+        {% endif %}
 
       </div>
 
@@ -55,4 +105,5 @@
 
 {% block postScripts %}
 <script type="text/javascript" src="templates/js/mostrarEjercicio.js"></script>
+<script type="text/javascript" src="templates/js/corregirEjercicio.js"></script>
 {% endblock postScripts %}
