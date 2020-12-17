@@ -149,7 +149,15 @@ textarea {
   margin-left: auto;
   margin-right: auto;
   width: 95%;
-  background-color: #F88686;
+  background-color: #75CDF7;
+}
+
+#botonAdmin {
+  background-color: #9286F8;
+}
+
+#botonFaci {
+  background-color: #75CDF7;
 }
 
 .botonFacilitadores a {

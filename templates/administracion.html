@@ -8,7 +8,12 @@
 <div class="contenedorListaCheckbox">
     <form action="{{ lista.accionCheckbox }}" method="post"  enctype="{{ lista.encCheckbox }}">
         <div class="tituloLista">
-            <p>Lista de {{ tipoUsuario }}es</p>
+            {% if tipoUsuario == "Facilitador" or tipoUsuario == "Administrador" %}
+                <p>Lista de {{ tipoUsuario }}es</p>
+            {% endif %}
+            {% if tipoUsuario == "Persona" %}
+                <p>Lista de Personas</p>
+            {% endif %}
         </div>
         <div class="listaCheckbox">
             {% if tipoUsuario == "Facilitador" %}
