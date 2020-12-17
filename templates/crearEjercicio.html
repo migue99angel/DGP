@@ -26,10 +26,10 @@
 {% endif %}
 
 <form method="post" id="addejercicio" enctype="multipart/form-data">
-    Titulo del Ejercicio<br> <input type="text" name="titulo" required/><br><br>
-    Descripción<br> <textarea name="descripcion" form="addejercicio" required></textarea><br><br>
-    Imagen<br> <input type="file" name="imagen" accept=".jpg,.jpeg,.png" required/><br><br>
-    Vídeo o audio explicativo<br> <input type="file" name="multimedia" accept=".avi,.mov,.flv,.mp4,.mkv,.wmv,.mp3,.wav,.aiff,.wma,.flac"/><br><br>
+    <p>Titulo del Ejercicio</p> <input class="inputTitulo" type="text" name="titulo" required/><br><br>
+    <p>Descripción</p> <textarea name="descripcion" form="addejercicio" required></textarea><br><br>
+    <p>Imagen</p> <input type="file" name="imagen" accept=".jpg,.jpeg,.png" required/><br><br>
+    <p>Vídeo o audio explicativo</p> <input type="file" name="multimedia" accept=".avi,.mov,.flv,.mp4,.mkv,.wmv,.mp3,.wav,.aiff,.wma,.flac"/><br><br>
     <input type="submit" value="CREAR EJERCICIO" />
 </form>
 {% endblock %}

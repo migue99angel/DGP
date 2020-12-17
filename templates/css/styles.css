@@ -16,7 +16,6 @@ a {
 }
 
 input[type=submit], .botonSemana, .botonEnviar {
-    background-color: none;
     color: black;
     font-weight: bold;
     background-color: #359B8A;
@@ -25,6 +24,18 @@ input[type=submit], .botonSemana, .botonEnviar {
     cursor: pointer;
     border: 2px solid black;
     border-radius: 15px;
+    margin-top: 15px;
+}
+
+.tituloLista p {
+    font-weight: bold;
+    font-size: 125%;
+}
+
+textarea {
+    margin: 0px;
+    width: 100%;
+    height: 5em;
 }
 
 .diaSemana {
@@ -36,12 +47,11 @@ input[type=submit], .botonSemana, .botonEnviar {
 .loginPersonas, .principal,
 .principalAdministracion, .principalProfesores,
 .principalPersonas {
-    font-weight: bold;
     width: 20%;
     padding-left: 2%;
     padding-bottom: 2%;
     padding-right: 2%;
-    margin-top: 6%;
+    margin-top: 4%;
     margin-left: 35%;
     border: 1px solid black;
     border-radius: 5px;
@@ -76,7 +86,7 @@ input[type=submit], .botonSemana, .botonEnviar {
   width: 30%;
 }
 
-.botonesPrincipalesUsuario{
+.botonEjercicioPersona, .botonAdiosPersona, .botonLoginPersona {
   font-weight: bold;
   margin-top: 5%;
   margin-left: auto;
@@ -85,7 +95,7 @@ input[type=submit], .botonSemana, .botonEnviar {
   text-align: center;
 }
 
-.botonesPrincipalesUsuario a{
+.botonEjercicioPersona a, .botonLoginPersona {
   font-size: 200%;
   border: 4px solid black;
   border-radius: 25px;
@@ -95,11 +105,21 @@ input[type=submit], .botonSemana, .botonEnviar {
   margin-bottom: 5%;
 }
 
-.botonesPrincipalesUsuario p{
+.botonAdiosPersona a {
+  font-size: 200%;
+  border: 4px solid black;
+  border-radius: 25px;
+  padding-bottom: 6%;
+  display: block;
+  background-color: #F88686;
+  margin-bottom: 5%;
+}
+
+.botonEjercicioPersona p, .botonAdiosPersona p, .botonLoginPersona p {
   width: 100%;
 }
 
-.botonesPrincipalesUsuario img{
+.botonEjercicioPersona img, .botonAdiosPersona img, .botonLoginPersona img {
   width: 60%;
 }
 
@@ -108,53 +128,79 @@ input[type=submit], .botonSemana, .botonEnviar {
   margin-top: 5%;
   margin-left: auto;
   margin-right: auto;
-  width: 55%;
+  width: 75%;
 }
 
 .botonesPrincipales a {
   border: 2px solid black;
   border-radius: 15px;
-  height: 7%;
   display: block;
   background-color: #359B8A;
   margin-top: 5%;
   margin-bottom: 5%;
-  padding: 4%;
+  padding: 8%;
 }
 
-.botonInicial {
+.botonFacilitadores {
   font-weight: bold;
+  border: 2px solid black;
+  border-radius: 15px;
   margin-top: 5%;
   margin-left: auto;
   margin-right: auto;
   width: 95%;
+  background-color: #75CDF7;
 }
 
-.botonInicial a {
-  border: 2px solid black;
-  border-radius: 15px;
+#botonAdmin {
+  background-color: #9286F8;
+}
+
+#botonFaci {
+  background-color: #75CDF7;
+}
+
+.botonFacilitadores a {
   height: 7%;
   display: block;
-  background-color: #359B8A;
   margin-top: 5%;
   margin-bottom: 5%;
   padding: 4%;
 }
 
-.botonSalir {
+.botonAdministracion {
+  font-weight: bold;
+  border: 2px solid black;
+  border-radius: 15px;
+  margin-top: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 95%;
+  background-color: #9286F8;
+}
+
+.botonAdministracion a {
+  height: 7%;
+  display: block;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  padding: 4%;
+}
+
+#botonSalir {
   font-weight: bold;
   margin-left: auto;
   margin-right: auto;
-  width: 55%;
+  width: 75%;
   text-align: center;
+  background-color: #F88686 !important;
 }
 
-.botonSalir a{
+#botonSalir a {
   border: 2px solid #82B366;
   border-radius: 10px;
   height: 4%;
   display: block;
-  background-color: #D5E8D4;
 }
 
 .botonAtras {
@@ -203,11 +249,16 @@ input[type=submit], .botonSemana, .botonEnviar {
   margin-bottom: 1%;
 }
 
-.botonSalirUsuario p{
-}
-
 .botonSalirUsuario img{
   width: 35%;
+}
+
+.listadoEjerciciosSemana {
+  margin-left: 5%;
+}
+
+.listadoEjerciciosSemana img {
+  padding-top: 0.25rem;
 }
 
 .titulo {
@@ -254,10 +305,9 @@ input[type=submit], .botonSemana, .botonEnviar {
 }
 
 .botonEliminarPictogramas {
-  background-color: none;
     color: black;
     font-weight: bold;
-    background-color: #359B8A;
+    background-color: #F88686;
     padding: 0;
     text-decoration: none;
     cursor: pointer;
@@ -268,7 +318,24 @@ input[type=submit], .botonSemana, .botonEnviar {
 }
 
 .botonEliminarPictogramas img{
-  width: 20%;
+    width: 20%;
+}
+
+.botonConectarPersona {
+    color: black;
+    font-weight: bold;
+    background-color: #75CDF7;
+    padding: 0;
+    text-decoration: none;
+    cursor: pointer;
+    border: 2px solid black;
+    border-radius: 15px;
+    margin-bottom: 5%;
+    width: 80%;
+}
+
+.botonConectarPersona img{
+    width: 20%;
 }
 
 .contenedorListaCheckbox {
@@ -291,6 +358,23 @@ input[type=submit], .botonSemana, .botonEnviar {
   margin-top: 2%;
   height: 1.5em;
   width: 1.5em;
+}
+
+.listaCheckbox input[type=image] {
+  float: right;
+}
+
+.listaCheckbox input[type=date] {
+  width: 10em;
+}
+
+.inputTitulo {
+  width: 80%;
+}
+
+.listaCheckbox p {
+  font-weight: bold;
+  font-size: 125%;
 }
 
 .listaCheckbox div {
@@ -504,6 +588,14 @@ input[type=submit], .botonSemana, .botonEnviar {
       padding: 3% 6%;
   }
 
+  hr {
+    margin-right: 5%;
+  }
+
+  .listaCheckbox input {
+    margin-right: 2em;
+  }
+
   .idFormularioCrearEjercicio {
       width: 90%;
       margin-left: 3%;
@@ -546,18 +638,21 @@ input[type=submit], .botonSemana, .botonEnviar {
     margin-left: 3%;
   }
 
+  .listaejercicios {
+    width: 90%;
+    margin-left: 3%;
+  }
+
   #atajo {
       visibility: hidden;
   }
 
   .botonesPrincipales a {
-    width: 95%;
     padding: 5%;
     margin: 5% 0;
   }
 
-  .botonSalir a {
-    width: 95%;
+  #botonSalir a {
     padding: 5%;
   }
 
@@ -582,11 +677,19 @@ input[type=submit], .botonSemana, .botonEnviar {
   }
 
   .botonEliminarPictogramas {
-    width: 40%;
+    width: 60%;
   }
 
   .botonConectarPersona {
-    font-size: xx-large;
+    width: 60%;
+  }
+
+  .listadoEjerciciosSemana p {
+    font-size: 2.5rem;
+  }
+
+  .listadoEjerciciosSemana img {
+    padding-top: 1rem;
   }
 }
 
@@ -598,6 +701,14 @@ input[type=submit], .botonSemana, .botonEnviar {
     .idFormularioCrearEjercicio {
         padding-top: 7%;
         padding-bottom: 7%;
+    }
+
+    hr {
+      margin-right: 10%;
+    }
+
+    .listaCheckbox input {
+      margin-right: 1.5em;
     }
 
     .idFormularioCrearGrupo {
@@ -636,6 +747,11 @@ input[type=submit], .botonSemana, .botonEnviar {
       padding-bottom: 7%;
     }
 
+    .listaejercicios {
+      padding-top: 7%;
+      padding-bottom: 7%;
+    }
+
     #atajo {
         visibility: hidden;
     }
@@ -645,13 +761,16 @@ input[type=submit], .botonSemana, .botonEnviar {
       margin-top: 5%;
       margin-left: auto;
       margin-right: auto;
-      width: 95%;
       text-align: center;
       padding: 5%;
     }
 
-    .botonSalir a {
-      width: 95%;
+    #botonSalir {
+      font-weight: bold;
+      margin-top: 5%;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
       padding: 5%;
     }
 
@@ -677,10 +796,18 @@ input[type=submit], .botonSemana, .botonEnviar {
     }
 
     .botonEliminarPictogramas {
-      width: 40%;
+      width: 60%;
     }
 
     .botonConectarPersona {
-      font-size: xx-large;
+      width: 60%;
+    }
+
+    .listadoEjerciciosSemana p {
+      font-size: 1.5rem;
+    }
+
+    .listadoEjerciciosSemana img {
+      padding-top: 1.5rem;
     }
 }

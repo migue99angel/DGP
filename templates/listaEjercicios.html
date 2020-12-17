@@ -4,6 +4,10 @@
     <title>Lista de Ejercicios</title>
 {% endblock %}
 
+{% block preScripts %}
+<script type="text/javascript" src="templates/js/peticionesAjax.js"></script>
+{% endblock preScripts %}
+
 {% block divClass %}
 <div class="listaejercicios">
 {% endblock %}
@@ -11,14 +15,21 @@
 {% block body %}
 
 {% if esFacilitador %}
+    <div class="titulo">
+        <h1>LISTA DE EJERCICIOS RECIBIDOS</h1>
+    </div>
+{% else %}
+    <div class="titulo">
+        <h1>LISTA DE EJERCICIOS</h1>
+    </div>
+{% endif %}
+
+{% if esFacilitador %}
     {% for ej in ejercicios %}
-        <div class="titulo">
-            <h1>LISTA DE EJERCICIOS RECIBIDOS</h1>
-        </div>
         <div class="ejercicio">
             <!-- No entiendo por que hay que poner aqui el nombre de la persona -->
             <p><strong>Persona: </strong><em>{{ ej['nombre'] }}</em></p>
-            <p><strong>Fecha: </strong><em>{{ ej['fechaResolucion'] }}</em></p>
+            <p><strong>Fecha: </strong><em>{{ ej['fechaResolucion']|date("d/m/Y") }}</em></p>
             <div class="botonesPrincipales">
                 <!-- Habrá que concatenarle a la URL el ID del ejercicio para que se cargue -->
                 <!-- Sólo corrige el ejercicio si es facilitador -->
@@ -54,50 +65,47 @@
 
         </button>
     {% endfor %}
-    <form id="irEjercicio" action="mostrarEjercicio.php" method="post" enctype="multipart/form-data">
-        <input type="hidden" id="idEjercicio" name="idEjercicio" value="">
-        <input type="hidden" id="idFacilitador" name="idFacilitador" value="">
-        <input type="hidden" id="fechaAsignacion" name="fechaAsignacion" value="">
-    </form>
 {% else %}
     <div class="titulo">
         <h1>Ejercicios de {{ nombrePersona }}</h1>
     </div>
 
-    <button id="lunes" class="reiniciarBoton botonDiaSemana">
-        <p class="tituloDiaSemana">LUNES</p>
-        <img src="templates/img/dias/lunes.png" alt="Ejercicios del lunes" class="imagenDiaSemana">
-    </button>
-
-    <button id="martes" class="reiniciarBoton botonDiaSemana">
-        <p class="tituloDiaSemana">MARTES</p>
-        <img src="templates/img/dias/martes.png" alt="Ejercicios del martes" class="imagenDiaSemana">
-    </button>
-
-    <button id="miercoles" class="reiniciarBoton botonDiaSemana">
-        <p class="tituloDiaSemana">MIÉRCOLES</p>
-        <img src="templates/img/dias/miercoles.png" alt="Ejercicios del miércoles" class="imagenDiaSemana">
-    </button>
-
-    <button id="jueves" class="reiniciarBoton botonDiaSemana">
-        <p class="tituloDiaSemana">JUEVES</p>
-        <img src="templates/img/dias/jueves.png" alt="Ejercicios del jueves" class="imagenDiaSemana">
-    </button>
-
-    <button id="viernes" class="reiniciarBoton botonDiaSemana">
-        <p class="tituloDiaSemana">VIERNES</p>
-        <img src="templates/img/dias/viernes.png" alt="Ejercicios del viernes" class="imagenDiaSemana">
-    </button>
-
-    <button id="sabado" class="reiniciarBoton botonDiaSemana">
-        <p class="tituloDiaSemana">SÁBADO</p>
-        <img src="templates/img/dias/sabado.png" alt="Ejercicios del sábado" class="imagenDiaSemana">
-    </button>
-
-    <button id="domingo" class="reiniciarBoton botonDiaSemana">
-        <p class="tituloDiaSemana">DOMINGO</p>
-        <img src="templates/img/dias/domingo.png" alt="Ejercicios del domingo" class="imagenDiaSemana">
-    </button>
+    <div class="listadoEjerciciosSemana">
+        <button id="lunes" class="reiniciarBoton botonDiaSemana">
+            <p class="tituloDiaSemana">LUNES</p>
+            <img src="templates/img/dias/lunes.png" alt="Ejercicios del lunes" class="imagenDiaSemana">
+        </button>
+    
+        <button id="martes" class="reiniciarBoton botonDiaSemana">
+            <p class="tituloDiaSemana">MARTES</p>
+            <img src="templates/img/dias/martes.png" alt="Ejercicios del martes" class="imagenDiaSemana">
+        </button>
+    
+        <button id="miercoles" class="reiniciarBoton botonDiaSemana">
+            <p class="tituloDiaSemana">MIÉRCOLES</p>
+            <img src="templates/img/dias/miercoles.png" alt="Ejercicios del miércoles" class="imagenDiaSemana">
+        </button>
+    
+        <button id="jueves" class="reiniciarBoton botonDiaSemana">
+            <p class="tituloDiaSemana">JUEVES</p>
+            <img src="templates/img/dias/jueves.png" alt="Ejercicios del jueves" class="imagenDiaSemana">
+        </button>
+    
+        <button id="viernes" class="reiniciarBoton botonDiaSemana">
+            <p class="tituloDiaSemana">VIERNES</p>
+            <img src="templates/img/dias/viernes.png" alt="Ejercicios del viernes" class="imagenDiaSemana">
+        </button>
+    
+        <button id="sabado" class="reiniciarBoton botonDiaSemana">
+            <p class="tituloDiaSemana">SÁBADO</p>
+            <img src="templates/img/dias/sabado.png" alt="Ejercicios del sábado" class="imagenDiaSemana">
+        </button>
+    
+        <button id="domingo" class="reiniciarBoton botonDiaSemana">
+            <p class="tituloDiaSemana">DOMINGO</p>
+            <img src="templates/img/dias/domingo.png" alt="Ejercicios del domingo" class="imagenDiaSemana">
+        </button>
+    </div>
 
     <form id="diaEnviar" action="listaEjercicios.php" method="post" enctype="multipart/form-data">
         <input type="hidden" id="inputDia" name="diaSemana" value="">

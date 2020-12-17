@@ -11,7 +11,7 @@
   if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_SESSION['persona']) && isset($_GET['cerrarSesion']))
   {
     session_destroy();
-    header("Location: loginPersonas.php");
+    header("Location: index.php");
   }
 
   $variablesParaTwig['nombre'] = $_SESSION['persona']->getNombre();

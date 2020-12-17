@@ -20,6 +20,9 @@
       $idEjercicio = htmlspecialchars($_GET['idEjercicio']);
       $idPersona = htmlspecialchars($_GET['idPersona']);
       $ejercicio = $conexion->cargarEjercicioResueltoPorID($_GET['idEjercicio'], $_GET['idPersona']);
+      //Cargamos los datos del autor del ejercicio para mostrar su información en la pantalla de corrección
+      $autor = $conexion->cargarPersona( $_GET['idPersona']);
+      $enunciado = $conexion->getEjercicio($_GET['idEjercicio']);
     } else {
       exit();
     }
@@ -57,7 +60,9 @@
     }
   }
 
-  $variablesParaTwig = ['ejercicio' => $ejercicio, 'idEjercicio' => $_GET['idEjercicio'], 'idPersona' => $_GET['idPersona']];
+  $paginaAnterior = 'listaEjercicios.php';
+  $variablesParaTwig = ['ejercicio' => $ejercicio, 'idEjercicio' => $_GET['idEjercicio'], 'idPersona' => $_GET['idPersona'], 'autor' => $autor,
+  'enunciado' => $enunciado, 'botonAtras' => true, 'paginaAnterior' => $paginaAnterior];
 
   echo $twig->render('corregirEjercicio.html', $variablesParaTwig);
 

@@ -98,7 +98,7 @@
          */
         public function cargarPersonasFueraGrupo($idGrupo)
         {
-            $consulta = "SELECT * from Persona WHERE idPersona not in (select idPersona from Pertence where idGrupo=$idGrupo)";
+            $consulta = "SELECT * from Persona WHERE idPersona not in (select idPersona from Pertenece where idGrupo=$idGrupo)";
             $personas = array();
             $i = 0;
             echo("test");
@@ -122,7 +122,7 @@
          */
         public function cargarPersonasGrupo($idGrupo)
         {
-            $consulta = "SELECT * from Pertence WHERE idGrupo=$idGrupo";
+            $consulta = "SELECT * from Pertenece WHERE idGrupo=$idGrupo";
             $personas = array();
             $i = 0;
             if($res = $this->conexion->query($consulta))
@@ -555,11 +555,12 @@
          * @author Francisco Domínguez Lorente
          * @return ejercicios Array de los ejercicios resueltos que no han sido corregidos
          */
-        public function cargarEjerciciosResueltos()
+        public function cargarEjerciciosResueltos($idFacilitador)
         {
-            $consulta = "SELECT *, Persona.nombre FROM Resuelve_Asigna INNER JOIN Persona ON Resuelve_Asigna.idPersona = Persona.idPersona
+            $consulta = "SELECT *, Persona.nombre FROM Resuelve_Asigna
+            INNER JOIN Persona ON Resuelve_Asigna.idPersona = Persona.idPersona
             WHERE NOT EXISTS (SELECT 1 FROM Corrige WHERE Resuelve_Asigna.idEjercicio = Corrige.idEjercicio
-            AND Resuelve_Asigna.idPersona = Corrige.idPersona)";
+            AND Resuelve_Asigna.idPersona = Corrige.idPersona) AND idFacilitador = '". $idFacilitador ."'";
 
             $ejercicios = array();
             if($res = $this->conexion->query($consulta))
@@ -853,7 +854,7 @@
          */
         public function eliminarDeGrupo($idGrupo,$idPersona)
         {
-          $res = $this->conexion->query("DELETE FROM Pertence WHERE idGrupo=$idGrupo && idPersona=$idPersona") ;
+          $res = $this->conexion->query("DELETE FROM Pertenece WHERE idGrupo=$idGrupo && idPersona=$idPersona") ;
           return $res;
         }
 
@@ -956,6 +957,15 @@
             return $res;
         }
 
+        /**
+         * @method crearEjercicio Crea un ejercicio con los datos dados
+         * @author Miguel Muñoz Molina
+         * @param idFacilitador 
+         * @param titulo
+         * @param descripcion
+         * @param imagen String con la url de una imagen
+         * @return res Booleano que indica si la inserción ha sido satisfactoria
+         */
         public function crearEjercicio($idFacilitador, $titulo, $descripcion, $imagen)
         {
             $idFacilitador = $this->conexion->real_escape_string($idFacilitador);
@@ -968,6 +978,16 @@
             return $res;
         }
 
+        /**
+         * @method crearEjercicioMultimedia Crea un ejercicio con los datos dados
+         * @author Miguel Muñoz Molina
+         * @param idFacilitador
+         * @param titulo
+         * @param descripcion
+         * @param imagen String con la url de una imagen
+         * @param multimedia String con la url de un archivo multimedia
+         * @return res Booleano que indica si la inserción ha sido satisfactoria
+         */
         public function crearEjercicioMultimedia($idFacilitador, $titulo, $descripcion, $imagen, $multimedia)
         {
             $idFacilitador = $this->conexion->real_escape_string($idFacilitador);
@@ -981,8 +1001,17 @@
             return $res;
         }
 
+        /**
+         * @method getEjercicioAsignado Devuelve un ejercicio asignado a una persona
+         * @author Miguel Muñoz Molina
+         * @param idEjercicio
+         * @param idPersona
+         * @param fechaAsignacion
+         * @param idFacilitador
+         * @return asignado Objeto de la clase Asigna que contiene la información referente a la asignación de un ejercicio
+         */
         public function getEjercicioAsignado($idEjercicio, $idPersona, $fechaAsignacion, $idFacilitador) {
-            $consulta = "SELECT Resuelve_Asigna.idEjercicio, Resuelve_Asigna.fechaAsignacion, Resuelve_Asigna.idFacilitador, Resuelve_Asigna.idPersona, Crea_Ejercicio.titulo, Facilitador.nombre AS nombreFacilitador, Persona.nombre AS nombrePersona FROM Resuelve_Asigna, Crea_Ejercicio, Facilitador, Persona WHERE Resuelve_Asigna.idEjercicio = Crea_Ejercicio.idEjercicio AND Resuelve_Asigna.idFacilitador = Facilitador.idFacilitador AND Resuelve_Asigna.idPersona = Persona.idPersona AND Resuelve_Asigna.idEjercicio = '$idEjercicio' AND Resuelve_Asigna.idPersona = '$idPersona' AND Resuelve_Asigna.fechaAsignacion = '$fechaAsignacion' AND Resuelve_Asigna.idFacilitador = '$idFacilitador';";
+            $consulta = "SELECT Resuelve_Asigna.idEjercicio, Resuelve_Asigna.fechaAsignacion, Resuelve_Asigna.idFacilitador, Resuelve_Asigna.idPersona, Crea_Ejercicio.titulo, Facilitador.nombre AS nombreFacilitador, Persona.nombre AS nombrePersona, Resuelve_Asigna.fechaResolucion, Resuelve_Asigna.valoracionPersona, Resuelve_Asigna.archivoAdjuntoSolucion FROM Resuelve_Asigna, Crea_Ejercicio, Facilitador, Persona WHERE Resuelve_Asigna.idEjercicio = Crea_Ejercicio.idEjercicio AND Resuelve_Asigna.idFacilitador = Facilitador.idFacilitador AND Resuelve_Asigna.idPersona = Persona.idPersona AND Resuelve_Asigna.idEjercicio = '$idEjercicio' AND Resuelve_Asigna.idPersona = '$idPersona' AND Resuelve_Asigna.fechaAsignacion = '$fechaAsignacion' AND Resuelve_Asigna.idFacilitador = '$idFacilitador';";
             $asignado = new Asigna();
 
             if($res = $this->conexion->query($consulta))
@@ -995,15 +1024,22 @@
                 $titulo = $row['titulo'];
                 $nombreFacilitador = $row['nombreFacilitador'];
                 $nombrePersona = $row['nombrePersona'];
-                $asignado = new Asigna($idEjercicio, $idFacilitador, $idPersona, $fechaAsignacion, $titulo, $nombreFacilitador, $nombrePersona);
-                echo("<script>console.log('PHP: getEjercicioAsignado " . $asignado->getIdEjercicio() . " " . $asignado->getIdFacilitador() . " " . $asignado->getIdPersona() . " " . $fechaAsignacion . " " . $titulo . " " . $nombreFacilitador . " " . $nombrePersona . "');</script>");
+                $fechaResolucion = $row['fechaResolucion'];
+	        $valoracionPersona = $row['valoracionPersona'];
+	        $archivoAdjuntoSolucion = $row['archivoAdjuntoSolucion'];
+                $asignado = new Asigna($idEjercicio, $idFacilitador, $idPersona, $fechaAsignacion, $titulo, $nombreFacilitador, $nombrePersona, $fechaResolucion, $valoracionPersona, $archivoAdjuntoSolucion);
             }
 
             return $asignado;
         }
 
+        /**
+         * @method getAllEjerciciosAsignados
+         * @author Miguel Muñoz Molina
+         * @return asignados Array con ejercicios asignados
+         */
         public function getAllEjerciciosAsignados() {
-            $consulta = "SELECT Resuelve_Asigna.idEjercicio, Resuelve_Asigna.fechaAsignacion, Resuelve_Asigna.idFacilitador, Resuelve_Asigna.idPersona, Crea_Ejercicio.titulo, Facilitador.nombre AS nombreFacilitador, Persona.nombre AS nombrePersona FROM Resuelve_Asigna, Crea_Ejercicio, Facilitador, Persona WHERE Resuelve_Asigna.idEjercicio = Crea_Ejercicio.idEjercicio AND Resuelve_Asigna.idFacilitador = Facilitador.idFacilitador AND Resuelve_Asigna.idPersona = Persona.idPersona;";
+            $consulta = "SELECT Resuelve_Asigna.idEjercicio, Resuelve_Asigna.fechaAsignacion, Resuelve_Asigna.idFacilitador, Resuelve_Asigna.idPersona, Crea_Ejercicio.titulo, Facilitador.nombre AS nombreFacilitador, Persona.nombre AS nombrePersona FROM Resuelve_Asigna, Crea_Ejercicio, Facilitador, Persona WHERE Resuelve_Asigna.idEjercicio = Crea_Ejercicio.idEjercicio AND Resuelve_Asigna.idFacilitador = Facilitador.idFacilitador AND Resuelve_Asigna.idPersona = Persona.idPersona ORDER BY titulo, nombrePersona, fechaResolucion;";
 
             $asignados = array();
             $i = 0;
@@ -1011,7 +1047,22 @@
             if ($res = $this->conexion->query($consulta)) {
                 while ($fila = $res->fetch_assoc()) {
                     $asignados[] = $this->getEjercicioAsignado($fila['idEjercicio'], $fila['idPersona'], $fila['fechaAsignacion'], $fila['idFacilitador']);
-                    echo("<script>console.log('PHP: GetAllEjerciciosAsignados " . count($asignados) . " - " . $asignados[$i]->getIdEjercicio() . " " . $asignados[$i]->getIdFacilitador() . " " . $asignados[$i]->getIdPersona() . " " . $asignados[$i]->getFechaAsignacion() . " " . $asignados[$i]->getTitulo() . " " . $asignados[$i]->getNombreFacilitador() . " " . $asignados[$i]->getNombrePersona() . "');</script>");
+                    $i++;
+                }
+            }
+
+            return $asignados;
+        }
+        
+        public function getAllEjerciciosAsignadosByFacilitador($idFacilitador) {
+            $consulta = "SELECT Resuelve_Asigna.idEjercicio, Resuelve_Asigna.fechaAsignacion, Resuelve_Asigna.idFacilitador, Resuelve_Asigna.idPersona, Crea_Ejercicio.titulo, Facilitador.nombre AS nombreFacilitador, Persona.nombre AS nombrePersona FROM Resuelve_Asigna, Crea_Ejercicio, Facilitador, Persona WHERE Resuelve_Asigna.idFacilitador = '$idFacilitador' AND Resuelve_Asigna.idEjercicio = Crea_Ejercicio.idEjercicio AND Resuelve_Asigna.idFacilitador = Facilitador.idFacilitador AND Resuelve_Asigna.idPersona = Persona.idPersona ORDER BY titulo, nombrePersona, fechaResolucion;";
+
+            $asignados = array();
+            $i = 0;
+
+            if ($res = $this->conexion->query($consulta)) {
+                while ($fila = $res->fetch_assoc()) {
+                    $asignados[] = $this->getEjercicioAsignado($fila['idEjercicio'], $fila['idPersona'], $fila['fechaAsignacion'], $fila['idFacilitador']);
                     $i++;
                 }
             }
@@ -1019,6 +1070,13 @@
             return $asignados;
         }
 
+        /**
+         * @method crearGrupo
+         * @author Miguel Muñoz Molina
+         * @param idFacilitador
+         * @param nombre
+         * @return res Booleano que indica si la inserción ha sido satisfactoria
+         */
         public function crearGrupo($idFacilitador, $nombre)
         {
             $idFacilitador = $this->conexion->real_escape_string($idFacilitador);
@@ -1034,6 +1092,60 @@
 
             return $res;
 
+        }
+
+        /**
+         * @method getEjercicio
+         * @author Miguel Ángel Posadas Arráez
+         * @param idEjercicio El id del ejercicio
+         * @return ejercicio Objeto de la clase ejercicio
+         */
+        public function getEjercicio($idEjercicio)
+        {
+            $consulta = "SELECT * from Crea_Ejercicio WHERE idEjercicio=" . $idEjercicio . ";";
+
+           if($res = $this->conexion->query($consulta))
+           {
+               $row = $res->fetch_assoc();
+               $ejercicio = new Ejercicio($row['titulo'],$row['categoria'],$row['descripcion'], $row['fechaCreacion'], $row['multimediaAdjunto'], $row['imagenAdjunta'], $idEjecicio);
+           }
+
+           return $ejercicio;
+        }
+
+        /**
+         * @method obtenerEstadoEjercicio()
+         * @author Miguel Ángel Posadas Arráez
+         * @param idEjercicio El id del ejercicio
+         * @return 0 Si el ejercicio está asignado pero no esta resuelto ni corregido
+         * @return 1 Si el ejercicio está asignado y resuelto 
+         * @return 2 Si el ejercicio está corregido 
+         */
+        public function obtenerEstadoEjercicio($idEjecicio, $idPersona)
+        {
+            $consultaResolucion = "SELECT * from Resuelve_Asigna WHERE idEjercicio=" . $idEjercicio . "idPersona=" . $idPersona . ";";
+            $consultaCorrecion = "SELECT * from Corrige WHERE idEjercicio=" . $idEjercicio . "idPersona=" . $idPersona . ";";
+
+            if($res = $this->conexion->query($consultaResolucion))
+            {  
+                $row = $res->fetch_assoc();
+                $retorno = 0;
+
+                if($row['texto'] != NULL || $row['valoracionPersona'] != NULL || $row['archivoAdjuntoSolucion'] != NULL)
+                {
+                    $retorno = 1;
+                    if($res = $this->conexion->query($consultaCorrecion))
+                    {
+                        $row2 = $res->fetch_assoc();
+                        if($row2['comentario'] || $row2['archivoAdjuntoCorreccion'] || $row2['valoracionFacilitador'])
+                            $retorno = 2;
+                    }
+                    
+                    return $retorno;
+                }
+            }
+            else
+                return "Error en la consulta";
         }
     }
 

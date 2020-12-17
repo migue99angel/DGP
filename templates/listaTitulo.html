@@ -1,0 +1,33 @@
+<div class="contenedorListaCheckbox">
+    <form action="{{ lista.accionCheckbox }}" method="post" id="{{ lista.idCheckbox }}" enctype="{{ lista.encCheckbox }}">
+        <div class="tituloLista">
+            <p>{{ lista.tituloLista }}</p>
+        </div>
+
+        <div class="{{ lista.claseCheckbox|default('listaCheckbox') }}">
+                <!-- Los elementos tipo radio no funcionan bien, hay que emularlos con JS -->
+                {% set titulo = lista.elementos[0].titulo %}
+                <p>{{ titulo }}</p>
+                {% for elemento in lista.elementos %}
+                    {% if elemento.titulo != titulo %}
+                        {% set titulo = elemento.titulo %}
+                        <br> 
+                        <p>{{ titulo }}</p>
+                    {% endif %}
+                    <div>
+                        <input type="{{ lista.tipoInput|default('checkbox') }}" id="elemento{{ loop.index0 }}" name="{{ lista.nombreInput|default('elementos[]') }}" value="{% block valor %}{% endblock valor %}">
+                        <label for="elemento{{ loop.index0 }}"> {% block elementoLista %}{% endblock elementoLista %} </label><br>
+                    </div>
+                {% endfor %}
+        </div>
+        {% if lista.numeroOcultos is not null %}
+                <input type="hidden" id="numeroOcultos" name="numeroOcultos" value="{{ lista.numeroOcultos }}">
+            {% for inputOculto in lista.inputOcultos %}
+                <input type="hidden" id="oculto{{ loop.index0 }}" name="oculto{{ loop.index0 }}" value="{{ inputOculto }}">
+            {% endfor %}
+        {% endif %}
+        <div>
+            <input type="submit" class="botonEnviar" value="{{ lista.valorSubmitCheckbox }}" />
+        </div>
+    </form>
+</div>

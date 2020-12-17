@@ -25,7 +25,7 @@
     $idGrupo = $conexion->cargarGrupoNombre($nombre);
     $_SESSION['id'] = $idGrupo;
     $variablesParaTwig['lista'] = array(
-      'accionCheckbox' => 'crearGrupo.php',
+      'accionCheckbox' => 'administracionGrupo.php',
       'idCheckbox'     => 'listaPersonas',
       'encCheckbox'    => 'multipart/form-data',
       'elementos'      => $conexion->getAllPersonas(),

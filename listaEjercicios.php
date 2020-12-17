@@ -16,7 +16,7 @@
   if(isset($_SESSION['facilitador'])) {
     $variablesParaTwig['paginaAnterior'] = 'principalFacilitador.php';
 
-    $ejercicios = $conexion->cargarEjerciciosResueltos();
+    $ejercicios = $conexion->cargarEjerciciosResueltos($_SESSION['facilitador']->getidFacilitador());
     $esFacilitador = true;
 
     // Lo he puesto así porque esto ahora añade al final
