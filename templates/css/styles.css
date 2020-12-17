@@ -179,7 +179,7 @@ textarea {
   padding: 4%;
 }
 
-.botonSalir {
+#botonSalir {
   font-weight: bold;
   margin-left: auto;
   margin-right: auto;
@@ -188,7 +188,7 @@ textarea {
   background-color: #F88686 !important;
 }
 
-.botonSalir a {
+#botonSalir a {
   border: 2px solid #82B366;
   border-radius: 10px;
   height: 4%;
@@ -522,13 +522,11 @@ textarea {
   }
 
   .botonesPrincipales a {
-    width: 95%;
     padding: 5%;
     margin: 5% 0;
   }
 
-  .botonSalir a {
-    width: 95%;
+  #botonSalir a {
     padding: 5%;
   }
 
@@ -637,17 +635,15 @@ textarea {
       margin-top: 5%;
       margin-left: auto;
       margin-right: auto;
-      width: 95%;
       text-align: center;
       padding: 5%;
     }
 
-    .botonSalir {
+    #botonSalir {
       font-weight: bold;
       margin-top: 5%;
       margin-left: auto;
       margin-right: auto;
-      width: 95%;
       text-align: center;
       padding: 5%;
     }
