@@ -8,16 +8,45 @@
     <div class="ejercicio">
 
         <p><strong>Descripcion: </strong><em>{{ ejercicio.descripcion }}</em></p>
-        <p><strong>Fecha asignación: </strong><em>{{ ejercicio.fechaAsignacion }}</em></p>
+        <p><strong>Fecha asignación: </strong><em>{{ asigna.fechaAsignacion }}</em></p>
+
+        {% if ejercicio.archivoAdjunto is defined %}
+          {% if ejercicio.archivoAdjunto ends with '.png' or ejercicio.archivoAdjunto ends with '.jpg' or ejercicio.archivoAdjunto ends with '.jpeg' %}
+            <p><img src="{{ ejercicio.archivoAdjunto }}" alt="Fotografía de la resolución" width="35%" height="35%"></p>
+
+          {% endif %}
+        {% endif %}
+
+        {% if ejercicio.multimediaAdjunto is defined %}
+        {% if ejercicio.multimediaAdjunto ends with '.mp4' %}
+        <video width="75%" height="75%" controls>
+          <source src="{{ ejercicio['multimediaAdjunto'] }}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        {% endif %}
+      {% endif %}
         
-        <p><strong>Texto: </strong><em>{{ ejercicio['texto'] }}</em></p>
-        <p><strong>Valoración de la Persona al ejercicio: </strong><em>{{ ejercicio['valoracionPersona'] }}</em></p>
-        <p><strong>Archivo Adjunto: </strong><em>{{ ejercicio['archivoAdjuntoSolucion'] }}</em></p>
+      <div class="formularioCorreccion">
+        <form action="mostrarEjercicio.php?resolucion=true&idEjercicio={{ idEjercicio }}&idPersona={{ idPersona }}" method="post" id="correccion" enctype="multipart/form-data">
+            <label for="comentario"><strong>¿Algo que comentar?</strong></label><br>
+            <textarea name="comentario" form="textosolucion" ></textarea><br><br>
+        
+            <label for="valoracion">¿Te ha gustado el ejercicio? (entre 0 y 5): <span id="textInput">3</span></label><br>
+            <span>0</span> <input type="range" form="correccion" name="valoracion" min="0" max="5" onchange="updateTextInput(this.value);"> <span>5</span><br><br>
+        
+            <label for="multimedia">Imagen o vídeo con la solución</label><br>
+            <input type="file" name="multimedia" /><br><br>
+            <input type="submit" value="RESOLVER" />
+        </form>
+        </div>
+
       </div>
 
     {% block errores %}
     {% embed "errores.html" %}{% endembed %}
   {% endblock errores %}
+
+  <br>
 
     <button id="botonChat" class="reiniciarBoton botonChat">
         <img src="templates/img/preguntar.png" alt="Hablar con la persona facilitadora" class="imagenChat">

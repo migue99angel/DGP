@@ -15,9 +15,9 @@
     if (isset($_SESSION['ejercicioAsignado'])) {
         $variablesParaTwig['idEjercicio'] = $_SESSION['ejercicioAsignado']->getIdEjercicio();
         $ejercicio = $conexion->cargarEjercicio($_SESSION['ejercicioAsignado']->getIdEjercicio());
-        var_dump($ejercicio);
         $variablesParaTwig['ejercicio'] = $ejercicio;
         $variablesParaTwig['enunciado'] = $conexion->getEjercicio($_SESSION['ejercicioAsignado']->getIdEjercicio());
+        $variablesParaTwig['asigna'] = $_SESSION['ejercicioAsignado'];
 
   
 
