@@ -18,7 +18,7 @@
               <input type="hidden" name="id" value="{{ elemento.idGrupo }}">
               <input type=image src="templates/img/pencil.png" formaction="modificarGrupo.php?id={{elemento.idGrupo}}">
               <input type=image src="templates/img/borrar.png" formaction="eliminarGrupo.php?id={{elemento.idGrupo}}">
-              <label name="elemnto"> <strong>Nombre:</strong> {{ elemento.nombreGrupo }} </label> <br>
+              <label name="elemnto"> Nombre: {{ elemento.nombreGrupo }} </label> <br>
             </div>
           {% endfor %}
         </div>
@@ -26,7 +26,7 @@
 </div>
 
 <div class="botonesPrincipales">
-  <a href="crearGrupo.php" class="button">CREAR UN NUEVO GRUPO</a>
+  <a href="crearGrupo.php" class="button">Crear un nuevo grupo</a>
 </div>
 
 {% endblock %}

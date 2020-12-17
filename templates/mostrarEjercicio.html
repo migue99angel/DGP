@@ -8,7 +8,7 @@
     <div class="ejercicio">
 
         <p><strong>Descripcion: </strong><em>{{ ejercicio.descripcion }}</em></p>
-        <p><strong>Fecha asignación: </strong><em>{{ asigna.fechaAsignacion|date("d/m/Y") }}</em></p>
+        <p><strong>Fecha asignación: </strong><em>{{ asigna.fechaAsignacion }}</em></p>
 
         {% if ejercicio.archivoAdjunto is defined %}
           {% if ejercicio.archivoAdjunto ends with '.png' or ejercicio.archivoAdjunto ends with '.jpg' or ejercicio.archivoAdjunto ends with '.jpeg' %}
@@ -31,13 +31,11 @@
             <label for="comentario"><strong>¿Algo que comentar?</strong></label><br>
             <textarea name="comentario" form="textosolucion" ></textarea><br><br>
         
-            <label for="valoracion"><strong>¿Te ha gustado el ejercicio? (entre 0 y 5): </strong><span id="textInput">3</span></label><br>
+            <label for="valoracion">¿Te ha gustado el ejercicio? (entre 0 y 5): <span id="textInput">3</span></label><br>
             <span>0</span> <input type="range" form="correccion" name="valoracion" min="0" max="5" onchange="updateTextInput(this.value);"> <span>5</span><br><br>
         
-            <label for="multimedia">Imagen o vídeo con la solución</label>
-            <input type="file" name="multimedia" id="file" class="inputArchivo" onchange="updateFile(this.value)" /><br>
-            <label for="file" class="etiquetaArchivo">SELECCIONA UN ARCHIVO</label><br>
-            <span id="archivoSeleccionado"></span><br><br>
+            <label for="multimedia">Imagen o vídeo con la solución</label><br>
+            <input type="file" name="multimedia" /><br><br>
             <input type="submit" value="RESOLVER" />
         </form>
         </div>

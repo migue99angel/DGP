@@ -5,6 +5,8 @@
     require_once "grupos.php";
     require_once "ejercicio.php";
     require_once "asigna.php";
+    require_once "chat.php";
+
     /**
      * @class ConexionBD
      * @author Miguel Ángel Posadas
@@ -176,6 +178,101 @@
             }
 
             return $chats;
+        }
+
+        /**
+         * @method cargarChat obtiene los datos de un chat concreto
+         * @author Darío Megías Guerrero
+         * @param idEjercicio El identificador del ejercicio que tiene asignado la persona
+         * @param idPersona El identificador de la persona que se va a cargar
+         * @param idFacilitador El identificador de la persona que asignó el ejercicio
+         * @param fechaAsignacion La fecha en la que se asignó el ejercicio
+         * @return chat Objeto de la clase Chat con los datos del chat pedido
+         */
+        public function cargarChat($idEjercicio,$idPersona,$idFacilitador,$fechaAsignacion)
+        {
+            $consulta = "SELECT * FROM Tiene_Chat WHERE idEjercicio=$idEjercicio AND idPersona=$idPersona ".
+                        "AND idFacilitador=$idFacilitador AND fechaAsignacion='$fechaAsignacion';";
+
+            if ($res = $this->conexion->query($consulta)) {
+                $row = $res->fetch_assoc();
+                $chat = new Chat($row['idChat'],$row['idEjercicio'],$row['idPersona'],$row['fechaAsignacion'],$row['idFacilitador'],$row['ruta']);
+            }
+
+            return $chat;
+        }
+
+        // TODO CrearChat. Introduce en la base de datos, crea un nuevo archivo en su sitio y actualiza la BD.
+        /**
+         * @method crearChat Introduce un chat en la base de datos, crea su archivo correspondiente
+         *                   y actualiza la BD para que quede patente la ruta del archivo
+         * @author Darío Megías Guerrero
+         * @param idEjercicio El identificador del ejercicio que tiene asignado la persona
+         * @param idPersona El identificador de la persona que se va a cargar
+         * @param idFacilitador El identificador de la persona que asignó el ejercicio
+         * @param fechaAsignacion La fecha en la que se asignó el ejercicio
+         * @return chat Objeto de la clase Chat con los datos del chat pedido
+         */
+        public function crearChat($idEjercicio,$idPersona,$idFacilitador,$fechaAsignacion) {
+            $seguir = false;
+            $exito = false;
+
+            $consultaInsertar =
+            "INSERT INTO Tiene_Chat(idEjercicio,idPersona,fechaAsignacion,idFacilitador) ".
+            "VALUES($idEjercicio,$idPersona,'$fechaAsignacion',$idFacilitador);";
+
+            $consultaChat =
+            "SELECT idChat FROM Tiene_Chat WHERE idEjercicio=$idEjercicio AND idPersona=$idPersona ".
+            "AND fechaAsignacion='$fechaAsignacion' AND idFacilitador=$idFacilitador;";
+
+            // Insertamos el nuevo chat en la base de datos
+            if ($res = $this->conexion->query($consultaInsertar)) {
+                $seguir = true;
+            } else {
+                var_dump($consultaInsertar);
+                var_dump($this->conexion->error);
+            }
+
+            // Si lo hemos podido insertar, ahora necesitamos el id del chat para operar con él
+            if ($seguir) {
+                if ($res = $this->conexion->query($consultaChat)) {
+                    $idChat = $res->fetch_assoc()['idChat'];
+                } else {
+                    var_dump($consultaInsertar);
+                    var_dump($this->conexion->error);
+                    $seguir = false;
+                }
+            }
+
+            // Creamos los directorios necesarios para que quede todo organizado
+            // y no se pueda pisar ningún archivo con otro
+            if ($seguir) {
+                $rutaBase = "data/upload/exercises/$idEjercicio/chat/$idChat";
+                var_dump(getcwd());
+                $exito = mkdir($rutaBase,0777,true);
+
+                if ($exito) {
+                    $exito = mkdir($rutaBase."/media",0777,true);
+                }
+
+                if ($exito) {
+                    $archivo = fopen($rutaBase."/chat.json","w") or die("No se puedo abrir el archivo");
+                    $inicializaArchivo = array();
+                    fwrite($archivo,json_encode($inicializaArchivo));
+                    fclose($archivo);
+
+                    $consultaActualizar =
+                    "UPDATE Tiene_Chat SET ruta='$rutaBase/chat.json' WHERE idEjercicio=$idEjercicio AND idPersona=$idPersona ".
+                    "AND fechaAsignacion='$fechaAsignacion' AND idFacilitador=$idFacilitador;";
+
+                    if (!$this->conexion->query($consultaActualizar)) {
+                        var_dump($consultaActualizar);
+                        var_dump($this->conexion->error);
+                    }
+                }
+            }
+
+            return $exito;
         }
 
         /**
@@ -372,8 +469,6 @@
             if ($res = $this->conexion->query($consulta)) {
                 $exito = True;
             } else {
-                var_dump($this->conexion->error);
-                var_dump($consulta);
                 $res->close();
                 $exito = False;
             }
@@ -462,10 +557,9 @@
          */
         public function cargarEjerciciosResueltos($idFacilitador)
         {
-
-            $consulta = "SELECT * FROM Resuelve_Asigna  INNER JOIN Persona ON Resuelve_Asigna.idPersona = Persona.idPersona
-            WHERE (Resuelve_Asigna.texto IS NOT NULL OR Resuelve_Asigna.valoracionPersona IS NOT NULL OR Resuelve_Asigna.archivoAdjuntoSolucion IS NOT NULL)
-            AND NOT EXISTS (SELECT * FROM Corrige WHERE Resuelve_Asigna.idEjercicio = Corrige.idEjercicio
+            $consulta = "SELECT *, Persona.nombre FROM Resuelve_Asigna
+            INNER JOIN Persona ON Resuelve_Asigna.idPersona = Persona.idPersona
+            WHERE NOT EXISTS (SELECT 1 FROM Corrige WHERE Resuelve_Asigna.idEjercicio = Corrige.idEjercicio
             AND Resuelve_Asigna.idPersona = Corrige.idPersona) AND idFacilitador = '". $idFacilitador ."'";
 
             $ejercicios = array();
@@ -476,7 +570,7 @@
                     $ejercicios[] = $row;
                 }
             }
-            var_dump($this->conexion->error);
+
             return $ejercicios;
         }
 
@@ -751,20 +845,9 @@
          */
         public function eliminarAdministrador($idAdministrador)
         {
-            $consulta = "SELECT count(*) from Administrador";
-            if ($res = $this->conexion->query($consulta))
-            {
-                $row = $res->fetch_assoc();
-                if($row['count(*)'] > 1)
-                {
-                    $res = $this->conexion->query("DELETE FROM Administrador WHERE idAdministrador=$idAdministrador") ;
+            $res = $this->conexion->query("DELETE FROM Administrador WHERE idAdministrador=$idAdministrador") ;
 
-                    return $res;
-                }
-            } 
-           
-
-            return false;
+            return $res;
         }
 
         /**
@@ -1056,89 +1139,32 @@
          * @return 1 Si el ejercicio está asignado y resuelto 
          * @return 2 Si el ejercicio está corregido 
          */
-        public function obtenerEstadoEjercicio($idEjercicio, $idPersona)
+        public function obtenerEstadoEjercicio($idEjecicio, $idPersona)
         {
-            $consultaResolucion = "SELECT * FROM Resuelve_Asigna WHERE idEjercicio ='$idEjercicio' AND idPersona = '$idPersona'";
-            $consultaCorrecion = "SELECT * FROM Corrige WHERE idEjercicio ='$idEjercicio' AND idPersona = '$idPersona'";
+            $consultaResolucion = "SELECT * from Resuelve_Asigna WHERE idEjercicio=" . $idEjercicio . "idPersona=" . $idPersona . ";";
+            $consultaCorrecion = "SELECT * from Corrige WHERE idEjercicio=" . $idEjercicio . "idPersona=" . $idPersona . ";";
 
             if($res = $this->conexion->query($consultaResolucion))
             {  
                 $row = $res->fetch_assoc();
                 $retorno = 0;
 
-                if(isset($row['texto'])  || isset($row['valoracionPersona']) || isset($row['archivoAdjuntoSolucion']))
+                if($row['texto'] != NULL || $row['valoracionPersona'] != NULL || $row['archivoAdjuntoSolucion'] != NULL)
                 {
                     $retorno = 1;
                     if($res = $this->conexion->query($consultaCorrecion))
                     {
-                       
                         $row2 = $res->fetch_assoc();
                         if($row2['comentario'] || $row2['archivoAdjuntoCorreccion'] || $row2['valoracionFacilitador'])
                             $retorno = 2;
                     }
-                    else
-                    {
-                        return "Error en la consulta";
-                    }
                     
                     return $retorno;
                 }
-                else
-                    return "Error en la consulta";
             }
             else
                 return "Error en la consulta";
         }
-
-        /**
-         * @method cargarCorreccionEjercicio Obtiene los datos de las correcciones del ejercicio
-         * @param idEjercicio 
-         * @param idPersona 
-         * @return Array con la informacion de la correccion
-         */
-        public function cargarCorreccionEjercicio($idEjercicio,$idPersona)
-        {
-            $consultaCorrecion = "SELECT * FROM Corrige WHERE idEjercicio ='$idEjercicio' AND idPersona = '$idPersona'";
-
-            if($res = $this->conexion->query($consultaCorrecion))
-            {
-                $row = $res->fetch_assoc();
-
-                return $row;
-                
-            }
-            else
-            {
-                return "Error el ejercicio no esta corregido";
-            }
-
-        }
-
-        /**
-         * @method resolverEjercicio Funcion para añadir la resolucion de un ejercicio a la base de datos
-         * @author Miguel Ángel Posadas Arráez
-         * @param idEjercicio
-         * @param idPersona 
-         * @param comentario Comentario sobre el ejercicio hecho por la persona
-         * @param valoracionPersona Valoracion que la persona hace sobre el ejercicio
-         * @param multimedia Respuesta al ejercicio en formato de imagen video o audio
-         * @return true or false
-         */
-        public function resolverEjercicio($idEjercicio,$idPersona,$fecha,$comentario,$valoracionPersona,$multimedia)
-        {
-
-            $consulta = "UPDATE Resuelve_Asigna SET  valoracionPersona='$valoracionPersona' ,archivoAdjuntoSolucion='$multimedia',texto='$comentario'  WHERE idPersona='$idPersona' AND idEjercicio='$idEjercicio' AND fechaAsignacion='$fecha'";
-
-            if($res = $this->conexion->query($consulta))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
-        }   
     }
 
 

@@ -26,26 +26,10 @@
 {% endif %}
 
 <form method="post" id="addejercicio" enctype="multipart/form-data">
-    <label for="titulo"><strong>Titulo del ejercicio</strong></label>
-    <input class="inputTitulo" type="text" name="titulo" required/><br><br>
-
-    <label for="descripcion"><strong>Descripción</strong></label>
-    <textarea name="descripcion" form="addejercicio" required></textarea><br><br>
-
-    <label for="imagen"><strong>Imagen</strong></label>
-    <input type="file" name="imagen" id="file" class="inputArchivo" accept=".jpg,.jpeg,.png" required onchange="updateImg(this.value)" /><br>
-    <label for="file" class="etiquetaArchivo">SELECCIONA UNA IMAGEN</label><br>
-    <span id="archivoSeleccionado"></span><br><br>
-
-    <label for="multimedia"><strong>Vídeo o audio explicativo</strong></label>
-    <input type="file" name="multimedia" id="video" class="inputArchivo" accept=".avi,.mov,.flv,.mp4,.mkv,.wmv,.mp3,.wav,.aiff,.wma,.flac" required onchange="updateVid(this.value)" /><br>
-    <label for="video" class="etiquetaArchivo">SELECCIONA UN VIDEO</label><br>
-    <span id="videoSeleccionado"></span><br><br>
-
+    <p>Titulo del Ejercicio</p> <input class="inputTitulo" type="text" name="titulo" required/><br><br>
+    <p>Descripción</p> <textarea name="descripcion" form="addejercicio" required></textarea><br><br>
+    <p>Imagen</p> <input type="file" name="imagen" accept=".jpg,.jpeg,.png" required/><br><br>
+    <p>Vídeo o audio explicativo</p> <input type="file" name="multimedia" accept=".avi,.mov,.flv,.mp4,.mkv,.wmv,.mp3,.wav,.aiff,.wma,.flac"/><br><br>
     <input type="submit" value="CREAR EJERCICIO" />
 </form>
 {% endblock %}
-
-{% block postScripts %}
-<script type="text/javascript" src="templates/js/crearEjercicio.js"></script>
-{% endblock postScripts %}
