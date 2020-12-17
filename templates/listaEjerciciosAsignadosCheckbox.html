@@ -3,5 +3,5 @@
 {% block valor %}{{ elemento.idEjercicio }}&{{ elemento.idFacilitador }}&{{ elemento.idPersona }}&{{ elemento.fechaAsignacion}}{% endblock valor %}
 
 {% block elementoLista %}
-    {{ elemento.nombrePersona }} - Fecha Resolución: {{ elemento.fechaResolucion }}
+    {{ elemento.nombrePersona }} - Fecha Resolución: {{ elemento.fechaResolucion|date("d/m/Y") }}
 {% endblock elementoLista %}

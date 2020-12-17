@@ -16,7 +16,6 @@ a {
 }
 
 input[type=submit], .botonSemana, .botonEnviar {
-    background-color: none;
     color: black;
     font-weight: bold;
     background-color: #359B8A;
@@ -129,18 +128,17 @@ textarea {
   margin-top: 5%;
   margin-left: auto;
   margin-right: auto;
-  width: 55%;
+  width: 75%;
 }
 
 .botonesPrincipales a {
   border: 2px solid black;
   border-radius: 15px;
-  height: 7%;
   display: block;
   background-color: #359B8A;
   margin-top: 5%;
   margin-bottom: 5%;
-  padding: 4%;
+  padding: 8%;
 }
 
 .botonFacilitadores {
@@ -185,16 +183,16 @@ textarea {
   font-weight: bold;
   margin-left: auto;
   margin-right: auto;
-  width: 55%;
+  width: 75%;
   text-align: center;
+  background-color: #F88686 !important;
 }
 
-.botonSalir a{
+.botonSalir a {
   border: 2px solid #82B366;
   border-radius: 10px;
   height: 4%;
   display: block;
-  background-color: #D5E8D4;
 }
 
 .botonAtras {
@@ -352,6 +350,7 @@ textarea {
   margin-top: 2%;
   height: 1.5em;
   width: 1.5em;
+  float: right;
 }
 
 .listaCheckbox div {
@@ -445,6 +444,14 @@ textarea {
 @media screen and (max-width: 1100px) {
   input[type=submit] {
       padding: 3% 6%;
+  }
+
+  hr {
+    margin-right: 5%;
+  }
+
+  .listaCheckbox input {
+    margin-right: 2em;
   }
 
   .idFormularioCrearEjercicio {
@@ -556,6 +563,14 @@ textarea {
         padding-bottom: 7%;
     }
 
+    hr {
+      margin-right: 10%;
+    }
+
+    .listaCheckbox input {
+      margin-right: 1.5em;
+    }
+
     .idFormularioCrearGrupo {
         padding-top: 7%;
         padding-bottom: 7%;
@@ -611,8 +626,13 @@ textarea {
       padding: 5%;
     }
 
-    .botonSalir a {
+    .botonSalir {
+      font-weight: bold;
+      margin-top: 5%;
+      margin-left: auto;
+      margin-right: auto;
       width: 95%;
+      text-align: center;
       padding: 5%;
     }
 

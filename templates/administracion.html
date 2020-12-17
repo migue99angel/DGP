@@ -10,38 +10,42 @@
         <div class="tituloLista">
             <p>Lista de {{ tipoUsuario }}es</p>
         </div>
-
         <div class="listaCheckbox">
-           
             {% if tipoUsuario == "Facilitador" %}
+            <div><hr></div>
                 {% for elemento in lista %}
                     <div>
                         <input type="hidden" name="id" value="{{ elemento.idFacilitador }}">
                         <input type=image src="templates/img/pencil.png" formaction="modificarUsuario.php?tipoUsuario=Facilitador&id={{elemento.idFacilitador}}">
                         <input type=image src="templates/img/borrar.png" formaction="eliminarUsuario.php?tipoUsuario=Facilitador&id={{elemento.idFacilitador}}">
-                        <label name="elemnto"> Nombre: {{ elemento.nombreFacilitador }} Telefono: {{ elemento.telefono }}  </label> <br>
+                        <label name="nombreFacilitador"><strong>Nombre:</strong> {{ elemento.nombreFacilitador }}</label><br>
+                        <label name="telefonoFacilitador"><strong>Teléfono:</strong> {{ elemento.telefono }}</label><hr>
                     </div>
                 {% endfor %}
             {%endif%}
 
             {% if tipoUsuario == "Administrador" %}
+            <div><hr></div>
                 {% for elemento in lista %}
                     <div>
                         <input type="hidden" name="id" value="{{ elemento.idAdministrador }}">
-                        <input type=image src="templates/img/pencil.png" formaction="modificarUsuario.php?tipoUsuario=Administrador&id={{elemento.idAdministrador}}">
-                        <input type=image src="templates/img/borrar.png" formaction="eliminarUsuario.php?tipoUsuario=Administrador&id={{elemento.idAdministrador}}">
-                        <label name="elemnto"> Nombre: {{ elemento.nombre }} Telefono: {{ elemento.telefono }}  </label> <br>
+                        <input type=image class="botonesModificar" src="templates/img/pencil.png" formaction="modificarUsuario.php?tipoUsuario=Administrador&id={{elemento.idAdministrador}}">
+                        <input type=image class="botonesModificar" src="templates/img/borrar.png" formaction="eliminarUsuario.php?tipoUsuario=Administrador&id={{elemento.idAdministrador}}">
+                        <label name="nombreAdmin"><strong>Nombre:</strong> {{ elemento.nombre }}</label><br>
+                        <label name="telefonoAdmin"><strong>Teléfono:</strong> {{ elemento.telefono }}</label><hr>
                     </div>
                 {% endfor %}
             {%endif%}
 
             {% if tipoUsuario == "Persona" %}
+            <div><hr></div>
                 {% for elemento in lista %}
                     <div>
                         <input type="hidden" name="id" value="{{ elemento.idPersona }}">
                         <input type=image src="templates/img/pencil.png" formaction="modificarUsuario.php?tipoUsuario=Persona&id={{elemento.idPersona}}">
                         <input type=image src="templates/img/borrar.png" formaction="eliminarUsuario.php?tipoUsuario=Persona&id={{elemento.idPersona}}">
-                        <label name="elemnto"> Nombre: {{ elemento.nombre }} Telefono: {{ elemento.tlfPersona }}  </label> <br>
+                        <label name="nombrePersona"><strong>Nombre:</strong> {{ elemento.nombre }}</label><br>
+                        <label name="telefonoAdmin"><strong>Teléfono:</strong> {{ elemento.tlfPersona }}</label><hr>
                     </div>
                 {% endfor %}
             {%endif%}
@@ -49,10 +53,12 @@
     </form>
 </div>
 
-<hr/>
-
 <div class="botonesPrincipales">
-    <a href="registro.php?tipoUsuario={{ tipoUsuario }}" class="button">Registrar nuevo {{ tipoUsuario }}</a>
+    {% if tipoUsuario ends with 'a' %}
+        <a href="registro.php?tipoUsuario={{ tipoUsuario }}" class="button">REGISTRAR NUEVA {{ tipoUsuario|upper }}</a>
+    {% else %}
+        <a href="registro.php?tipoUsuario={{ tipoUsuario }}" class="button">REGISTRAR NUEVO {{ tipoUsuario|upper }}</a>
+    {% endif %}
 </div>
 
 {% endblock %}
