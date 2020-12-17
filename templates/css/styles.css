@@ -353,6 +353,23 @@ textarea {
   float: right;
 }
 
+.listaCheckbox input[type=image] {
+  float: right;
+}
+
+.listaCheckbox input[type=date] {
+  width: 10em;
+}
+
+.inputTitulo {
+  width: 80%;
+}
+
+.listaCheckbox p {
+  font-weight: bold;
+  font-size: 125%;
+}
+
 .listaCheckbox div {
   width: 100%;
 }
