@@ -59,8 +59,6 @@ textarea {
 }
 
 #addejercicio, #addgrupo, #loginFacilitador {
-    font-size: 120%;
-    font-weight: bold;
     text-align: center;
 }
 
@@ -149,7 +147,15 @@ textarea {
   margin-left: auto;
   margin-right: auto;
   width: 95%;
-  background-color: #F88686;
+  background-color: #75CDF7;
+}
+
+#botonAdmin {
+  background-color: #9286F8;
+}
+
+#botonFaci {
+  background-color: #75CDF7;
 }
 
 .botonFacilitadores a {
@@ -448,52 +454,46 @@ textarea {
   color: black;
   border: 2px solid black;
   border-radius: 15px;
-  background-color: #359B8A;
-  width: 50%;
-  height:50%;
+  background-color: #75CDF7;
+  width: 45%;
+  height: 50%;
+  cursor: pointer;
 }
 
 .imagenChat {
   width: 45%;
 }
 
-/*CSS relativo a las estrellas de la valoracion*/
-/**********************************************************/
-.estrellas {
-  margin: 0 auto;
+.inputArchivo {
+  width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+  z-index: -1;
 }
 
-.estrellas p {
-  text-align: center;
+.etiquetaArchivo {
+  font-size: 0.8em;
+  background-color: #F7B75A;
+  border: 2px solid black;
+  border-radius: 8px;
+  padding: 1.3em;
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 1em;
+  width: 35%;
+  font-weight: bold;
 }
-
-input[type="radio"] {
-  display: none;
-}
-
-span {
-  color: grey;
-  font-size: 3em !important;
-}
-
-.clasificacion {
-  direction: rtl;
-  unicode-bidi: bidi-override;
-}
-
-
-input[type="radio"]:checked ~ span {
-  color: orange;
-}
-
-/********************************************************/
-
-
-
 
 @media screen and (max-width: 1100px) {
   input[type=submit] {
       padding: 3% 6%;
+      width: 40%;
+  }
+
+  .botonChat {
+    width: 40%;
   }
 
   hr {
@@ -580,10 +580,6 @@ input[type="radio"]:checked ~ span {
     width: 100%;
   }
 
-  .pictogramaLoginPersonas:hover {
-    width: 100%;
-  }
-
   .botonEliminarPictogramas {
     width: 60%;
   }
@@ -603,7 +599,12 @@ input[type="radio"]:checked ~ span {
 
 @media screen and (max-width: 500px) {
     input[type=submit] {
-        padding: 8% 14%;
+        padding: 8% 1%;
+        width: 45%;
+    }
+
+    .botonChat {
+      width: 45%;
     }
 
     .idFormularioCrearEjercicio {
@@ -695,11 +696,6 @@ input[type="radio"]:checked ~ span {
     }
 
     .pictogramaContraseñaPersonas img {
-      width: 100%;
-    }
-
-
-    .pictogramaLoginPersonas:hover {
       width: 100%;
     }
 
