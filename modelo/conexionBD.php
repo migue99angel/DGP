@@ -5,8 +5,6 @@
     require_once "grupos.php";
     require_once "ejercicio.php";
     require_once "asigna.php";
-    require_once "chat.php";
-
     /**
      * @class ConexionBD
      * @author Miguel Ángel Posadas
@@ -178,101 +176,6 @@
             }
 
             return $chats;
-        }
-
-        /**
-         * @method cargarChat obtiene los datos de un chat concreto
-         * @author Darío Megías Guerrero
-         * @param idEjercicio El identificador del ejercicio que tiene asignado la persona
-         * @param idPersona El identificador de la persona que se va a cargar
-         * @param idFacilitador El identificador de la persona que asignó el ejercicio
-         * @param fechaAsignacion La fecha en la que se asignó el ejercicio
-         * @return chat Objeto de la clase Chat con los datos del chat pedido
-         */
-        public function cargarChat($idEjercicio,$idPersona,$idFacilitador,$fechaAsignacion)
-        {
-            $consulta = "SELECT * FROM Tiene_Chat WHERE idEjercicio=$idEjercicio AND idPersona=$idPersona ".
-                        "AND idFacilitador=$idFacilitador AND fechaAsignacion='$fechaAsignacion';";
-
-            if ($res = $this->conexion->query($consulta)) {
-                $row = $res->fetch_assoc();
-                $chat = new Chat($row['idChat'],$row['idEjercicio'],$row['idPersona'],$row['fechaAsignacion'],$row['idFacilitador'],$row['ruta']);
-            }
-
-            return $chat;
-        }
-
-        // TODO CrearChat. Introduce en la base de datos, crea un nuevo archivo en su sitio y actualiza la BD.
-        /**
-         * @method crearChat Introduce un chat en la base de datos, crea su archivo correspondiente
-         *                   y actualiza la BD para que quede patente la ruta del archivo
-         * @author Darío Megías Guerrero
-         * @param idEjercicio El identificador del ejercicio que tiene asignado la persona
-         * @param idPersona El identificador de la persona que se va a cargar
-         * @param idFacilitador El identificador de la persona que asignó el ejercicio
-         * @param fechaAsignacion La fecha en la que se asignó el ejercicio
-         * @return chat Objeto de la clase Chat con los datos del chat pedido
-         */
-        public function crearChat($idEjercicio,$idPersona,$idFacilitador,$fechaAsignacion) {
-            $seguir = false;
-            $exito = false;
-
-            $consultaInsertar =
-            "INSERT INTO Tiene_Chat(idEjercicio,idPersona,fechaAsignacion,idFacilitador) ".
-            "VALUES($idEjercicio,$idPersona,'$fechaAsignacion',$idFacilitador);";
-
-            $consultaChat =
-            "SELECT idChat FROM Tiene_Chat WHERE idEjercicio=$idEjercicio AND idPersona=$idPersona ".
-            "AND fechaAsignacion='$fechaAsignacion' AND idFacilitador=$idFacilitador;";
-
-            // Insertamos el nuevo chat en la base de datos
-            if ($res = $this->conexion->query($consultaInsertar)) {
-                $seguir = true;
-            } else {
-                var_dump($consultaInsertar);
-                var_dump($this->conexion->error);
-            }
-
-            // Si lo hemos podido insertar, ahora necesitamos el id del chat para operar con él
-            if ($seguir) {
-                if ($res = $this->conexion->query($consultaChat)) {
-                    $idChat = $res->fetch_assoc()['idChat'];
-                } else {
-                    var_dump($consultaInsertar);
-                    var_dump($this->conexion->error);
-                    $seguir = false;
-                }
-            }
-
-            // Creamos los directorios necesarios para que quede todo organizado
-            // y no se pueda pisar ningún archivo con otro
-            if ($seguir) {
-                $rutaBase = "data/upload/exercises/$idEjercicio/chat/$idChat";
-                var_dump(getcwd());
-                $exito = mkdir($rutaBase,0777,true);
-
-                if ($exito) {
-                    $exito = mkdir($rutaBase."/media",0777,true);
-                }
-
-                if ($exito) {
-                    $archivo = fopen($rutaBase."/chat.json","w") or die("No se puedo abrir el archivo");
-                    $inicializaArchivo = array();
-                    fwrite($archivo,json_encode($inicializaArchivo));
-                    fclose($archivo);
-
-                    $consultaActualizar =
-                    "UPDATE Tiene_Chat SET ruta='$rutaBase/chat.json' WHERE idEjercicio=$idEjercicio AND idPersona=$idPersona ".
-                    "AND fechaAsignacion='$fechaAsignacion' AND idFacilitador=$idFacilitador;";
-
-                    if (!$this->conexion->query($consultaActualizar)) {
-                        var_dump($consultaActualizar);
-                        var_dump($this->conexion->error);
-                    }
-                }
-            }
-
-            return $exito;
         }
 
         /**
@@ -469,6 +372,8 @@
             if ($res = $this->conexion->query($consulta)) {
                 $exito = True;
             } else {
+                var_dump($this->conexion->error);
+                var_dump($consulta);
                 $res->close();
                 $exito = False;
             }

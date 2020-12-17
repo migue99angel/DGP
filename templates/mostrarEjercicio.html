@@ -9,6 +9,7 @@
 
         <p><strong>Descripcion: </strong><em>{{ ejercicio.descripcion }}</em></p>
         <p><strong>Fecha asignación: </strong><em>{{ asigna.fechaAsignacion|date("d/m/Y") }}</em></p>
+        <br>
 
         {% if ejercicio.imagenAdjunta is defined %}
           {% if ejercicio.imagenAdjunta ends with '.png' or ejercicio.imagenAdjunta ends with '.jpg' or ejercicio.imagenAdjunta ends with '.jpeg' %}
@@ -60,7 +61,21 @@
           {% endif %}
 
           {% if estado == 2 %}
-          <p><strong>Nota: </strong>{{ correccion.valoracionFacilitador }}</p>
+          <br>
+          <p><strong>Nota: </strong></p>
+          <span style="display:none" id="nota">{{ correccion.valoracionFacilitador }}</span>      
+          
+          <form id="estrellas">
+            <p class="clasificacion">
+              <span id="estrella0">★</span>
+              <span id="estrella1">★</span>
+              <span id="estrella2">★</span>
+              <span id="estrella3">★</span>
+              <span id="estrella4">★</span>
+            </p>
+          </form>
+          
+          
           <p><strong>Comentarios facilitador:</strong> {{ correccion.comentario }}</p>
 
           {% if correccion.archivoAdjuntoCorreccion is defined %}

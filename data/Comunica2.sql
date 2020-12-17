@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql:3306
--- Generation Time: Dec 17, 2020 at 05:09 PM
+-- Generation Time: Dec 10, 2020 at 07:26 PM
 -- Server version: 8.0.19
 -- PHP Version: 7.4.1
 
@@ -160,7 +160,6 @@ CREATE TABLE `Resuelve_Asigna` (
   `texto` text,
   `fechaResolucion` date DEFAULT NULL,
   `valoracionPersona` int DEFAULT NULL,
-  `feedbackEjercicio` text,
   `archivoAdjuntoSolucion` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -265,10 +264,10 @@ ALTER TABLE `Resuelve_Asigna`
 --
 ALTER TABLE `Tiene_Chat`
   ADD PRIMARY KEY (`idChat`),
+  ADD UNIQUE KEY `idEjercicio` (`idEjercicio`),
+  ADD UNIQUE KEY `idPersona` (`idPersona`),
   ADD KEY `fechaAsignacion` (`fechaAsignacion`),
-  ADD KEY `idFacilitador` (`idFacilitador`),
-  ADD KEY `idPersona` (`idPersona`) USING BTREE,
-  ADD KEY `idEjercicio` (`idEjercicio`) USING BTREE;
+  ADD KEY `idFacilitador` (`idFacilitador`);
 
 --
 -- AUTO_INCREMENT for dumped tables
