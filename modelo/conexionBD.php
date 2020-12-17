@@ -751,9 +751,20 @@
          */
         public function eliminarAdministrador($idAdministrador)
         {
-            $res = $this->conexion->query("DELETE FROM Administrador WHERE idAdministrador=$idAdministrador") ;
+            $consulta = "SELECT count(*) from Administrador";
+            if ($res = $this->conexion->query($consulta))
+            {
+                $row = $res->fetch_assoc();
+                if($row['count(*)'] > 1)
+                {
+                    $res = $this->conexion->query("DELETE FROM Administrador WHERE idAdministrador=$idAdministrador") ;
 
-            return $res;
+                    return $res;
+                }
+            } 
+           
+
+            return false;
         }
 
         /**
