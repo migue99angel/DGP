@@ -16,6 +16,7 @@ a {
 }
 
 input[type=submit], .botonSemana, .botonEnviar {
+
     color: black;
     font-weight: bold;
     background-color: #359B8A;
@@ -28,14 +29,14 @@ input[type=submit], .botonSemana, .botonEnviar {
 }
 
 .tituloLista p {
-    font-weight: bold;
-    font-size: 125%;
+  font-weight: bold;
+  font-size: 125%;
 }
 
 textarea {
-    margin: 0px;
-    width: 100%;
-    height: 5em;
+  margin: 0px;
+  width: 100%;
+  height: 5em;
 }
 
 .diaSemana {
@@ -47,11 +48,12 @@ textarea {
 .loginPersonas, .principal,
 .principalAdministracion, .principalProfesores,
 .principalPersonas {
+
     width: 20%;
     padding-left: 2%;
     padding-bottom: 2%;
     padding-right: 2%;
-    margin-top: 4%;
+    margin-top: 6%;
     margin-left: 35%;
     border: 1px solid black;
     border-radius: 5px;
@@ -128,7 +130,7 @@ textarea {
   margin-top: 5%;
   margin-left: auto;
   margin-right: auto;
-  width: 75%;
+  width: 55%;
 }
 
 .botonesPrincipales a {
@@ -138,7 +140,7 @@ textarea {
   background-color: #359B8A;
   margin-top: 5%;
   margin-bottom: 5%;
-  padding: 8%;
+  padding: 4%;
 }
 
 .botonFacilitadores {
@@ -149,7 +151,15 @@ textarea {
   margin-left: auto;
   margin-right: auto;
   width: 95%;
-  background-color: #F88686;
+  background-color: #75CDF7;
+}
+
+#botonAdmin {
+  background-color: #9286F8;
+}
+
+#botonFaci {
+  background-color: #75CDF7;
 }
 
 .botonFacilitadores a {
@@ -297,37 +307,37 @@ textarea {
 }
 
 .botonEliminarPictogramas {
-    color: black;
-    font-weight: bold;
-    background-color: #F88686;
-    padding: 0;
-    text-decoration: none;
-    cursor: pointer;
-    border: 2px solid black;
-    border-radius: 15px;
-    margin-bottom: 5%;
-    width: 80%;
+  color: black;
+  font-weight: bold;
+  background-color: #F88686;
+  padding: 0;
+  text-decoration: none;
+  cursor: pointer;
+  border: 2px solid black;
+  border-radius: 15px;
+  margin-bottom: 5%;
+  width: 80%;
 }
 
 .botonEliminarPictogramas img{
-    width: 20%;
+  width: 20%;
 }
 
 .botonConectarPersona {
-    color: black;
-    font-weight: bold;
-    background-color: #75CDF7;
-    padding: 0;
-    text-decoration: none;
-    cursor: pointer;
-    border: 2px solid black;
-    border-radius: 15px;
-    margin-bottom: 5%;
-    width: 80%;
+  color: black;
+  font-weight: bold;
+  background-color: #75CDF7;
+  padding: 0;
+  text-decoration: none;
+  cursor: pointer;
+  border: 2px solid black;
+  border-radius: 15px;
+  margin-bottom: 5%;
+  width: 80%;
 }
 
 .botonConectarPersona img{
-    width: 20%;
+  width: 20%;
 }
 
 .contenedorListaCheckbox {
@@ -457,6 +467,124 @@ textarea {
   width: 45%;
 }
 
+/* INICIO de Clases para el CHAT */
+
+.contenedorMensajes {
+  display: flex;
+  flex-flow: column nowrap;
+  border: 2px solid #359B8A;
+  border-radius: 15px;
+  margin-top: 1.5rem;
+}
+
+.mensajeIzq {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  margin: 1rem;
+}
+
+.mensajeDer {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-end;
+  margin: 1rem;
+}
+
+.mensaje {
+  display: flex;
+  flex-flow: column nowrap;
+  width: 70%;
+}
+
+.enviado {
+  background-color: #359B8A;
+  border-radius: 15px;
+  text-align: right;
+  padding: 1rem;
+}
+
+.recibido {
+  background-color: #75CDF7;
+  border-radius: 15px;
+  text-align: left;
+  padding: 1rem;
+}
+
+.cabeceraMensaje {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  border-bottom: 2px solid grey;
+}
+
+.nombreMensaje {
+  margin: 0 1rem 0 0;
+}
+
+.fechaMensaje {
+  font-weight: normal;
+  margin: 0;
+}
+
+.textoMensaje {
+  margin: 1rem 0 0 0;
+}
+
+.contenedorBotonesSubidaChat {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.botonSubidaChat {
+  width: 30%;
+  border-radius: 15px;
+}
+
+.botonSubidaChat img {
+  width: 100%;
+}
+
+.botonCamaraChat {
+  background-color: coral;
+}
+
+.botonMicrofonoChat {
+  background-color: #75CDF7;
+}
+
+.botonTextoChat {
+  background-color: #359B8A;
+}
+
+.escribirTextoChat {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
+  display: none;
+  width: 100%;
+  border-radius: 15px;
+  padding: 0.3rem;
+  margin-top: 1rem;
+}
+
+.enviarMensaje {
+  display: none;
+  width: 100%;
+  margin-top: 1rem;
+  border-radius: 15px;
+  background-color: #D5E8D4;
+}
+
+.enviarMensaje img {
+  width: 10%;
+}
+
+/* FIN de clases para el CHAT */
+
 @media screen and (max-width: 1100px) {
   input[type=submit] {
       padding: 3% 6%;
@@ -526,7 +654,7 @@ textarea {
     margin: 5% 0;
   }
 
-  #botonSalir a {
+  .botonSalir a {
     padding: 5%;
   }
 
@@ -543,10 +671,6 @@ textarea {
   }
 
   .pictogramaContraseñaPersonas img {
-    width: 100%;
-  }
-
-  .pictogramaLoginPersonas:hover {
     width: 100%;
   }
 
@@ -661,11 +785,6 @@ textarea {
     }
 
     .pictogramaContraseñaPersonas img {
-      width: 100%;
-    }
-
-
-    .pictogramaLoginPersonas:hover {
       width: 100%;
     }
 
