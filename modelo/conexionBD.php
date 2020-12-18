@@ -248,7 +248,6 @@
             // y no se pueda pisar ningún archivo con otro
             if ($seguir) {
                 $rutaBase = "data/upload/exercises/$idEjercicio/chat/$idChat";
-                var_dump(getcwd());
                 $exito = mkdir($rutaBase,0777,true);
 
                 if ($exito) {
@@ -960,7 +959,7 @@
         /**
          * @method crearEjercicio Crea un ejercicio con los datos dados
          * @author Miguel Muñoz Molina
-         * @param idFacilitador 
+         * @param idFacilitador
          * @param titulo
          * @param descripcion
          * @param imagen String con la url de una imagen
@@ -1053,7 +1052,7 @@
 
             return $asignados;
         }
-        
+
         public function getAllEjerciciosAsignadosByFacilitador($idFacilitador) {
             $consulta = "SELECT Resuelve_Asigna.idEjercicio, Resuelve_Asigna.fechaAsignacion, Resuelve_Asigna.idFacilitador, Resuelve_Asigna.idPersona, Crea_Ejercicio.titulo, Facilitador.nombre AS nombreFacilitador, Persona.nombre AS nombrePersona FROM Resuelve_Asigna, Crea_Ejercicio, Facilitador, Persona WHERE Resuelve_Asigna.idFacilitador = '$idFacilitador' AND Resuelve_Asigna.idEjercicio = Crea_Ejercicio.idEjercicio AND Resuelve_Asigna.idFacilitador = Facilitador.idFacilitador AND Resuelve_Asigna.idPersona = Persona.idPersona ORDER BY titulo, nombrePersona, fechaResolucion;";
 
@@ -1118,8 +1117,8 @@
          * @author Miguel Ángel Posadas Arráez
          * @param idEjercicio El id del ejercicio
          * @return 0 Si el ejercicio está asignado pero no esta resuelto ni corregido
-         * @return 1 Si el ejercicio está asignado y resuelto 
-         * @return 2 Si el ejercicio está corregido 
+         * @return 1 Si el ejercicio está asignado y resuelto
+         * @return 2 Si el ejercicio está corregido
          */
         public function obtenerEstadoEjercicio($idEjecicio, $idPersona)
         {
@@ -1127,7 +1126,7 @@
             $consultaCorrecion = "SELECT * from Corrige WHERE idEjercicio=" . $idEjercicio . "idPersona=" . $idPersona . ";";
 
             if($res = $this->conexion->query($consultaResolucion))
-            {  
+            {
                 $row = $res->fetch_assoc();
                 $retorno = 0;
 
@@ -1140,7 +1139,7 @@
                         if($row2['comentario'] || $row2['archivoAdjuntoCorreccion'] || $row2['valoracionFacilitador'])
                             $retorno = 2;
                     }
-                    
+
                     return $retorno;
                 }
             }

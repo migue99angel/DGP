@@ -4,36 +4,17 @@
 <title>Chat</title>
 {% endblock %}
 
+{% block preScripts %}
+<script type="text/javascript" src="templates/js/peticionesAjax.js"></script>
+{% endblock preScripts %}
+
 {% block body %}
 <div class="titulo">
     <h1>CHAT</h1>
 </div>
-<div class="contenedorMensajes">
-    {% if mensajes|length > 0 %}
-        {% for mensaje in mensajes %}
-            <div class="mensaje{{ mensaje.emisor.tipo == usuarioActual.tipo ? 'Der' : 'Izq' }}">
-                <div class="mensaje {{ mensaje.emisor.tipo == usuarioActual.tipo ? 'enviado' : 'recibido' }}">
-                    <div class="cabeceraMensaje">
-                        <p class="nombreMensaje">{{ mensaje.emisor.nombre }}</p>
-                        <p class="fechaMensaje">{{ mensaje.fechaEmision }}</p>
-                    </div>
-                    <div class="contenidoMensaje">
-                        {% if mensaje.tipo == 'texto' %}
-                        <p class="textoMensaje">{{ mensaje.contenido }}</p>
-                        {% elseif mensaje.tipo == 'audio' %}
-                        <div class="audioMensaje">Aquí va un audio con esta ruta {{ mensaje.contenido }}</div>
-                        {% elseif mensaje.tipo == 'video' %}
-                        <div class="audioMensaje">Aquí va un vídeo con esta ruta {{ mensaje.contenido }}</div>
-                        {% else %}
-                        <p>Error al cargar el mensaje</p>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-    {% else %}
-        <p>No hay mensajes</p>
-    {% endif %}
+<div ></div>
+<div id="contenedorMensajes" class="contenedorMensajes">
+    {% embed "contenedorMensajes.html" %}{% endembed %}
 </div>
 <div class="contenedorBotonesSubidaChat">
     <button id="botonCamaraChat" class="reiniciarBoton botonSubidaChat botonCamaraChat">

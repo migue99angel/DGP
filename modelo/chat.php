@@ -150,22 +150,64 @@
         }
 
         /**
+         * @method Método que devuelve la ruta correcta para abrir archivos
+         * @author Darío Megías Guerrero
+         * @return ruta Ruta absoluta calculada en función del archivo actual
+         */
+        private function getRutaCorrecta() {
+            return dirname(dirname(__FILE__)).'/'.$this->getRuta();
+        }
+
+        /**
          * @method Método que parsea el contenido del archivo en $ruta y le devuelve como array
          * @author Darío Megías Guerrero
          * @return Array asociativo con el contenido del json perteneciente al chat actual
          */
-        public function parseChat() {
-            $archivo = fopen($this->getRuta(),'r') or die("No se pudo abrir el archivo");
+        public function parseChat($tamMax = null) {
+            $rutaArchivo = $this->getRutaCorrecta();
 
-            if (filesize($this->getRuta()) > 0)
-                $contenido = fread($archivo,filesize($this->getRuta()));
+            $archivo = fopen($rutaArchivo,'r') or die("No se pudo abrir el archivo");
 
-            if ($contenido)
+            if (filesize($rutaArchivo) > 0)
+                $contenido = fread($archivo,$tamMax ? $tamMax : filesize($rutaArchivo));
+
+            //var_dump(filesize($rutaArchivo));
+
+
+            if ($contenido) {
                 $resultado = json_decode($contenido);
+                //var_dump($resultado);
+            }
 
             fclose($archivo);
 
             return $resultado;
+        }
+
+        /**
+         * @method Método que añade un mensaje al archivo de mensajes
+         * @author Darío Megías Guerrero
+         * @return Array asociativo con el contenido del json perteneciente al chat actual
+         */
+        public function addMensaje($mensaje) {
+            $rutaArchivo = $this->getRutaCorrecta();
+            $mensajes = $this->parseChat();
+            $mensajes[] = $mensaje;
+            $respuesta = null;
+
+            $archivo = fopen($rutaArchivo,'w') or die("No se pudo abrir el archivo");
+            fwrite($archivo,"");
+            $exito = fwrite($archivo,json_encode($mensajes).PHP_EOL);
+            $punteroAlFinal = ftell($archivo);
+            fflush($archivo);
+            fclose($archivo);
+
+
+            if ($exito !== null) {
+                $respuesta = $this->parseChat($punteroAlFinal);
+            }
+
+            return $respuesta;
         }
 
     }

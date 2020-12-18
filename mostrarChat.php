@@ -39,6 +39,8 @@
             $variablesParaTwig['usuarioActual'] = array(
                 'tipo' => (isset($_SESSION['persona'])) ? 'persona' : 'facilitador'
             );
+            // Poner datos del chat en la sesión para luego poder actualizarlo
+            $_SESSION['chat'] = $chat;
         }
     ////////////////////////////////////////////////////////////////////////////////////////////
     } else {

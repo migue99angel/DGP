@@ -1,16 +1,1 @@
-[
-    {
-        "tipo": "texto",
-        "emisor": {"tipo":"persona","id":6,"nombre":"Consuelo"},
-        "fechaEmision": "2020-12-02 22:41",
-        "contenido": "Hola, buenos días",
-        "rutaMultimedia": ""
-    },
-    {
-        "tipo": "texto",
-        "emisor": {"tipo":"facilitador","id":3,"nombre":"elFaci"},
-        "fechaEmision": "2020-12-02 23:41",
-        "contenido": "¿Qué tal?",
-        "rutaMultimedia": ""
-    }
-]
+[{"tipo":"texto","contenido":"adsf asf a ","emisor":{"tipo":"persona","id":"6","nombre":"Consuelo Rodr\u00edguez Gamarra"},"fechaEmision":"2020-12-17 23:16:41"},{"tipo":"texto","contenido":"adsf asf a ","emisor":{"tipo":"persona","id":"6","nombre":"Consuelo Rodr\u00edguez Gamarra"},"fechaEmision":"2020-12-17 23:16:44"},{"tipo":"texto","contenido":"adsf asf a ","emisor":{"tipo":"persona","id":"6","nombre":"Consuelo Rodr\u00edguez Gamarra"},"fechaEmision":"2020-12-17 23:16:46"},{"tipo":"texto","contenido":"adsf asf a ","emisor":{"tipo":"persona","id":"6","nombre":"Consuelo Rodr\u00edguez Gamarra"},"fechaEmision":"2020-12-17 23:23:31"},{"tipo":"texto","contenido":"cagarro","emisor":{"tipo":"persona","id":"6","nombre":"Consuelo Rodr\u00edguez Gamarra"},"fechaEmision":"2020-12-17 23:24:01"},{"tipo":"texto","contenido":"cagarrot","emisor":{"tipo":"persona","id":"6","nombre":"Consuelo Rodr\u00edguez Gamarra"},"fechaEmision":"2020-12-17 23:37:36"},{"tipo":"texto","contenido":"Escenas","emisor":{"tipo":"persona","id":"6","nombre":"Consuelo Rodr\u00edguez Gamarra"},"fechaEmision":"2020-12-17 23:41:43"},{"tipo":"texto","contenido":"Escenas asdfaf","emisor":{"tipo":"persona","id":"6","nombre":"Consuelo Rodr\u00edguez Gamarra"},"fechaEmision":"2020-12-17 23:41:51"},{"tipo":"texto","contenido":"asf sdf6577695968","emisor":{"tipo":"persona","id":"6","nombre":"Consuelo Rodr\u00edguez Gamarra"},"fechaEmision":"2020-12-17 23:43:54"}]
