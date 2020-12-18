@@ -19,8 +19,9 @@
   
   $dir = './data/upload/';
   $variablesParaTwig['mostrarResultado'] = false;
-  
+
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
     $conexion = new ConexionBD();
     $titulo = $_POST['titulo'];
     $descripcion = $_POST['descripcion'];

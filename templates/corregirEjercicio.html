@@ -48,8 +48,13 @@
     <label for="valoracion">Valoración (entre 0 y 5): <span id="textInput">3</span></label><br>
     <span>0</span> <input type="range" form="correccion" name="valoracion" min="0" max="5" onchange="updateTextInput(this.value);"> <span>5</span><br><br>
 
-    <label for="multimedia">Imagen o vídeo explicativo</label><br>
-    <input type="file" name="multimedia" /><br><br>
+    <div>
+      <label for="multimedia">Imagen o vídeo explicativo</label>
+      <input type="file" name="multimedia" id="file" class="inputArchivo" onchange="updateFile(this.value)" /><br>
+      <label for="file" class="etiquetaArchivo">SELECCIONA UN ARCHIVO</label><br>
+      <span id="archivoSeleccionado"></span><br><br>
+    </div>
+    
     <input type="submit" value="CORREGIR" />
 </form>
 </div>

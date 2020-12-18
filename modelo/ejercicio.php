@@ -31,7 +31,7 @@
 			$this->descripcion = $descripcion;
 			$this->fechaCreacion = $fechaCreacion;
 			$this->multimediaAdjunto = $mAdjunto;
-			$this->imagenAdjunta = $mAdjunto;
+			$this->imagenAdjunta = $iAdjunta;
 			$this->idEjercicio = $idEjercicio;
 		}
 
@@ -142,7 +142,7 @@
 		 */
 		public function getImagenAdjunta()
 		{
-			return $this->imagenAdjunto;
+			return $this->imagenAdjunta;
 		}
 
 		/**
