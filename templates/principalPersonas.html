@@ -14,11 +14,25 @@
   <h1>Hola {{ nombre }}!</h1>
 </div>
 
-<div class="botonEjercicioPersona">
+<button id="botonEjerciciosPersona" class="reiniciarBoton botonEjercicioPersona">
+  <p><strong>EJERCICIOS</strong></p>
+  <img src="templates/img/ejercicio.png" alt="Ejercicios de la persona">
+</button>
+
+<button id="botonAdiosPersona" class="reiniciarBoton botonAdiosPersona">
+  <p><strong>ADIÓS</strong></p>
+  <img src="templates/img/adiós.png" alt="Adiós persona">
+</button>
+
+<!--<div class="botonEjercicioPersona">
   <a href="listaEjercicios.php"p pss="button"><p>EJERCICIOS</p><img src="./templates/img/ejercicio.png"/></a>
 </div>
 
 <div class="botonAdiosPersona">
   <a href="principalPersonas.php?cerrarSesion=1"p pss="button"><p>ADIÓS</p><img src="./templates/img/adiós.png"/></a>
-</div>
+</div>-->
 {% endblock %}
+
+{% block postScripts %}
+<script type="text/javascript" src="templates/js/principalPersonas.js"></script>
+{% endblock postScripts %}

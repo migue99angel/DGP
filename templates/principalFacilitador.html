@@ -14,16 +14,46 @@
 </div>
 
 <div class="botonesPrincipales">
+  <button id="botonFaci1" class="reiniciarBoton botonFacilitadores">
+    <p><strong>ASIGNAR EJERCICIO</strong></p>
+  </button>
+  
+  <button id="botonFaci2" class="reiniciarBoton botonFacilitadores">
+    <p><strong>ASIGNAR LISTA DE EJERCICIOS RECIBIDOS</strong></p>
+  </button>
+  
+  <button id="botonFaci3" class="reiniciarBoton botonFacilitadores">
+    <p><strong>CREAR EJERCICIO</strong></p>
+  </button>
+  
+  <button id="botonFaci4" class="reiniciarBoton botonFacilitadores">
+    <p><strong>GESTIONAR GRUPO</strong></p>
+  </button>
+  
+  <button id="botonFaci5" class="reiniciarBoton botonFacilitadores">
+    <p><strong>CHATS</strong></p>
+  </button>
+  
+  <button id="botonFaci6" class="reiniciarBoton botonFacilitadores">
+    <p><strong>DESASIGNAR EJERCICIO</strong></p>
+  </button>
+</div>
+
+<!--<div class="botonesPrincipales">
   <a href="asignarEjercicio.php" class="button" id="botonFaci">ASIGNAR EJERCICIO</a>
   <a href="listaEjercicios.php" class="button" id="botonFaci">LISTA DE EJERICIOS RECIBIDOS</a>
   <a href="crearEjercicio.php" class="button" id="botonFaci">CREAR EJERCICIO</a>
   <a href="administracionGrupo.php" class="button" id="botonFaci">GESTIONAR GRUPO</a>
   <a href="chat_PlaceHolder.php" cclass="button" id="botonFaci">CHATS</a>
   <a href="desasignarEjercicio.php" class="button" id="botonFaci">DESASIGNAR EJERCICIO</a>
-</div>
+</div>-->
 
 <form action="principalFacilitador.php" method="post" id="loginFacilitador" enctype="multipart/form-data">
   <input type="submit" id="botonSalir" name="salir" value="SALIR"/>
   <input name="cerrarSesion" type="hidden" value=1 ></input>
 </form>
 {% endblock %}
+
+{% block postScripts %}
+<script type="text/javascript" src="templates/js/principalFacilitador.js"></script>
+{% endblock postScripts %}
