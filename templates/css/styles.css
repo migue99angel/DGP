@@ -638,6 +638,11 @@ textarea {
 
 /* FIN de clases para el CHAT */
 
+.imagenSeleccionar {
+  height: 3em;
+  width: 3em;
+}
+
 /*CSS relativo a las estrellas de la valoracion*/
 /**********************************************************/
 .estrellas {

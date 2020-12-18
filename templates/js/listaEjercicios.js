@@ -1,8 +1,9 @@
-var botonCorregir = document.getElementById("botonAdminRegistrar");
-var direccion = "corregirEjercicio.php?idEjercicio=" + botonCorregir.value;
+var botonCorregir = document.getElementById("botonCorregirEjercicio");
 
 if (botonCorregir) {
-    botonPrincipalFacilitador.addEventListener('click', (event) => {
+    var direccion = "corregirEjercicio.php?idEjercicio=" + botonCorregir.value;
+
+    botonCorregir.addEventListener('click', (event) => {
         document.location.href = direccion;
     });
 }
