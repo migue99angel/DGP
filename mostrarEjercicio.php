@@ -60,8 +60,6 @@
         $variablesParaTwig['errores'] = array('No se ha podido cargar el ejercicio');
     }
 
-    var_dump($variablesParaTwig['estado']);
-
     echo $twig->render('mostrarEjercicio.html', $variablesParaTwig);
 
 ?>

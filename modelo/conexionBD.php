@@ -1173,14 +1173,12 @@
                         if($row2['comentario'] || $row2['archivoAdjuntoCorreccion'] || $row2['valoracionFacilitador'])
                             $retorno = 2;
                     }
-
-                    return $retorno;
                 }
-                else
-                    return "Error en la consulta";
+                
+                return $retorno;
             }
             else
-                return "Error en la consulta";
+                return "Error en la consulta2";
         }
 
         /**
