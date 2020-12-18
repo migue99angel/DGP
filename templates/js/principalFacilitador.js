@@ -30,7 +30,7 @@ if (botonPrincipalFacilitador) {
     });
 }
 
-botonPrincipalFacilitador = document.getElementById("botonFaciEj5");
+botonPrincipalFacilitador = document.getElementById("botonFaciChat");
 
 if (botonPrincipalFacilitador) {
     botonPrincipalFacilitador.addEventListener('click', (event) => {
@@ -38,10 +38,10 @@ if (botonPrincipalFacilitador) {
     });
 }
 
-botonPrincipalFacilitador = document.getElementById("botonFaciChat");
+botonPrincipalFacilitador = document.getElementById("botonFaciEj5");
 
 if (botonPrincipalFacilitador) {
     botonPrincipalFacilitador.addEventListener('click', (event) => {
-        document.location.href = "desasignarEjercicio.php.php";
+        document.location.href = "desasignarEjercicio.php";
     });
 }
