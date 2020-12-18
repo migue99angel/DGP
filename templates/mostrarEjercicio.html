@@ -9,6 +9,12 @@
         <h1>Ejercicio: {{ ejercicio.titulo }}</h1>
     </div>
 
+    {% if errores %}
+    <div class="Titulo">
+      <h4 style="color: Red">{{ errores }}</h4>
+    </div>
+  {% endif %}
+
     <div class="ejercicio">
 
         <p><strong>Descripcion: </strong><em>{{ ejercicio.descripcion }}</em></p>

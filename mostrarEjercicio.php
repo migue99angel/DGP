@@ -21,14 +21,22 @@
             $multimedia = $_FILES['multimedia']['name'];
             if (move_uploaded_file($_FILES['multimedia']['tmp_name'], $dir . basename($_FILES['multimedia']['name'])))
             {
+                $fileExists = true;
+            }
+            else
+            {
+                $fileExists = false;
+            }
+        }
+            if($fileExists == true || $_POST['comentario'] != "")
+            {
                 $res = $conexion->resolverEjercicio($_SESSION['ejercicioAsignado']->getIdEjercicio(),$_SESSION['persona']->getIdPersona(),$_SESSION['ejercicioAsignado']->getFechaAsignacion(),$_POST['comentario'],$_POST['valoracion'], $dir . $_FILES['multimedia']['name']);
             }
             else
             {
-                $variablesParaTwig['errores'] = array('No se ha podido resolver el ejercicio');
+                $variablesParaTwig['errores'] = 'Error es necesario subir una imagen o video o poner un comentario para resolver un ejercicio';
             }
-        }
-
+     
     }
 
     if (isset($_SESSION['ejercicioAsignado']))
