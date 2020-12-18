@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block preScripts %}
+<script type="text/javascript" src="templates/js/funcionesGlobales.js"></script>
+{% endblock preScripts %}
+
 {% block body %}
     <div class="titulo">
         <h1>Ejercicio: {{ ejercicio.titulo }}</h1>
@@ -13,8 +17,8 @@
 
         {% if ejercicio.imagenAdjunta is defined %}
           {% if ejercicio.imagenAdjunta ends with '.png' or ejercicio.imagenAdjunta ends with '.jpg' or ejercicio.imagenAdjunta ends with '.jpeg' %}
-        
-            <p><img src="{{ ejercicio.imagenAdjunta }}" alt="Fotografía de la resolución" width="35%" height="35%"></p>
+
+            <p><img src="{{ ejercicio.imagenAdjunta }}" alt="Fotografía de la resolución" width="60%"></p>
 
           {% endif %}
         {% endif %}
@@ -34,20 +38,20 @@
           <form action="mostrarEjercicio.php?resolucion=true&idEjercicio={{ idEjercicio }}&idPersona={{ idPersona }}" method="post" id="correccion" enctype="multipart/form-data">
               <label for="comentario"><strong>¿Algo que comentar?</strong></label><br>
               <textarea name="comentario" ></textarea><br><br>
-             
+
               <label for="valoracion">¿Te ha gustado el ejercicio? (entre 0 y 5): <span id="textInput">3</span></label><br>
               <span>0</span> <input type="range" name="valoracion" min="0" max="5" onchange="updateTextInput(this.value);"> <span>5</span><br><br>
-          
+
               <label for="multimedia">Imagen o vídeo con la solución</label>
               <input type="file" name="multimedia" id="file" class="inputArchivo" onchange="updateFile(this.value)" /><br>
               <label for="file" class="etiquetaArchivo">SELECCIONA UN ARCHIVO</label><br>
               <span id="archivoSeleccionado"></span><br><br>
-              
+
               <input type="submit" value="RESOLVER"/>
           </form>
           </div>
           {% endif %}
-          
+
           {% if estado == 1 %}
           <p><strong>El ejercicio ya ha sido resuelto. </strong></p>
           <p><strong>El facilitador no lo ha corregido todavia </strong></p>
@@ -66,8 +70,8 @@
           {% if estado == 2 %}
           <br>
           <p><strong>Nota: </strong></p>
-          <span style="display:none" id="nota">{{ correccion.valoracionFacilitador }}</span>      
-          
+          <span style="display:none" id="nota">{{ correccion.valoracionFacilitador }}</span>
+
           <form id="estrellas">
             <p class="clasificacion">
               <span id="estrella4">★</span>
@@ -77,13 +81,13 @@
               <span id="estrella0">★</span>
             </p>
           </form>
-          
-          
+
+
           <p><strong>Comentarios facilitador:</strong> {{ correccion.comentario }}</p>
 
           {% if correccion.archivoAdjuntoCorreccion is defined %}
           {% if correccion.archivoAdjuntoCorreccion ends with '.png' or correccion.archivoAdjuntoCorreccion ends with '.jpg' or correccion.archivoAdjuntoCorreccion ends with '.jpeg' %}
-        
+
             <p><img src="{{  correccion.archivoAdjuntoCorreccion }}" alt="Fotografía de la resolución" width="35%" height="35%"></p>
 
           {% endif %}

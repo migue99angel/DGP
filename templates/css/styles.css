@@ -430,7 +430,7 @@ textarea {
 .previewEjercicio {
   display: flex;
   flex-flow: column nowrap;
-  width: 90%;
+  width: 100%;
   border: 2px solid black;
   border-radius: 15px;
   background-color: #359B8A;
@@ -611,30 +611,30 @@ textarea {
 .estrellas {
   margin: 0 auto;
 }
- 
+
 .estrellas p {
   text-align: center;
 }
- 
+
 input[type="radio"] {
   display: none;
 }
- 
+
 span {
   color: grey;
   font-size: 3em !important;
 }
- 
+
 .clasificacion {
   direction: rtl;
   unicode-bidi: bidi-override;
 }
- 
- 
+
+
 input[type="radio"]:checked ~ span {
   color: orange;
 }
- 
+
 /********************************************************/
 
 @media screen and (max-width: 1100px) {
@@ -642,7 +642,7 @@ input[type="radio"]:checked ~ span {
       padding: 3% 6%;
       width: 40%;
     }
-  
+
   .botonChat {
     width: 40%;
   }

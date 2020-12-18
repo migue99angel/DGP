@@ -1,4 +1,4 @@
-function peticionAjaxRedireccion(scriptPeticion,paginaRedireccion,parametros) {
+function peticionAjaxRedireccion(scriptPeticion,paginaRedireccion,parametros,callback=false) {
     var peticion = new XMLHttpRequest();
 
     peticion.open('POST', scriptPeticion);
@@ -14,7 +14,11 @@ function peticionAjaxRedireccion(scriptPeticion,paginaRedireccion,parametros) {
 
 				if (response) {
 					if (response.exito) {
-						document.location.href = paginaRedireccion;
+						if (callback === false) {
+							document.location.href = paginaRedireccion;
+						} else {
+							callback(paginaRedireccion);
+						}
 					}
 				}
 			} else {

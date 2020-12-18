@@ -14,15 +14,15 @@
 </div>
 
 {% if mostrarResultado %}
-{% if res %}
-<div class="Titulo">
-  <h4 style="color: Green">Ejercicio creado correctamente</h4>
-</div>
-{% else %}
-<div class="Titulo">
-  <h4 style="color: Red">Ejercicio incorrecto</h4>
-</div>
-{% endif %}
+  {% if resultado %}
+  <div class="Titulo">
+    <h4 style="color: Green">Ejercicio creado correctamente</h4>
+  </div>
+  {% else %}
+  <div class="Titulo">
+    <h4 style="color: Red">Ejercicio incorrecto</h4>
+  </div>
+  {% endif %}
 {% endif %}
 
 <form action="crearEjercicio.php" method="post" id="addejercicio" enctype="multipart/form-data">
@@ -30,15 +30,15 @@
     <input class="inputTitulo" type="text" name="titulo" required/><br><br>
 
     <label for="descripcion"><strong>Descripción</strong></label>
-    <textarea name="descripcion" form="addejercicio" required></textarea><br><br>
+    <textarea name="descripcion" form="addejercicio" ></textarea><br><br>
 
     <label for="imagen"><strong>Imagen</strong></label>
-    <input type="file" name="imagen" id="file" class="inputArchivo" accept=".jpg,.jpeg,.png" required onchange="updateImg(this.value)" /><br>
+    <input type="file" name="imagen" id="file" class="inputArchivo" accept=".jpg,.jpeg,.png" onchange="updateImg(this.value)" /><br>
     <label for="file" class="etiquetaArchivo">SELECCIONA UNA IMAGEN</label><br>
     <span id="archivoSeleccionado"></span><br><br>
 
     <label for="multimedia"><strong>Vídeo o audio explicativo</strong></label>
-    <input type="file" name="multimedia" id="video" class="inputArchivo" accept=".avi,.mov,.flv,.mp4,.mkv,.wmv,.mp3,.wav,.aiff,.wma,.flac" required onchange="updateVid(this.value)" /><br>
+    <input type="file" name="multimedia" id="video" class="inputArchivo" accept=".avi,.mov,.flv,.mp4,.mkv,.wmv,.mp3,.wav,.aiff,.wma,.flac" onchange="updateVid(this.value)" /><br>
     <label for="video" class="etiquetaArchivo">SELECCIONA UN VIDEO</label><br>
     <span id="videoSeleccionado"></span><br><br>
 

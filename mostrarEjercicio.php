@@ -20,9 +20,9 @@
         {
             $multimedia = $_FILES['multimedia']['name'];
             if (move_uploaded_file($_FILES['multimedia']['tmp_name'], $dir . basename($_FILES['multimedia']['name'])))
-            {  
+            {
                 $res = $conexion->resolverEjercicio($_SESSION['ejercicioAsignado']->getIdEjercicio(),$_SESSION['persona']->getIdPersona(),$_SESSION['ejercicioAsignado']->getFechaAsignacion(),$_POST['comentario'],$_POST['valoracion'], $dir . $_FILES['multimedia']['name']);
-            } 
+            }
             else
             {
                 $variablesParaTwig['errores'] = array('No se ha podido resolver el ejercicio');
@@ -31,7 +31,7 @@
 
     }
 
-    if (isset($_SESSION['ejercicioAsignado'])) 
+    if (isset($_SESSION['ejercicioAsignado']))
     {
         $variablesParaTwig['idEjercicio'] = $_SESSION['ejercicioAsignado']->getIdEjercicio();
         $variablesParaTwig['idPersona'] = $_SESSION['persona']->getIdPersona();
@@ -41,12 +41,14 @@
         $variablesParaTwig['enunciado'] = $conexion->getEjercicio($_SESSION['ejercicioAsignado']->getIdEjercicio());
         $variablesParaTwig['asigna'] = $_SESSION['ejercicioAsignado'];
 
-  
+
 
         //Pueden darse 3 casos
         // 0 - > El ejercicio está asignado pero no está resuelto
         // 1 - > El ejercicio está resuelto, pero no está corregido
         // 2 - > El ejercicio está resuelto y corregido
+
+        // ¡CUIDADO! La clave primaria de Resuelve_Asigna tiene más campos
         $variablesParaTwig['estado'] = $conexion->obtenerEstadoEjercicio($variablesParaTwig['idEjercicio'],$_SESSION['persona']->getIdPersona());
         //Si el ejercicio está corregido tenemos que acceder a la base de datos para obtener las calificaciones
         if($variablesParaTwig['estado'] == 2)

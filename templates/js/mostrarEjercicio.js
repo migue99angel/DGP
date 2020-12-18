@@ -1,7 +1,12 @@
-var nota = document.getElementById("nota").innerHTML;
-for(var i=0; i < nota; i++)
+var nota = document.getElementById("nota");
+
+if (nota) {
+    nota = nota.innerHTML;
+
+    for(var i=0; i < nota; i++)
 {
     document.getElementById("estrella"+i).style.color = "orange" ;
+}
 }
 
 var botonChat = document.getElementById('botonChat');

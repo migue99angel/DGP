@@ -17,7 +17,7 @@ var botonEnviar = document.getElementById('enviarMensaje');
 
 if (botonEnviar) {
     botonEnviar.addEventListener('click', (event) => {
-        var script = 'http://localhost/ajax/enviarMensaje.php';
+        var script = 'ajax/enviarMensaje.php';
         var tipoMensaje = getTipoMensaje();
         var mensaje = {
             tipo: tipoMensaje,
@@ -26,6 +26,7 @@ if (botonEnviar) {
         var params = `mensaje=${JSON.stringify(mensaje)}`;
 
         peticionAjaxRespuesta(script,params,refrescarMensajes);
+        document.getElementById('escribirTextoChat').value = "";
     });
 }
 
@@ -39,7 +40,6 @@ function toggleElement(elementId,displayStyle) {
 }
 
 function refrescarMensajes(response) {
-    console.log(response);
     var mensajes = document.getElementById('contenedorMensajes');
 
     mensajes.innerHTML = response.mensajes;

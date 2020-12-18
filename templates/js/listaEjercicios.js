@@ -25,8 +25,10 @@ if (ejercicios.length > 0) {
             var idFacilitador = ej.getAttribute('data-idfacilitador').trim();
             var fechaAsignacion = ej.getAttribute('data-fechaasignacion').trim();
 
-            var script = 'http://localhost/ajax/cargarEjercicioAsignado.php';
-            var redireccion = 'http://localhost/mostrarEjercicio.php';
+            var dominioCorrecto = getDominioCorrecto();
+
+            var script = 'ajax/cargarEjercicioAsignado.php';
+            var redireccion = 'mostrarEjercicio.php';
             var params = `idEjercicio=${idEjercicio}&idFacilitador=${idFacilitador}&fechaAsignacion=${fechaAsignacion}`;
             peticionAjaxRedireccion(script,redireccion,params);
         });
