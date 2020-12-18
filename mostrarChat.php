@@ -21,6 +21,7 @@
         $fechaAsignacion = $_SESSION['ejercicioAsignado']->getFechaAsignacion();
 
         $variablesParaTwig['titulo'] = $_SESSION['ejercicioAsignado']->getTitulo();
+        $variablesParaTwig['fechaResolucion'] = $_SESSION['ejercicioAsignado']->getFechaResolucion();
 
         $chat = $conexion->cargarChat($idEjercicio,$idPersona,$idFacilitador,$fechaAsignacion);
 
