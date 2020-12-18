@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: mysql:3306
--- Tiempo de generación: 18-12-2020 a las 10:20:43
+-- Tiempo de generación: 18-12-2020 a las 12:33:20
 -- Versión del servidor: 8.0.22
 -- Versión de PHP: 7.4.11
 
@@ -193,10 +193,7 @@ ALTER TABLE `Administrador`
 -- Indices de la tabla `Corrige`
 --
 ALTER TABLE `Corrige`
-  ADD PRIMARY KEY (`idEjercicio`,`idFacilitador`,`idPersona`,`fechaAsignacionEjercicio`) USING BTREE,
-  ADD KEY `fechaAsignacionEjercicio` (`fechaAsignacionEjercicio`),
-  ADD KEY `idFacilitador` (`idFacilitador`) USING BTREE,
-  ADD KEY `idPersona` (`idPersona`) USING BTREE;
+  ADD PRIMARY KEY (`idEjercicio`,`idFacilitador`,`idPersona`,`fechaAsignacionEjercicio`) USING BTREE;
 
 --
 -- Indices de la tabla `Crea_Ejercicio`
@@ -254,6 +251,7 @@ ALTER TABLE `Pertenece`
 --
 ALTER TABLE `Resuelve_Asigna`
   ADD PRIMARY KEY (`idEjercicio`,`idPersona`,`fechaAsignacion`,`idFacilitador`) USING BTREE,
+  ADD UNIQUE KEY `idEjercicio_2` (`idEjercicio`,`idFacilitador`,`idPersona`,`fechaAsignacion`) USING BTREE,
   ADD KEY `idFacilitador` (`idFacilitador`),
   ADD KEY `idEjercicio` (`idEjercicio`) USING BTREE,
   ADD KEY `idPersona` (`idPersona`) USING BTREE,
@@ -317,10 +315,7 @@ ALTER TABLE `Tiene_Chat`
 -- Filtros para la tabla `Corrige`
 --
 ALTER TABLE `Corrige`
-  ADD CONSTRAINT `Corrige_ibfk_1` FOREIGN KEY (`idEjercicio`) REFERENCES `Resuelve_Asigna` (`idEjercicio`),
-  ADD CONSTRAINT `Corrige_ibfk_2` FOREIGN KEY (`idFacilitador`) REFERENCES `Facilitador` (`idFacilitador`),
-  ADD CONSTRAINT `Corrige_ibfk_3` FOREIGN KEY (`idPersona`) REFERENCES `Resuelve_Asigna` (`idPersona`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `Corrige_ibfk_4` FOREIGN KEY (`fechaAsignacionEjercicio`) REFERENCES `Resuelve_Asigna` (`fechaAsignacion`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `Corrige_ibfk_1` FOREIGN KEY (`idEjercicio`,`idFacilitador`,`idPersona`,`fechaAsignacionEjercicio`) REFERENCES `Resuelve_Asigna` (`idEjercicio`, `idFacilitador`, `idPersona`, `fechaAsignacion`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Filtros para la tabla `Crea_Ejercicio`

@@ -1,4 +1,4 @@
-var botonPrincipalFacilitador = document.getElementById("botonFaci1");
+var botonPrincipalFacilitador = document.getElementById("botonFaciEj1");
 
 if (botonPrincipalFacilitador) {
     botonPrincipalFacilitador.addEventListener('click', (event) => {
@@ -6,7 +6,7 @@ if (botonPrincipalFacilitador) {
     });
 }
 
-botonPrincipalFacilitador = document.getElementById("botonFaci2");
+botonPrincipalFacilitador = document.getElementById("botonFaciEj2");
 
 if (botonPrincipalFacilitador) {
     botonPrincipalFacilitador.addEventListener('click', (event) => {
@@ -14,7 +14,7 @@ if (botonPrincipalFacilitador) {
     });
 }
 
-botonPrincipalFacilitador = document.getElementById("botonFaci3");
+botonPrincipalFacilitador = document.getElementById("botonFaciEj3");
 
 if (botonPrincipalFacilitador) {
     botonPrincipalFacilitador.addEventListener('click', (event) => {
@@ -22,7 +22,7 @@ if (botonPrincipalFacilitador) {
     });
 }
 
-botonPrincipalFacilitador = document.getElementById("botonFaci4");
+botonPrincipalFacilitador = document.getElementById("botonFaciEj4");
 
 if (botonPrincipalFacilitador) {
     botonPrincipalFacilitador.addEventListener('click', (event) => {
@@ -30,7 +30,7 @@ if (botonPrincipalFacilitador) {
     });
 }
 
-botonPrincipalFacilitador = document.getElementById("botonFaci5");
+botonPrincipalFacilitador = document.getElementById("botonFaciEj5");
 
 if (botonPrincipalFacilitador) {
     botonPrincipalFacilitador.addEventListener('click', (event) => {
@@ -38,7 +38,7 @@ if (botonPrincipalFacilitador) {
     });
 }
 
-botonPrincipalFacilitador = document.getElementById("botonFaci6");
+botonPrincipalFacilitador = document.getElementById("botonFaciChat");
 
 if (botonPrincipalFacilitador) {
     botonPrincipalFacilitador.addEventListener('click', (event) => {
