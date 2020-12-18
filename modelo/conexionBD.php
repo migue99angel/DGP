@@ -101,7 +101,6 @@
             $consulta = "SELECT * from Persona WHERE idPersona not in (select idPersona from Pertenece where idGrupo=$idGrupo)";
             $personas = array();
             $i = 0;
-            echo("test");
             if($res = $this->conexion->query($consulta))
             {
                 while($row = $res->fetch_assoc())
@@ -460,15 +459,13 @@
          */
         public function asignarGrupo($idGrupo,$idPersona)
         {
-            $exito = True;
+            $exito = True;  
 
-            $consulta = "INSERT INTO Pertenece (idGrupo,idPersona)".
-                                "VALUES ($idGrupo,$idPersona);";
+            $consulta = "INSERT INTO Pertenece (idGrupo,idPersona) VALUES ('$idGrupo','$idPersona');";
 
             if ($res = $this->conexion->query($consulta)) {
                 $exito = True;
             } else {
-                $res->close();
                 $exito = False;
             }
 
