@@ -35,11 +35,7 @@
     $variablesParaTwig['tipoLista'] = 'personas';
     $variablesParaTwig['seleccionMiembros'] = True;
   }
-  if (isset($_POST['elementos'])) {
-    foreach ($_POST['elementos'] as $personas) {
-      $variablesParaTwig['exitoPersonas'] = $conexion->asignarGrupo($_SESSION['id'],$personas);
-    }
-  }
+
 
   $variablesParaTwig['test'] = $id;
   echo $twig->render('crearGrupo.html', $variablesParaTwig);

@@ -27,32 +27,37 @@
       exit();
     }
   }
-
+  $multimedia = false;
   if(isset($_GET['corregido']) && $_GET['corregido'] == true) {
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
-      if(isset($_POST['comentario']) && !empty($_POST['comentario']) && is_string($_POST['comentario']) &&
-          isset($_POST['valoracion']) && !empty($_POST['valoracion']) && is_string($_POST['valoracion']) &&
-          isset($_FILES['multimedia']) && !empty($_FILES['multimedia'])) 
+      if((isset($_POST['comentario']) && !empty($_POST['comentario']) && is_string($_POST['comentario'])) ||
+          isset($_POST['valoracion']) && !empty($_POST['valoracion']) && is_string($_POST['valoracion']) )
           {
+              
+              $comentario = htmlspecialchars($_POST['comentario']);
+              $valoracion = htmlspecialchars($_POST['valoracion']);
+              if( isset($_FILES['multimedia']) && !empty($_FILES['multimedia'])) 
+              {
+                $multimedia=true;
+                $file_name = $_FILES['multimedia']['name'];
+                $file_size = $_FILES['multimedia']['size'];
+                $file_tmp = $_FILES['multimedia']['tmp_name'];
+                $file_type = $_FILES['multimedia']['type'];
+                $file_ext = strtolower(end(explode('.',$_FILES['multimedia']['name'])));
+                
+                $extensions= array("jpeg","jpg","png","mp3","mp4","mov");
+      
+                $rutaFichero = 'data/upload/'. $file_name;
+                
+              
+                if(in_array($file_ext,$extensions) === true && $file_size < 2097152){
+                  move_uploaded_file($file_tmp, $rutaFichero);
+                }    
+              
+            }
 
-            $comentario = htmlspecialchars($_POST['comentario']);
-            $valoracion = htmlspecialchars($_POST['valoracion']);
-  
-            $file_name = $_FILES['multimedia']['name'];
-            $file_size = $_FILES['multimedia']['size'];
-            $file_tmp = $_FILES['multimedia']['tmp_name'];
-            $file_type = $_FILES['multimedia']['type'];
-            $file_ext = strtolower(end(explode('.',$_FILES['multimedia']['name'])));
-            
-            $extensions= array("jpeg","jpg","png","mp3","mp4","mov");
-  
-            $rutaFichero = 'data/upload/'. $file_name;
-  
-            if(in_array($file_ext,$extensions) === true && $file_size < 2097152){
-              move_uploaded_file($file_tmp, $rutaFichero);
-            }      
-
-            $res = $conexion->corregirEjercicio($idEjercicio, $_SESSION['facilitador']->getidFacilitador(), $idPersona, $comentario, $rutaFichero, $valoracion);
+            if(!empty($_POST['comentario']) || $multimedia == true)
+              $res = $conexion->corregirEjercicio($idEjercicio, $_SESSION['facilitador']->getidFacilitador(), $idPersona, $comentario, $rutaFichero, $valoracion);
 
             if($res)
               header("Location: listaEjercicios.php");

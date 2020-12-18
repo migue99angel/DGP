@@ -101,7 +101,6 @@
             $consulta = "SELECT * from Persona WHERE idPersona not in (select idPersona from Pertenece where idGrupo=$idGrupo)";
             $personas = array();
             $i = 0;
-            echo("test");
             if($res = $this->conexion->query($consulta))
             {
                 while($row = $res->fetch_assoc())
@@ -463,15 +462,13 @@
          */
         public function asignarGrupo($idGrupo,$idPersona)
         {
-            $exito = True;
+            $exito = True;  
 
-            $consulta = "INSERT INTO Pertenece (idGrupo,idPersona)".
-                                "VALUES ($idGrupo,$idPersona);";
+            $consulta = "INSERT INTO Pertenece (idGrupo,idPersona) VALUES ('$idGrupo','$idPersona');";
 
             if ($res = $this->conexion->query($consulta)) {
                 $exito = True;
             } else {
-                $res->close();
                 $exito = False;
             }
 
@@ -559,10 +556,10 @@
          */
         public function cargarEjerciciosResueltos($idFacilitador)
         {
-            $consulta = "SELECT * FROM Resuelve_Asigna  INNER JOIN Persona ON Resuelve_Asigna.idPersona = Persona.idPersona
+            $consulta = "SELECT * FROM Resuelve_Asigna  INNER JOIN Persona ON (Resuelve_Asigna.idPersona = Persona.idPersona )
             WHERE (Resuelve_Asigna.texto IS NOT NULL OR Resuelve_Asigna.valoracionPersona IS NOT NULL OR Resuelve_Asigna.archivoAdjuntoSolucion IS NOT NULL)
             AND NOT EXISTS (SELECT * FROM Corrige WHERE Resuelve_Asigna.idEjercicio = Corrige.idEjercicio
-            AND Resuelve_Asigna.idPersona = Corrige.idPersona) AND idFacilitador = '". $idFacilitador ."'";
+            AND Resuelve_Asigna.idPersona = Corrige.idPersona AND Resuelve_Asigna.fechaAsignacion=Corrige.fechaAsignacionEjercicio) AND idFacilitador = '". $idFacilitador ."'";
 
             $ejercicios = array();
             if($res = $this->conexion->query($consulta))
@@ -609,12 +606,14 @@
             $adjunto = $this->conexion->real_escape_string($adjunto);
             $valoracion = (int) $this->conexion->real_escape_string($valoracion);
 
-            $consulta = $this->conexion->query("SELECT fechaAsignacion FROM Resuelve_Asigna WHERE idEjercicio = '". $idEjercicio ."' AND idPersona ='". $idPersona ."'");
+            $consulta = $this->conexion->query("SELECT fechaAsignacion FROM Resuelve_Asigna WHERE idEjercicio = '". $idEjercicio ."' AND idPersona ='". $idPersona ."'
+             AND NOT EXISTS (SELECT * FROM Corrige WHERE Resuelve_Asigna.idEjercicio=Corrige.idEjercicio AND Resuelve_Asigna.idPersona = Corrige.idPersona AND
+             Resuelve_Asigna.fechaAsignacion=Corrige.fechaAsignacionEjercicio)");
 
             if($consulta->num_rows > 0) {
                 $fila = $consulta->fetch_assoc();
                 $fechaAsignacionEjercicio = $fila["fechaAsignacion"];
-                }
+            }
 
             $res = $this->conexion->query("INSERT INTO Corrige (idFacilitador, idEjercicio, idPersona,
             fechaAsignacionEjercicio, fechaCorreccion, comentario, archivoAdjuntoCorreccion, valoracionFacilitador)

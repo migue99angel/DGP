@@ -137,7 +137,6 @@ textarea {
   display: block;
   margin-top: 5%;
   margin-bottom: 5%;
-  padding: 8%;
 }
 
 .botonFacilitadores {
@@ -152,7 +151,13 @@ textarea {
   background-color: #75CDF7;
 }
 
-#botonAdmin {
+#botonAdminRegistrar {
+  background-color: #359B8A;
+  display: inline;
+  font-weight: bold;
+}
+
+#botonAdmin,#botonAdmin1,#botonAdmin2,#botonAdmin3 {
   background-color: #9286F8;
 }
 
@@ -165,7 +170,7 @@ textarea {
 }
 
 .botonFacilitadores button {
-  height: 7%;
+  
   display: block;
   margin-top: 5%;
   margin-bottom: 5%;
@@ -173,7 +178,7 @@ textarea {
 }
 
 .botonFacilitadores {
-  height: 7%;
+  height: 6em;
   display: block;
   margin-top: 5%;
   margin-bottom: 5%;
@@ -189,16 +194,14 @@ textarea {
   margin-left: auto;
   margin-right: auto;
   width: 95%;
-  height: 8em;
+  height: 6em;
   background-color: #9286F8;
 }
 
 .botonAdministracion {
-  height: 7%;
   display: block;
   margin-top: 5%;
   margin-bottom: 5%;
-  padding: 4%;
   font-size: 1.5em;
 }
 
@@ -422,6 +425,10 @@ textarea {
 
 .reiniciarBoton p {
   color: black;
+}
+
+.reiniciarBoton:hover {
+  cursor: pointer;
 }
 
 .botonDiaSemana {

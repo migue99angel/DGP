@@ -5,13 +5,13 @@
         </div>
 
         <div class="{{ lista.claseCheckbox|default('listaCheckbox') }}">
-                <!-- Los elementos tipo radio no funcionan bien, hay que emularlos con JS -->
-                {% for elemento in lista.elementos %}
-                    <div>
-                        <input type="{{ lista.tipoInput|default('checkbox') }}" id="elemento{{ loop.index0 }}" name="{{ lista.nombreInput|default('elementos[]') }}" value="{% block valor %}{% endblock valor %}">
-                        <label for="elemento{{ loop.index0 }}"> {% block elementoLista %}{% endblock elementoLista %} </label><br>
-                    </div>
-                {% endfor %}
+        <!-- Los elementos tipo radio no funcionan bien, hay que emularlos con JS -->
+        {% for elemento in lista.elementos %}
+            <div>
+                <input type="{{ lista.tipoInput|default('checkbox') }}" id="elemento{{ loop.index0 }}" name="{{ lista.nombreInput|default('elementos[]') }}" value="{% block valor %}{% endblock valor %}">
+                <label for="elemento{{ loop.index0 }}"> {% block elementoLista %}{% endblock elementoLista %} </label><br>
+            </div>
+        {% endfor %}
         </div>
         {% if lista.numeroOcultos is not null %}
                 <input type="hidden" id="numeroOcultos" name="numeroOcultos" value="{{ lista.numeroOcultos }}">
