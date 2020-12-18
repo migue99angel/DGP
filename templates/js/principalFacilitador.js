@@ -34,7 +34,7 @@ botonPrincipalFacilitador = document.getElementById("botonFaciChat");
 
 if (botonPrincipalFacilitador) {
     botonPrincipalFacilitador.addEventListener('click', (event) => {
-        document.location.href = "chat_PlaceHolder.php";
+        document.location.href = "listaChatsFacilitadores.php";
     });
 }
 

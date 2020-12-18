@@ -4,25 +4,47 @@
 <title>Lista de Chats</title>
 {% endblock titulo %}
 
+{% block preScripts %}
+<script type="text/javascript" src="templates/js/peticionesAjax.js"></script>
+{% endblock preScripts %}
+
 {% block body %}
 <div class="Titulo">
-    Lista de Chats
+    <h1>Lista de Chats</h1>
 </div>
 
-{% for ej in ejercicios %}
-    <button id="{{ ej.idEjercicio }}" class="reiniciarBoton previewEjercicio" data-idFacilitador="{{ ej.idFacilitador }}" data-fechaAsignacion="{{ ej.fechaAsignacion }}">
+{% for ej in ejerciciosOrdenados %}
+    <div class="Titulo">
+        <h3>{{ ej.titulo }}</h3>
+    </div>
+    {% for ejer in ej.ejercicios %}
+    <button id="{{ ejer.idEjercicio }}" class="reiniciarBoton previewEjercicio" data-fechaAsignacion="{{ ejer.fechaAsignacion }}" data-idpersona="{{ ejer.idPersona }}">
         <div>
-            {% if ej.imagenAdjunta == '' %}
+            {% if ejer.imagenAdjunta == '' %}
                 {% set imagenAdjunta = 'templates/img/cross.png' %}
             {% else %}
-                {% set imagenAdjunta = ej.imagenAdjunta %}
+                {% set imagenAdjunta = ejer.imagenAdjunta %}
             {% endif %}
             <img src="{{ imagenAdjunta }}" alt="Falta alt" class="imagenPreviewEjercicio">
         </div>
         <div class ="tituloPreviewEjercicio">
-            <p>{{ ej.titulo }}</p>
+            <p>{{ ejer.titulo }}</p>
+        </div>
+        <div class="nombrePersonaPreviewChat">
+            <p>Asignado a: <strong>{{ ejer.nombrePersona }}</strong></p>
+        </div>
+        <div class="fechaAsignacionPreviewChat">
+            <p>Asignado el: <strong>{{ ejer.fechaAsignacion }}</strong></p>
+        </div>
+        <div class="fechaResolucionPreviewChat">
+            <p>Asignado para el: <strong>{{ ejer.fechaResolucion }}</strong></p>
         </div>
 
     </button>
+    {% endfor %}
 {% endfor %}
 {% endblock body %}
+
+{% block postScripts %}
+<script type="text/javascript" src="templates/js/listaChatsFacilitadores.js"></script>
+{% endblock postScripts %}

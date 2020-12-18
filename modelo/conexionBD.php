@@ -197,6 +197,9 @@
             if ($res = $this->conexion->query($consulta)) {
                 $row = $res->fetch_assoc();
                 $chat = new Chat($row['idChat'],$row['idEjercicio'],$row['idPersona'],$row['fechaAsignacion'],$row['idFacilitador'],$row['ruta']);
+            } else {
+                var_dump($consulta);
+                var_dump($this->conexion->error);
             }
 
             return $chat;
@@ -1131,7 +1134,7 @@
             AND idPersona = '$idPersona' AND idFacilitador = '$idFacilitador'
             AND fechaAsignacion = '$fechaAsignacion';";
             $res = $this->conexion->query($consulta2);
-            
+
             return $res;
 
         }
@@ -1185,7 +1188,7 @@
                             $retorno = 2;
                     }
                 }
-                
+
                 return $retorno;
             }
             else
@@ -1251,8 +1254,9 @@
          */
         public function cargarEjerciciosAsignadosPorFacilitador($idFacilitador)
         {
-            $consulta = "SELECT ra.*,ce.titulo,ce.imagenAdjunta FROM Resuelve_Asigna ra ".
-            "INNER JOIN Crea_Ejercicio ce ON ra.idEjercicio=ce.idEjercicio WHERE ra.idFacilitador=$idFacilitador;";
+            $consulta = "SELECT ra.*,ce.titulo,ce.imagenAdjunta, p.nombre FROM Resuelve_Asigna ra ".
+            "INNER JOIN Crea_Ejercicio ce ON ra.idEjercicio=ce.idEjercicio INNER JOIN Persona p ON p.idPersona=ra.idPersona WHERE ra.idFacilitador=$idFacilitador ".
+            "ORDER BY ce.titulo ASC;";
             $ejercicios = null;
 
             if($res = $this->conexion->query($consulta))
@@ -1265,14 +1269,16 @@
                     $fechaAsignacion = $row['fechaAsignacion'];
                     $titulo = $row['titulo'];
                     $nombreFacilitador = "";
-                    $nombrePersona = "";
+                    $nombrePersona = $row['nombre'];
                     $fechaResolucion = $row['fechaResolucion'];
                     $valoracionPersona = $row['valoracionPersona'];
-                    $archivoAdjuntoSolucion = $row['archivoAdjuntoSolucin'];
+                    $archivoAdjuntoSolucion = $row['archivoAdjuntoSolucion'];
 
                     $ejercicios[] = new Asigna($idEjercicio, $idFacilitador, $idPersona, $fechaAsignacion,
                                            $titulo, $nombreFacilitador, $nombrePersona, $fechaResolucion,
                                            $valoracionPersona, $archivoAdjuntoSolucion);
+
+                    $ejercicios[count($ejercicios)-1]->imagenAdjunta = $row['imagenAdjunta'];
                 }
             }
 
