@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+<title>Lista de Chats</title>
+{% endblock titulo %}
+
+{% block body %}
+<div class="Titulo">
+    Lista de Chats
+</div>
+
+{% for ej in ejercicios %}
+    <button id="{{ ej.idEjercicio }}" class="reiniciarBoton previewEjercicio" data-idFacilitador="{{ ej.idFacilitador }}" data-fechaAsignacion="{{ ej.fechaAsignacion }}">
+        <div>
+            {% if ej.imagenAdjunta == '' %}
+                {% set imagenAdjunta = 'templates/img/cross.png' %}
+            {% else %}
+                {% set imagenAdjunta = ej.imagenAdjunta %}
+            {% endif %}
+            <img src="{{ imagenAdjunta }}" alt="Falta alt" class="imagenPreviewEjercicio">
+        </div>
+        <div class ="tituloPreviewEjercicio">
+            <p>{{ ej.titulo }}</p>
+        </div>
+
+    </button>
+{% endfor %}
+{% endblock body %}

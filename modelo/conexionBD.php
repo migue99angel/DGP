@@ -1233,5 +1233,43 @@
 
         }
 
+        /**
+         * @method cargarEjerciciosAsignadosPorFacilitador Funcion cargar todos los ejercicos
+         *                                      que ha asignado un facilitador
+         * @author Darío Megías Guerrero
+         * @param idFacilitador Facilitador para el que queremos ver los ejercicios que ha asignado
+         * @return ejercicios Todos los ejercicios que idFacilitador ha asignado
+         */
+        public function cargarEjerciciosAsignadosPorFacilitador($idFacilitador)
+        {
+            $consulta = "SELECT ra.*,ce.titulo,ce.imagenAdjunta FROM Resuelve_Asigna ra ".
+            "INNER JOIN Crea_Ejercicio ce ON ra.idEjercicio=ce.idEjercicio WHERE ra.idFacilitador=$idFacilitador;";
+            $ejercicios = null;
+
+            if($res = $this->conexion->query($consulta))
+            {
+
+                while($row = $res->fetch_assoc()) {
+                    $idEjercicio = $row['idEjercicio'];
+                    $idFacilitador = $row['idFacilitador'];
+                    $idPersona = $row['idPersona'];
+                    $fechaAsignacion = $row['fechaAsignacion'];
+                    $titulo = $row['titulo'];
+                    $nombreFacilitador = "";
+                    $nombrePersona = "";
+                    $fechaResolucion = $row['fechaResolucion'];
+                    $valoracionPersona = $row['valoracionPersona'];
+                    $archivoAdjuntoSolucion = $row['archivoAdjuntoSolucin'];
+
+                    $ejercicios[] = new Asigna($idEjercicio, $idFacilitador, $idPersona, $fechaAsignacion,
+                                           $titulo, $nombreFacilitador, $nombrePersona, $fechaResolucion,
+                                           $valoracionPersona, $archivoAdjuntoSolucion);
+                }
+            }
+
+            return $ejercicios;
+
+        }
+
     }
 ?>
