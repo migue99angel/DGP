@@ -10,7 +10,7 @@
 
 {% block body %}
 <div class="titulo">
-    <h1>CHAT</h1>
+    <h1>CHAT PARA {{ titulo }}.</h1>
 </div>
 <div ></div>
 <div id="contenedorMensajes" class="contenedorMensajes">
@@ -32,6 +32,8 @@
 <button id="enviarMensaje" class="reiniciarBoton enviarMensaje">
     <img src="templates/img/tick.png" alt="Enviar Mensaje">
 </button>
+<p id="funcionalidadFutura" style="display:none;">Esta funcionalidad se añadirá próximamente</p>
+<p id="funcionalidadFutura2" style="display:none;">Esta funcionalidad se añadirá próximamente</p>
 {% endblock %}
 
 {% block postScripts %}

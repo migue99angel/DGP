@@ -20,6 +20,8 @@
         $idFacilitador   = $_SESSION['ejercicioAsignado']->getIdFacilitador();
         $fechaAsignacion = $_SESSION['ejercicioAsignado']->getFechaAsignacion();
 
+        $variablesParaTwig['titulo'] = $_SESSION['ejercicioAsignado']->getTitulo();
+
         $chat = $conexion->cargarChat($idEjercicio,$idPersona,$idFacilitador,$fechaAsignacion);
 
         if ($chat->getIdChat() == null || $chat->getIdChat() < 1) {

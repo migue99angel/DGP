@@ -12,7 +12,7 @@
   session_start();
 
   $variablesParaTwig['botonAtras'] = True;
-  $variablesParaTwig['paginaAnterior'] = 'pricipalFacilitador.php';
+  $variablesParaTwig['paginaAnterior'] = 'principalFacilitador.php';
 
   if (isset($_SESSION['facilitador'])) {
       $ejercicios = $conexion->cargarEjerciciosAsignadosPorFacilitador($_SESSION['facilitador']->getIdFacilitador());

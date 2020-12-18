@@ -1,4 +1,6 @@
 var botonTexto = document.getElementById('botonTextoChat');
+var botonCamaraChat = document.getElementById('botonCamaraChat');
+var botonMicrofonoChat = document.getElementById('botonMicrofonoChat');
 var inputSeleccionado = {
     texto: false,
     audio: false,
@@ -9,7 +11,25 @@ if (botonTexto) {
     botonTexto.addEventListener('click', (event) => {
         toggleElement('escribirTextoChat','inline-block');
         toggleElement('enviarMensaje','inline-block');
+        hideElement('funcionalidadFutura');
+        hideElement('funcionalidadFutura2');
         inputSeleccionado.texto = !inputSeleccionado.texto;
+    });
+}
+
+if (botonCamaraChat) {
+    botonCamaraChat.addEventListener('click', (event) => {
+        hideElement('escribirTextoChat');
+        hideElement('funcionalidadFutura2');
+        toggleElement('funcionalidadFutura','inline-block');
+    });
+}
+
+if (botonMicrofonoChat) {
+    botonMicrofonoChat.addEventListener('click', (event) => {
+        hideElement('escribirTextoChat');
+        hideElement('funcionalidadFutura');
+        toggleElement('funcionalidadFutura2','inline-block');
     });
 }
 
@@ -39,11 +59,17 @@ function toggleElement(elementId,displayStyle) {
     }
 }
 
+function hideElement(elementId) {
+    var element = document.getElementById(elementId);
+    if (element) {
+        element.style.display = 'none';
+    }
+}
+
 function recargarMensajes(response) {
     var mensajes = document.getElementById('contenedorMensajes');
 
     mensajes.innerHTML = response.mensajes;
-    console.log('Entrando');
 }
 
 function getTipoMensaje() {
@@ -64,4 +90,3 @@ function refrescarMensajes() {
     peticionAjaxRespuesta(script,params,recargarMensajes);
 }
 var intervalo = setInterval(refrescarMensajes,3000);
-console.log(intervalo);

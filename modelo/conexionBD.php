@@ -462,7 +462,7 @@
          */
         public function asignarGrupo($idGrupo,$idPersona)
         {
-            $exito = True;  
+            $exito = True;
 
             $consulta = "INSERT INTO Pertenece (idGrupo,idPersona) VALUES ('$idGrupo','$idPersona');";
 
@@ -1040,7 +1040,13 @@
          * @return asignado Objeto de la clase Asigna que contiene la información referente a la asignación de un ejercicio
          */
         public function getEjercicioAsignado($idEjercicio, $idPersona, $fechaAsignacion, $idFacilitador) {
-            $consulta = "SELECT Resuelve_Asigna.idEjercicio, Resuelve_Asigna.fechaAsignacion, Resuelve_Asigna.idFacilitador, Resuelve_Asigna.idPersona, Crea_Ejercicio.titulo, Facilitador.nombre AS nombreFacilitador, Persona.nombre AS nombrePersona, Resuelve_Asigna.fechaResolucion, Resuelve_Asigna.valoracionPersona, Resuelve_Asigna.archivoAdjuntoSolucion FROM Resuelve_Asigna, Crea_Ejercicio, Facilitador, Persona WHERE Resuelve_Asigna.idEjercicio = Crea_Ejercicio.idEjercicio AND Resuelve_Asigna.idFacilitador = Facilitador.idFacilitador AND Resuelve_Asigna.idPersona = Persona.idPersona AND Resuelve_Asigna.idEjercicio = '$idEjercicio' AND Resuelve_Asigna.idPersona = '$idPersona' AND Resuelve_Asigna.fechaAsignacion = '$fechaAsignacion' AND Resuelve_Asigna.idFacilitador = '$idFacilitador';";
+            $consulta = "SELECT Resuelve_Asigna.idEjercicio, Resuelve_Asigna.fechaAsignacion, Resuelve_Asigna.idFacilitador, ".
+            "Resuelve_Asigna.idPersona, Crea_Ejercicio.titulo, Facilitador.nombre AS nombreFacilitador, Persona.nombre AS nombrePersona, ".
+            "Resuelve_Asigna.fechaResolucion, Resuelve_Asigna.valoracionPersona, Resuelve_Asigna.archivoAdjuntoSolucion FROM Resuelve_Asigna, ".
+            "Crea_Ejercicio, Facilitador, Persona WHERE Resuelve_Asigna.idEjercicio = Crea_Ejercicio.idEjercicio ".
+            "AND Resuelve_Asigna.idFacilitador = Facilitador.idFacilitador AND Resuelve_Asigna.idPersona = Persona.idPersona ".
+            "AND Resuelve_Asigna.idEjercicio = '$idEjercicio' AND Resuelve_Asigna.idPersona = '$idPersona' ".
+            "AND Resuelve_Asigna.fechaAsignacion = '$fechaAsignacion' AND Resuelve_Asigna.idFacilitador = '$idFacilitador';";
             $asignado = new Asigna();
 
             if($res = $this->conexion->query($consulta))
@@ -1054,8 +1060,8 @@
                 $nombreFacilitador = $row['nombreFacilitador'];
                 $nombrePersona = $row['nombrePersona'];
                 $fechaResolucion = $row['fechaResolucion'];
-	        $valoracionPersona = $row['valoracionPersona'];
-	        $archivoAdjuntoSolucion = $row['archivoAdjuntoSolucion'];
+	            $valoracionPersona = $row['valoracionPersona'];
+	            $archivoAdjuntoSolucion = $row['archivoAdjuntoSolucion'];
                 $asignado = new Asigna($idEjercicio, $idFacilitador, $idPersona, $fechaAsignacion, $titulo, $nombreFacilitador, $nombrePersona, $fechaResolucion, $valoracionPersona, $archivoAdjuntoSolucion);
             }
 
