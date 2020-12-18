@@ -10,8 +10,6 @@
   session_start();
   $variablesParaTwig = [];
   
-  var_dump($_POST);
-  
   if (!isset($_SESSION['facilitador'])) {
     exit();
   }

@@ -1,3 +1,12 @@
+var botonCorregir = document.getElementById("botonAdminRegistrar");
+var direccion = "corregirEjercicio.php?idEjercicio=" + botonCorregir.value;
+
+if (botonCorregir) {
+    botonPrincipalFacilitador.addEventListener('click', (event) => {
+        document.location.href = direccion;
+    });
+}
+
 if (lunes = document.getElementById('lunes')) {
     diasSemana = {
         lunes     : lunes,
