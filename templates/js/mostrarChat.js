@@ -25,7 +25,7 @@ if (botonEnviar) {
         }
         var params = `mensaje=${JSON.stringify(mensaje)}`;
 
-        peticionAjaxRespuesta(script,params,refrescarMensajes);
+        peticionAjaxRespuesta(script,params,recargarMensajes);
         document.getElementById('escribirTextoChat').value = "";
     });
 }
@@ -39,10 +39,11 @@ function toggleElement(elementId,displayStyle) {
     }
 }
 
-function refrescarMensajes(response) {
+function recargarMensajes(response) {
     var mensajes = document.getElementById('contenedorMensajes');
 
     mensajes.innerHTML = response.mensajes;
+    console.log('Entrando');
 }
 
 function getTipoMensaje() {
@@ -56,3 +57,11 @@ function getTipoMensaje() {
         return 'texto';
     }
 }
+
+function refrescarMensajes() {
+    var script = 'ajax/recargarMensajes.php';
+    var params = '';
+    peticionAjaxRespuesta(script,params,recargarMensajes);
+}
+var intervalo = setInterval(refrescarMensajes,3000);
+console.log(intervalo);

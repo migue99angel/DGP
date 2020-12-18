@@ -41,8 +41,12 @@
 
     if (isset($_SESSION['ejercicioAsignado']))
     {
+        // Si el ejercicio lo está viendo una persona, su id está en session
+        // Pero si lo está viendo
+
+        ////////////////////////
         $variablesParaTwig['idEjercicio'] = $_SESSION['ejercicioAsignado']->getIdEjercicio();
-        $variablesParaTwig['idPersona'] = $_SESSION['persona']->getIdPersona();
+        $variablesParaTwig['idPersona'] = $_SESSION['ejercicioAsignado']->getIdPersona();
         $variablesParaTwig['ejercicio'] = $conexion->cargarEjercicio($_SESSION['ejercicioAsignado']->getIdEjercicio());
         $ejercicio = $conexion->cargarEjercicio($_SESSION['ejercicioAsignado']->getIdEjercicio());
         $variablesParaTwig['ejercicio'] = $ejercicio;
@@ -55,11 +59,11 @@
         // 0 - > El ejercicio está asignado pero no está resuelto
         // 1 - > El ejercicio está resuelto, pero no está corregido
         // 2 - > El ejercicio está resuelto y corregido
-        $variablesParaTwig['estado'] = $conexion->obtenerEstadoEjercicio($variablesParaTwig['idEjercicio'],$_SESSION['persona']->getIdPersona(),$variablesParaTwig['asigna']->getFechaAsignacion(),$variablesParaTwig['asigna']->getIdFacilitador());
+        $variablesParaTwig['estado'] = $conexion->obtenerEstadoEjercicio($variablesParaTwig['idEjercicio'],$_SESSION['ejercicioAsignado']->getIdPersona(),$variablesParaTwig['asigna']->getFechaAsignacion(),$variablesParaTwig['asigna']->getIdFacilitador());
         //Si el ejercicio está corregido tenemos que acceder a la base de datos para obtener las calificaciones
         if($variablesParaTwig['estado'] == 2)
         {
-            $variablesParaTwig['correccion'] = $conexion->cargarCorreccionEjercicio($_SESSION['ejercicioAsignado']->getIdEjercicio(),$_SESSION['persona']->getIdPersona());
+            $variablesParaTwig['correccion'] = $conexion->cargarCorreccionEjercicio($_SESSION['ejercicioAsignado']->getIdEjercicio(),$_SESSION['ejercicioAsignado']->getIdPersona());
         }
     }
     else {

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+<title>Lista de Chats</title>
+{% endblock titulo %}
+
+{% block preScripts %}
+<script type="text/javascript" src="templates/js/peticionesAjax.js"></script>
+{% endblock preScripts %}
+
+{% block body %}
+<div class="Titulo">
+    <h1>Lista de Chats</h1>
+</div>
+
+{% for ej in ejerciciosOrdenados %}
+    <div class="Titulo">
+        <h3>{{ ej.titulo }}</h3>
+    </div>
+    {% for ejer in ej.ejercicios %}
+    <button id="{{ ejer.idEjercicio }}" class="reiniciarBoton previewEjercicio" data-fechaAsignacion="{{ ejer.fechaAsignacion }}" data-idpersona="{{ ejer.idPersona }}">
+        <div>
+            {% if ejer.imagenAdjunta == '' %}
+                {% set imagenAdjunta = 'templates/img/cross.png' %}
+            {% else %}
+                {% set imagenAdjunta = ejer.imagenAdjunta %}
+            {% endif %}
+            <img src="{{ imagenAdjunta }}" alt="Falta alt" class="imagenPreviewEjercicio">
+        </div>
+        <div class ="tituloPreviewEjercicio">
+            <p>{{ ejer.titulo }}</p>
+        </div>
+        <div class="nombrePersonaPreviewChat">
+            <p>Asignado a: <strong>{{ ejer.nombrePersona }}</strong></p>
+        </div>
+        <div class="fechaAsignacionPreviewChat">
+            <p>Asignado el: <strong>{{ ejer.fechaAsignacion }}</strong></p>
+        </div>
+        <div class="fechaResolucionPreviewChat">
+            <p>Asignado para el: <strong>{{ ejer.fechaResolucion }}</strong></p>
+        </div>
+
+    </button>
+    {% endfor %}
+{% endfor %}
+{% endblock body %}
+
+{% block postScripts %}
+<script type="text/javascript" src="templates/js/listaChatsFacilitadores.js"></script>
+{% endblock postScripts %}

@@ -11,7 +11,7 @@
     $conexion = new ConexionBD();
 
     $variablesParaTwig['botonAtras'] = true;
-    $variablesParaTwig['paginaAnterior'] = "mostrarEjercicio.php";
+    $variablesParaTwig['paginaAnterior'] = isset($_SESSION['persona']) ? "mostrarEjercicio.php" : "listaChatsFacilitadores.php";
 
     // Funcionalidades principales
     if (isset($_SESSION['ejercicioAsignado'])) {

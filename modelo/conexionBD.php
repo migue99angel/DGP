@@ -196,6 +196,9 @@
             if ($res = $this->conexion->query($consulta)) {
                 $row = $res->fetch_assoc();
                 $chat = new Chat($row['idChat'],$row['idEjercicio'],$row['idPersona'],$row['fechaAsignacion'],$row['idFacilitador'],$row['ruta']);
+            } else {
+                var_dump($consulta);
+                var_dump($this->conexion->error);
             }
 
             return $chat;
@@ -1130,7 +1133,7 @@
             AND idPersona = '$idPersona' AND idFacilitador = '$idFacilitador'
             AND fechaAsignacion = '$fechaAsignacion';";
             $res = $this->conexion->query($consulta2);
-            
+
             return $res;
 
         }
@@ -1184,7 +1187,7 @@
                             $retorno = 2;
                     }
                 }
-                
+
                 return $retorno;
             }
             else
@@ -1238,6 +1241,47 @@
             {
                 return false;
             }
+
+        }
+
+        /**
+         * @method cargarEjerciciosAsignadosPorFacilitador Funcion cargar todos los ejercicos
+         *                                      que ha asignado un facilitador
+         * @author Darío Megías Guerrero
+         * @param idFacilitador Facilitador para el que queremos ver los ejercicios que ha asignado
+         * @return ejercicios Todos los ejercicios que idFacilitador ha asignado
+         */
+        public function cargarEjerciciosAsignadosPorFacilitador($idFacilitador)
+        {
+            $consulta = "SELECT ra.*,ce.titulo,ce.imagenAdjunta, p.nombre FROM Resuelve_Asigna ra ".
+            "INNER JOIN Crea_Ejercicio ce ON ra.idEjercicio=ce.idEjercicio INNER JOIN Persona p ON p.idPersona=ra.idPersona WHERE ra.idFacilitador=$idFacilitador ".
+            "ORDER BY ce.titulo ASC;";
+            $ejercicios = null;
+
+            if($res = $this->conexion->query($consulta))
+            {
+
+                while($row = $res->fetch_assoc()) {
+                    $idEjercicio = $row['idEjercicio'];
+                    $idFacilitador = $row['idFacilitador'];
+                    $idPersona = $row['idPersona'];
+                    $fechaAsignacion = $row['fechaAsignacion'];
+                    $titulo = $row['titulo'];
+                    $nombreFacilitador = "";
+                    $nombrePersona = $row['nombre'];
+                    $fechaResolucion = $row['fechaResolucion'];
+                    $valoracionPersona = $row['valoracionPersona'];
+                    $archivoAdjuntoSolucion = $row['archivoAdjuntoSolucion'];
+
+                    $ejercicios[] = new Asigna($idEjercicio, $idFacilitador, $idPersona, $fechaAsignacion,
+                                           $titulo, $nombreFacilitador, $nombrePersona, $fechaResolucion,
+                                           $valoracionPersona, $archivoAdjuntoSolucion);
+
+                    $ejercicios[count($ejercicios)-1]->imagenAdjunta = $row['imagenAdjunta'];
+                }
+            }
+
+            return $ejercicios;
 
         }
 

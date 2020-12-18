@@ -35,8 +35,6 @@ if (ejercicios.length > 0) {
             var idFacilitador = ej.getAttribute('data-idfacilitador').trim();
             var fechaAsignacion = ej.getAttribute('data-fechaasignacion').trim();
 
-            var dominioCorrecto = getDominioCorrecto();
-
             var script = 'ajax/cargarEjercicioAsignado.php';
             var redireccion = 'mostrarEjercicio.php';
             var params = `idEjercicio=${idEjercicio}&idFacilitador=${idFacilitador}&fechaAsignacion=${fechaAsignacion}`;
