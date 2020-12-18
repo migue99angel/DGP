@@ -10,16 +10,17 @@
 </div>
 
 <form action="modificarGrupo.php?id={{ id }}" method="post" enctype="multipart/form-data">
-    Nombre<br> <input type="text" name="nombre" value="{{ nombre }}" required/><br><br>
-    <input type="submit" name="submit" value="Modificar grupo" />
+    <label for="nombre"><strong>Nombre</strong></label><br>
+    <input type="text" name="nombre" value="{{ nombre }}" required/><br><br>
+    <input type="submit" name="submit" value="MODIFICAR GRUPO" />
     <input type="hidden" name="id" value="{{ id }}">
 </form>
 
 
-
+<hr>
 <form action="modificarGrupo.php?id={{ id }}" method="post" id="listaPersonas" enctype="multipart/form-data">
     <div class="tituloLista">
-        <p>Eliminar miembros</p>
+        <p>Eliminar personas</p>
     </div>
 
     <div class="listaCheckbox">
@@ -32,13 +33,14 @@
     </div>
     <input type="hidden" id="eliminacion" name="eliminacion" value=1>
     <div>
-        <input type="submit" class="botonEnviar" value="Eliminar personas" />
+        <input type="submit" class="botonEnviar" value="ELIMINAR PERSONAS" />
     </div>
 </form>
 
+<hr>
 <form action="modificarGrupo.php?id={{ id }}" method="post" id="listaPersonas" enctype="multipart/form-data">
     <div class="tituloLista">
-        <p>Añadir miembro</p>
+        <p>Añadir personas</p>
     </div>
 
     <div class="listaCheckbox">
@@ -51,7 +53,7 @@
     </div>
     <input type="hidden" id="adicion" name="adicion" value=1>
     <div>
-        <input type="submit" class="botonEnviar" value="Añadir personas" />
+        <input type="submit" class="botonEnviar" value="AÑADIR PERSONAS" />
     </div>
 </form>
 {% endblock %}

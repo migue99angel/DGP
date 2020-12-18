@@ -32,7 +32,7 @@ CREATE TABLE `Administrador` (
   `idAdministrador` int UNSIGNED NOT NULL,
   `tlfAdministrador` varchar(10) DEFAULT NULL,
   `nombre` varchar(100) NOT NULL,
-  `contraseña` varchar(100) NOT NULL
+  `contraseña` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -93,7 +93,7 @@ CREATE TABLE `Facilitador` (
   `idFacilitador` int UNSIGNED NOT NULL,
   `tlfFacilitador` varchar(10) DEFAULT NULL,
   `nombre` varchar(100) NOT NULL,
-  `contraseña` varchar(100) NOT NULL
+  `contraseña` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -132,7 +132,7 @@ CREATE TABLE `Persona` (
   `idPersona` int UNSIGNED NOT NULL,
   `tlfPersona` varchar(10) DEFAULT NULL,
   `nombre` varchar(100) NOT NULL,
-  `contraseña` varchar(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
+  `contraseña` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------

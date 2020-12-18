@@ -43,7 +43,7 @@
             if($res = $this->conexion->query($consulta))
             {
                 $row = $res->fetch_assoc();
-                $persona = new Persona($row['idPersona'],$row['nombre'],$row['tlfPersona']);
+                $persona = new Persona($row['idPersona'],$row['nombre'],$row['contraseña'],$row['tlfPersona']);
             }
 
             return $persona;
@@ -144,7 +144,7 @@
          */
         public function getAllPersonas()
         {
-            $consulta = "SELECT idPersona,nombre from Persona ORDER BY nombre ASC";
+            $consulta = "SELECT idPersona,nombre,contraseña from Persona ORDER BY nombre ASC";
             $personas = array();
 
             if ($res = $this->conexion->query($consulta))
@@ -556,9 +556,9 @@
          */
         public function cargarEjerciciosResueltos($idFacilitador)
         {
-            $consulta = "SELECT *, Persona.nombre FROM Resuelve_Asigna
-            INNER JOIN Persona ON Resuelve_Asigna.idPersona = Persona.idPersona
-            WHERE NOT EXISTS (SELECT 1 FROM Corrige WHERE Resuelve_Asigna.idEjercicio = Corrige.idEjercicio
+            $consulta = "SELECT * FROM Resuelve_Asigna  INNER JOIN Persona ON Resuelve_Asigna.idPersona = Persona.idPersona
+            WHERE (Resuelve_Asigna.texto IS NOT NULL OR Resuelve_Asigna.valoracionPersona IS NOT NULL OR Resuelve_Asigna.archivoAdjuntoSolucion IS NOT NULL)
+            AND NOT EXISTS (SELECT * FROM Corrige WHERE Resuelve_Asigna.idEjercicio = Corrige.idEjercicio
             AND Resuelve_Asigna.idPersona = Corrige.idPersona) AND idFacilitador = '". $idFacilitador ."'";
 
             $ejercicios = array();
@@ -622,20 +622,29 @@
         /**
          * Este método requiere que el controlador parsee los datos
          * @method inicioSesionPersona método que loguea en el sistema a una Persona
-         * @author Miguel Ángel Posadas Arráez
+         * @author Miguel Ángel Posadas Arráez y Jose Luis Gallego Peña
          * @param pass String
          * @return persona Objeto de la clase Persona
          */
         public function inicioSesionPersona($pass)
         {
             $persona = null;
-            $res = $this->conexion->query("SELECT * from Persona WHERE contraseña= '". $pass ."' ");
+            $personas = $this->getAllPersonas();
 
-            if($res->num_rows > 0)
+            foreach ($personas as $p)
+            {
+                $contra = $p->getContraseña();
+                if (password_verify($pass, $contra))
+                {
+                    $persona = $this->cargarPersona($p->getIdPersona());
+                }
+            }
+
+            /*if($res->num_rows > 0)
             {
                 $row = $res->fetch_assoc();
                 $persona = $this->cargarPersona($row['idPersona']);
-            }
+            }*/
 
             return $persona;
         }
@@ -643,7 +652,7 @@
         /**
          * Este método requiere que el controlador parsee los datos
          * @method inicioSesionFacilitador método que loguea en el sistema a un Facilitador
-         * @author Miguel Ángel Posadas Arráez
+         * @author Miguel Ángel Posadas Arráez y Jose Luis Gallego Peña
          * @param nombreFacilitador String
          * @param pass String
          * @return facilitador Objeto de la clase Facilitador
@@ -651,12 +660,16 @@
         public function inicioSesionFacilitador($nombreFacilitador,$pass)
         {
             $facilitador = null;
-            $res = $this->conexion->query("SELECT * from Facilitador WHERE nombre='" . $nombreFacilitador . "' AND contraseña= '". $pass ."' ");
+            $res = $this->conexion->query("SELECT * from Facilitador WHERE nombre= '" . $nombreFacilitador . "'");
 
             if($res->num_rows > 0)
             {
                 $row = $res->fetch_assoc();
-                $facilitador = new Facilitador($row['nombre'],$row['tlfFacilitador'],$row['idFacilitador']);
+
+                if (password_verify($pass, $row['contraseña']))
+                {
+                    $facilitador = new Facilitador($row['nombre'],$row['tlfFacilitador'],$row['idFacilitador']);
+                }
             }
 
             return $facilitador;
@@ -665,7 +678,7 @@
         /**
          * Este método requiere que el controlador parsee los datos
          * @method inicioSesionAdministrador método que loguea en el sistema a un administrador
-         * @author Miguel Ángel Posadas Arráez
+         * @author Miguel Ángel Posadas Arráez y Jose Luis Gallego Peña
          * @param nombreAdministrador String
          * @param pass String
          * @return administrador Objeto de la clase administrador
@@ -674,12 +687,16 @@
         {
             $admin = null;
 
-            $res = $this->conexion->query("SELECT * FROM Administrador WHERE nombre ='$nombreAdministrador' AND contraseña = '$pass'");
+            $res = $this->conexion->query("SELECT * FROM Administrador WHERE nombre ='$nombreAdministrador'");
 
             if($res->num_rows > 0)
             {
                 $row = $res->fetch_assoc();
-                $admin = new Administrador($row['nombre'],$row['tlfAdministrador'],$row['idAdministrador']);
+
+                if (password_verify($pass, $row['contraseña']))
+                {
+                    $admin = new Administrador($row['nombre'],$row['tlfAdministrador'],$row['idAdministrador']);
+                }
             }
 
             return $admin;
@@ -745,7 +762,8 @@
         {
             $nombrePersona = $this->conexion->real_escape_string($nombrePersona);
             $telefono = $this->conexion->real_escape_string($telefono);
-            $pass = $this->conexion->real_escape_string($pass);
+            // Guardamos en la BD la contraseña encriptada
+            $pass = password_hash($this->conexion->real_escape_string($pass), PASSWORD_DEFAULT);
 
             $res = $this->conexion->query("INSERT INTO Persona (tlfPersona,nombre,contraseña) VALUES ('$telefono','$nombrePersona','$pass')" ) ;
 
@@ -765,7 +783,7 @@
         {
             $nombreFacilitador = $this->conexion->real_escape_string($nombreFacilitador);
             $telefono = $this->conexion->real_escape_string($telefono);
-            $pass = $this->conexion->real_escape_string($pass);
+            $pass = password_hash($this->conexion->real_escape_string($pass), PASSWORD_DEFAULT);
 
             $res = $this->conexion->query("INSERT INTO Facilitador (tlfFacilitador,nombre,contraseña) VALUES ('$telefono','$nombreFacilitador','$pass')" ) ;
 
@@ -785,7 +803,7 @@
         {
             $nombreAdministrador = $this->conexion->real_escape_string($nombreAdministrador);
             $telefono = $this->conexion->real_escape_string($telefono);
-            $pass = $this->conexion->real_escape_string($pass);
+            $pass = password_hash($this->conexion->real_escape_string($pass), PASSWORD_DEFAULT);
 
             $res = $this->conexion->query("INSERT INTO Administrador (tlfAdministrador,nombre,contraseña) VALUES ('$telefono','$nombreAdministrador','$pass')" ) ;
 
@@ -826,9 +844,19 @@
          */
         public function eliminarAdministrador($idAdministrador)
         {
-            $res = $this->conexion->query("DELETE FROM Administrador WHERE idAdministrador=$idAdministrador") ;
+            $consulta = "SELECT count(*) from Administrador";
+            if ($res = $this->conexion->query($consulta))
+            {
+                $row = $res->fetch_assoc();
+                if($row['count(*)'] > 1)
+                {
+                    $res = $this->conexion->query("DELETE FROM Administrador WHERE idAdministrador=$idAdministrador") ;
 
-            return $res;
+                    return $res;
+                }
+            }
+
+            return false;
         }
 
         /**
@@ -878,7 +906,7 @@
             }
             else
             {
-                $pass = $this->conexion->real_escape_string($pass);
+                $pass = password_hash($this->conexion->real_escape_string($pass), PASSWORD_DEFAULT);
                 $res =  $this->conexion->query("UPDATE Persona SET nombre='$nombrePersona', contraseña='$pass',tlfPersona='$telefono'  WHERE idPersona='$idPersona'");
             }
 
@@ -906,7 +934,7 @@
             }
             else
             {
-                $pass = $this->conexion->real_escape_string($pass);
+                $pass = password_hash($this->conexion->real_escape_string($pass), PASSWORD_DEFAULT);
                 $res = $this->conexion->query("UPDATE Facilitador SET tlfFacilitador='$telefono', nombre='$nombreFacilitador', contraseña='$pass' WHERE idFacilitador='$idFacilitador'");
             }
 
@@ -933,7 +961,7 @@
             }
             else
             {
-                $pass = $this->conexion->real_escape_string($pass);
+                $pass = password_hash($this->conexion->real_escape_string($pass), PASSWORD_DEFAULT);
                 $res =  $this->conexion->query("UPDATE Administrador SET  nombre='$nombreAdministrador' ,contraseña='$pass',tlfAdministrador='$telefono'  WHERE idAdministrador='$idAdministrador'");
 
             }
@@ -1087,8 +1115,14 @@
         }
 
         public function desasignarEjercicio($idEjercicio, $idFacilitador, $idPersona, $fechaAsignacion) {
+            $this->conexion->query("DELETE FROM Corrige WHERE idEjercicio = '$idEjercicio' AND idPersona = '$idPersona' AND idFacilitador = '$idFacilitador' AND fechaAsignacionEjercicio = '$fechaAsignacion';");
+            var_dump($this->conexion->error);
             $res = $this->conexion->query("DELETE FROM Resuelve_Asigna WHERE idEjercicio = '$idEjercicio' AND idPersona = '$idPersona' AND idFacilitador = '$idFacilitador' AND fechaAsignacion = '$fechaAsignacion';");
-
+            var_dump($idEjercicio);
+            var_dump($idFacilitador);
+            var_dump($idPersona);
+            var_dump($fechaAsignacion);
+            var_dump($this->conexion->error);
             return $res;
 
         }
@@ -1120,17 +1154,17 @@
          * @return 1 Si el ejercicio está asignado y resuelto
          * @return 2 Si el ejercicio está corregido
          */
-        public function obtenerEstadoEjercicio($idEjecicio, $idPersona)
+        public function obtenerEstadoEjercicio($idEjercicio, $idPersona)
         {
-            $consultaResolucion = "SELECT * from Resuelve_Asigna WHERE idEjercicio=" . $idEjercicio . "idPersona=" . $idPersona . ";";
-            $consultaCorrecion = "SELECT * from Corrige WHERE idEjercicio=" . $idEjercicio . "idPersona=" . $idPersona . ";";
+            $consultaResolucion = "SELECT * FROM Resuelve_Asigna WHERE idEjercicio ='$idEjercicio' AND idPersona = '$idPersona'";
+            $consultaCorrecion = "SELECT * FROM Corrige WHERE idEjercicio ='$idEjercicio' AND idPersona = '$idPersona'";
 
             if($res = $this->conexion->query($consultaResolucion))
             {
                 $row = $res->fetch_assoc();
                 $retorno = 0;
 
-                if($row['texto'] != NULL || $row['valoracionPersona'] != NULL || $row['archivoAdjuntoSolucion'] != NULL)
+                if(isset($row['texto'])  || isset($row['valoracionPersona']) || isset($row['archivoAdjuntoSolucion']))
                 {
                     $retorno = 1;
                     if($res = $this->conexion->query($consultaCorrecion))
@@ -1142,11 +1176,62 @@
 
                     return $retorno;
                 }
+                else
+                    return "Error en la consulta";
             }
             else
                 return "Error en la consulta";
         }
+
+        /**
+         * @method cargarCorreccionEjercicio Obtiene los datos de las correcciones del ejercicio
+         * @param idEjercicio
+         * @param idPersona
+         * @return Array con la informacion de la correccion
+         */
+        public function cargarCorreccionEjercicio($idEjercicio,$idPersona)
+        {
+            $consultaCorrecion = "SELECT * FROM Corrige WHERE idEjercicio ='$idEjercicio' AND idPersona = '$idPersona'";
+
+            if($res = $this->conexion->query($consultaCorrecion))
+            {
+                $row = $res->fetch_assoc();
+
+                return $row;
+
+            }
+            else
+            {
+                return "Error el ejercicio no esta corregido";
+            }
+
+        }
+
+        /**
+         * @method resolverEjercicio Funcion para añadir la resolucion de un ejercicio a la base de datos
+         * @author Miguel Ángel Posadas Arráez
+         * @param idEjercicio
+         * @param idPersona
+         * @param comentario Comentario sobre el ejercicio hecho por la persona
+         * @param valoracionPersona Valoracion que la persona hace sobre el ejercicio
+         * @param multimedia Respuesta al ejercicio en formato de imagen video o audio
+         * @return true or false
+         */
+        public function resolverEjercicio($idEjercicio,$idPersona,$fecha,$comentario,$valoracionPersona,$multimedia)
+        {
+
+            $consulta = "UPDATE Resuelve_Asigna SET  valoracionPersona='$valoracionPersona' ,archivoAdjuntoSolucion='$multimedia',texto='$comentario'  WHERE idPersona='$idPersona' AND idEjercicio='$idEjercicio' AND fechaAsignacion='$fecha'";
+
+            if($res = $this->conexion->query($consulta))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
     }
-
-
 ?>
