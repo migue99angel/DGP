@@ -160,12 +160,17 @@ textarea {
   background-color: #75CDF7;
 }
 
+#botonFaciChat {
+  background-color: #EBC3F5;
+}
+
 .botonFacilitadores a {
   height: 7%;
   display: block;
   margin-top: 5%;
   margin-bottom: 5%;
   padding: 4%;
+  font-size: 1.5em;
 }
 
 .botonAdministracion {
@@ -185,6 +190,7 @@ textarea {
   margin-top: 5%;
   margin-bottom: 5%;
   padding: 4%;
+  font-size: 1.5em;
 }
 
 #botonSalir {
@@ -194,6 +200,7 @@ textarea {
   width: 75%;
   text-align: center;
   background-color: #F88686 !important;
+  font-size: 100%;
 }
 
 #botonSalir a {
@@ -713,6 +720,7 @@ input[type="radio"]:checked ~ span {
 
   #botonSalir a {
     padding: 5%;
+    font-size: 100%;
   }
 
   .botonesLoginPersonas {
@@ -832,6 +840,7 @@ input[type="radio"]:checked ~ span {
       margin-right: auto;
       text-align: center;
       padding: 5%;
+      font-size: 100%;
     }
 
     .botonesLoginPersonas {
