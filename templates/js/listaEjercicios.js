@@ -1,4 +1,4 @@
-var botonCorregir = document.getElementById("botonCorregirEjercicio");
+var botonCorregir = document.getElementById("botonAdminRegistrar");
 
 if (botonCorregir) {
     var direccion = "corregirEjercicio.php?idEjercicio=" + botonCorregir.value;

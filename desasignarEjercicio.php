@@ -29,7 +29,6 @@
     foreach ($_SESSION['ejerciciosDesasignar'] as $ejercicio) {
       $datos = explode('&', $ejercicio);
       $resultado = $conexion->desasignarEjercicio($datos[0], $datos[1], $datos[2], $datos[3]);
-      var_dump($datos);
     }
     unset($_SESSION['ejerciciosDesasignar']);
   }
