@@ -1082,7 +1082,14 @@
         }
 
         public function getAllEjerciciosAsignadosByFacilitador($idFacilitador) {
-            $consulta = "SELECT Resuelve_Asigna.idEjercicio, Resuelve_Asigna.fechaAsignacion, Resuelve_Asigna.idFacilitador, Resuelve_Asigna.idPersona, Crea_Ejercicio.titulo, Facilitador.nombre AS nombreFacilitador, Persona.nombre AS nombrePersona FROM Resuelve_Asigna, Crea_Ejercicio, Facilitador, Persona WHERE Resuelve_Asigna.idFacilitador = '$idFacilitador' AND Resuelve_Asigna.idEjercicio = Crea_Ejercicio.idEjercicio AND Resuelve_Asigna.idFacilitador = Facilitador.idFacilitador AND Resuelve_Asigna.idPersona = Persona.idPersona ORDER BY titulo, nombrePersona, fechaResolucion;";
+            $consulta = "SELECT Resuelve_Asigna.idEjercicio, Resuelve_Asigna.fechaAsignacion, Resuelve_Asigna.idFacilitador,
+            Resuelve_Asigna.idPersona, Crea_Ejercicio.titulo, Facilitador.nombre AS nombreFacilitador, Persona.nombre AS nombrePersona
+            FROM Resuelve_Asigna, Crea_Ejercicio, Facilitador, Persona WHERE Resuelve_Asigna.idFacilitador = '$idFacilitador'
+            AND Resuelve_Asigna.idEjercicio = Crea_Ejercicio.idEjercicio AND Resuelve_Asigna.idFacilitador = Facilitador.idFacilitador
+            AND Resuelve_Asigna.idPersona = Persona.idPersona AND NOT EXISTS (SELECT * FROM Corrige WHERE Resuelve_Asigna.idEjercicio = Corrige.idEjercicio
+            AND Resuelve_Asigna.idPersona = Corrige.idPersona AND Resuelve_Asigna.idFacilitador = Corrige.idFacilitador
+            AND Corrige.valoracionFacilitador IS NOT NULL AND Resuelve_Asigna.fechaAsignacion = Corrige.fechaAsignacionEjercicio)
+            ORDER BY titulo, nombrePersona, fechaResolucion;";
 
             $asignados = array();
             $i = 0;
@@ -1115,14 +1122,16 @@
         }
 
         public function desasignarEjercicio($idEjercicio, $idFacilitador, $idPersona, $fechaAsignacion) {
-            $this->conexion->query("DELETE FROM Corrige WHERE idEjercicio = '$idEjercicio' AND idPersona = '$idPersona' AND idFacilitador = '$idFacilitador' AND fechaAsignacionEjercicio = '$fechaAsignacion';");
-            var_dump($this->conexion->error);
-            $res = $this->conexion->query("DELETE FROM Resuelve_Asigna WHERE idEjercicio = '$idEjercicio' AND idPersona = '$idPersona' AND idFacilitador = '$idFacilitador' AND fechaAsignacion = '$fechaAsignacion';");
-            var_dump($idEjercicio);
-            var_dump($idFacilitador);
-            var_dump($idPersona);
-            var_dump($fechaAsignacion);
-            var_dump($this->conexion->error);
+            $consulta = "DELETE FROM Tiene_Chat WHERE idEjercicio = '$idEjercicio'
+            AND idPersona = '$idPersona' AND idFacilitador = '$idFacilitador'
+            AND fechaAsignacion = '$fechaAsignacion';";
+            $res = $this->conexion->query($consulta);
+
+            $consulta2 = "DELETE FROM Resuelve_Asigna WHERE idEjercicio = '$idEjercicio'
+            AND idPersona = '$idPersona' AND idFacilitador = '$idFacilitador'
+            AND fechaAsignacion = '$fechaAsignacion';";
+            $res = $this->conexion->query($consulta2);
+            
             return $res;
 
         }
@@ -1150,20 +1159,22 @@
          * @method obtenerEstadoEjercicio()
          * @author Miguel Ángel Posadas Arráez
          * @param idEjercicio El id del ejercicio
+         * @param idPersona El id de la persona
+         * @param fechaAsignacion La fecha de la asignacion
+         * @param idFacilitador El id del facilitador
          * @return 0 Si el ejercicio está asignado pero no esta resuelto ni corregido
          * @return 1 Si el ejercicio está asignado y resuelto
          * @return 2 Si el ejercicio está corregido
          */
-        public function obtenerEstadoEjercicio($idEjercicio, $idPersona)
+        public function obtenerEstadoEjercicio($idEjercicio, $idPersona,$fechaAsignacion,$idFacilitador)
         {
-            $consultaResolucion = "SELECT * FROM Resuelve_Asigna WHERE idEjercicio ='$idEjercicio' AND idPersona = '$idPersona'";
-            $consultaCorrecion = "SELECT * FROM Corrige WHERE idEjercicio ='$idEjercicio' AND idPersona = '$idPersona'";
+            $consultaResolucion = "SELECT * FROM Resuelve_Asigna WHERE idEjercicio ='$idEjercicio' AND idPersona = '$idPersona' AND fechaAsignacion = '$fechaAsignacion' AND idFacilitador='$idFacilitador'";
+            $consultaCorrecion = "SELECT * FROM Corrige WHERE idEjercicio ='$idEjercicio' AND idPersona = '$idPersona' AND fechaAsignacionEjercicio = '$fechaAsignacion' AND idFacilitador='$idFacilitador'";
 
             if($res = $this->conexion->query($consultaResolucion))
             {
                 $row = $res->fetch_assoc();
                 $retorno = 0;
-
                 if(isset($row['texto'])  || isset($row['valoracionPersona']) || isset($row['archivoAdjuntoSolucion']))
                 {
                     $retorno = 1;
@@ -1173,14 +1184,12 @@
                         if($row2['comentario'] || $row2['archivoAdjuntoCorreccion'] || $row2['valoracionFacilitador'])
                             $retorno = 2;
                     }
-
-                    return $retorno;
                 }
-                else
-                    return "Error en la consulta";
+                
+                return $retorno;
             }
             else
-                return "Error en la consulta";
+                return "Error en la consulta2";
         }
 
         /**

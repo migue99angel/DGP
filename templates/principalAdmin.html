@@ -13,6 +13,12 @@
   <h1>Página principal Administrador</h1>
 </div>
 
+{% if errores %}
+  <div class="Titulo">
+    <h4 style="color: Red">{{ errores }}</h4>
+  </div>
+{% endif %}
+
 <div class="botonesPrincipales">
   <a href="administracion.php?tipoUsuario=Persona" class="button" id="botonAdmin">GESTIONAR<br> PERSONAS</a>
   <a href="administracion.php?tipoUsuario=Facilitador" class="button" id="botonAdmin">GESTIONAR FACILITADORES</a>

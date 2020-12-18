@@ -29,9 +29,12 @@
     }
     if($_POST['registrar'] === "Persona")
     {
-      $conexion->registrarPersonas($_POST['usuario'],$_POST['telefono'],$_POST['contraseña']);
+      if(strlen($_POST['contraseña']) === 3) {
+        $conexion->registrarPersonas($_POST['usuario'],$_POST['telefono'],$_POST['contraseña']);
+      } else {
+        $variablesParaTwig['errores'] = "La contraseña excede el número de caracteres permitido";
+      }
     }
-
   }
   echo $twig->render('principalAdmin.html', $variablesParaTwig);
 

@@ -9,8 +9,21 @@
   <img src="./templates/img/logo.jpeg" alt="Logo VALE">
 </div>
 
-<div class="botonLoginPersona">
-    <a href="loginPersonas.php" class="button"><p>PERSONAS</p><img src="./templates/img/ejercicio.png"/></a>
+<button id="botonLoginPersona" class="reiniciarBoton botonLoginPersona">
+  <p><strong>PERSONAS</strong></p>
+  <img src="templates/img/ejercicio.png" alt="Log in de personas">
+</button>
+
+<button id="botonLoginFacilitador" class="reiniciarBoton botonFacilitadores">
+  <p><strong>FACILITADORES</strong></p>
+</button>
+
+<button id="botonLoginAdministrador" class="reiniciarBoton botonAdministracion">
+  <p><strong>ADMINISTRACIÓN</strong></p>
+</button>
+
+<!--<div class="botonLoginPersona">
+  <a href="loginPersonas.php" class="button"><p>PERSONAS</p><img src="./templates/img/ejercicio.png"/></a>
 </div>
 
 <div class="botonFacilitadores">
@@ -19,5 +32,9 @@
 
 <div class="botonAdministracion">
   <a href="loginAdministrador.php" class="button"><p>ADMINISTRACIÓN</p></a>
-</div>
+</div>-->
 {% endblock %}
+
+{% block postScripts %}
+<script type="text/javascript" src="templates/js/principal.js"></script>
+{% endblock postScripts %}
