@@ -26,7 +26,7 @@
         {% if ejercicio.multimediaAdjunto is defined %}
         {% if ejercicio.multimediaAdjunto ends with '.mp4' %}
         <video width="75%" height="75%" controls>
-          <source src="{{ ejercicio['multimediaAdjunto'] }}" type="video/mp4">
+          <source src="{{ ejercicio.multimediaAdjunto }}" type="video/mp4">
           Your browser does not support the video tag.
         </video>
         {% endif %}
@@ -36,16 +36,20 @@
         {% if estado == 0 %}
         <div class="formularioCorreccion">
           <form action="mostrarEjercicio.php?resolucion=true&idEjercicio={{ idEjercicio }}&idPersona={{ idPersona }}" method="post" id="correccion" enctype="multipart/form-data">
-              <label for="comentario"><strong>¿Algo que comentar?</strong></label><br>
-              <textarea name="comentario" ></textarea><br><br>
 
-              <label for="valoracion">¿Te ha gustado el ejercicio? (entre 0 y 5): <span id="textInput">3</span></label><br>
-              <span>0</span> <input type="range" name="valoracion" min="0" max="5" onchange="updateTextInput(this.value);"> <span>5</span><br><br>
 
               <label for="multimedia">Imagen o vídeo con la solución</label>
               <input type="file" name="multimedia" id="file" class="inputArchivo" onchange="updateFile(this.value)" /><br>
               <label for="file" class="etiquetaArchivo">SELECCIONA UN ARCHIVO</label><br>
               <span id="archivoSeleccionado"></span><br><br>
+
+              <br>
+
+              <label for="comentario"><strong>¿Algo que comentar?</strong></label><br>
+              <textarea name="comentario" ></textarea><br><br>
+
+              <label for="valoracion">¿Te ha gustado el ejercicio? (entre 0 y 5): <span id="textInput">3</span></label><br>
+              <span>0</span> <input type="range" name="valoracion" min="0" max="5" onchange="updateTextInput(this.value);"> <span>5</span><br><br>
 
               <input type="submit" value="RESOLVER"/>
           </form>

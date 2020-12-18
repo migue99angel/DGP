@@ -1159,20 +1159,22 @@
          * @method obtenerEstadoEjercicio()
          * @author Miguel Ángel Posadas Arráez
          * @param idEjercicio El id del ejercicio
+         * @param idPersona El id de la persona
+         * @param fechaAsignacion La fecha de la asignacion
+         * @param idFacilitador El id del facilitador
          * @return 0 Si el ejercicio está asignado pero no esta resuelto ni corregido
          * @return 1 Si el ejercicio está asignado y resuelto
          * @return 2 Si el ejercicio está corregido
          */
-        public function obtenerEstadoEjercicio($idEjercicio, $idPersona)
+        public function obtenerEstadoEjercicio($idEjercicio, $idPersona,$fechaAsignacion,$idFacilitador)
         {
-            $consultaResolucion = "SELECT * FROM Resuelve_Asigna WHERE idEjercicio ='$idEjercicio' AND idPersona = '$idPersona'";
-            $consultaCorrecion = "SELECT * FROM Corrige WHERE idEjercicio ='$idEjercicio' AND idPersona = '$idPersona'";
+            $consultaResolucion = "SELECT * FROM Resuelve_Asigna WHERE idEjercicio ='$idEjercicio' AND idPersona = '$idPersona' AND fechaAsignacion = '$fechaAsignacion' AND idFacilitador='$idFacilitador'";
+            $consultaCorrecion = "SELECT * FROM Corrige WHERE idEjercicio ='$idEjercicio' AND idPersona = '$idPersona' AND fechaAsignacionEjercicio = '$fechaAsignacion' AND idFacilitador='$idFacilitador'";
 
             if($res = $this->conexion->query($consultaResolucion))
             {
                 $row = $res->fetch_assoc();
                 $retorno = 0;
-
                 if(isset($row['texto'])  || isset($row['valoracionPersona']) || isset($row['archivoAdjuntoSolucion']))
                 {
                     $retorno = 1;

@@ -47,9 +47,7 @@
         // 0 - > El ejercicio está asignado pero no está resuelto
         // 1 - > El ejercicio está resuelto, pero no está corregido
         // 2 - > El ejercicio está resuelto y corregido
-
-        // ¡CUIDADO! La clave primaria de Resuelve_Asigna tiene más campos
-        $variablesParaTwig['estado'] = $conexion->obtenerEstadoEjercicio($variablesParaTwig['idEjercicio'],$_SESSION['persona']->getIdPersona());
+        $variablesParaTwig['estado'] = $conexion->obtenerEstadoEjercicio($variablesParaTwig['idEjercicio'],$_SESSION['persona']->getIdPersona(),$variablesParaTwig['asigna']->getFechaAsignacion(),$variablesParaTwig['asigna']->getIdFacilitador());
         //Si el ejercicio está corregido tenemos que acceder a la base de datos para obtener las calificaciones
         if($variablesParaTwig['estado'] == 2)
         {
