@@ -1132,12 +1132,6 @@
             AND fechaAsignacion = '$fechaAsignacion';";
             $res = $this->conexion->query($consulta2);
             
-            var_dump($consulta2);
-            var_dump($idEjercicio);
-            var_dump($idFacilitador);
-            var_dump($idPersona);
-            var_dump($fechaAsignacion);
-            var_dump($this->conexion->error);
             return $res;
 
         }
