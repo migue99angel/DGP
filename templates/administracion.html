@@ -60,10 +60,26 @@
 
 <div class="botonesPrincipales">
     {% if tipoUsuario ends with 'a' %}
+    <button id="botonAdminRegistrar" class="reiniciarBoton" value="{{ tipoUsuario }}">
+        <p>REGISTRAR NUEVA {{ tipoUsuario|upper }}</p>
+    </button>
+    {% else %}
+    <button id="botonAdminRegistrar" class="reiniciarBoton" value="{{ tipoUsuario }}">
+        <p>REGISTRAR NUEVO {{ tipoUsuario|upper }}</p>
+    </button>
+    {% endif %}
+</div>
+
+<!--<div class="botonesPrincipales">
+    {% if tipoUsuario ends with 'a' %}
         <a href="registro.php?tipoUsuario={{ tipoUsuario }}" class="button">REGISTRAR NUEVA {{ tipoUsuario|upper }}</a>
     {% else %}
         <a href="registro.php?tipoUsuario={{ tipoUsuario }}" class="button">REGISTRAR NUEVO {{ tipoUsuario|upper }}</a>
     {% endif %}
-</div>
+</div>-->
 
 {% endblock %}
+
+{% block postScripts %}
+<script type="text/javascript" src="templates/js/administracion.js"></script>
+{% endblock postScripts %}

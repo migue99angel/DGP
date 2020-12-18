@@ -26,7 +26,17 @@
 </div>
 
 <div class="botonesPrincipales">
-  <a href="crearGrupo.php" class="button">CREAR UN NUEVO GRUPO</a>
+  <button id="botonAdminRegistrar" class="reiniciarBoton">
+    <p>CREAR UN NUEVO GRUPO</p>
+  </button>
 </div>
 
+<!--<div class="botonesPrincipales">
+  <a href="crearGrupo.php" class="button">CREAR UN NUEVO GRUPO</a>
+</div>-->
+
 {% endblock %}
+
+{% block postScripts %}
+<script type="text/javascript" src="templates/js/administracionGrupo.js"></script>
+{% endblock postScripts %}
