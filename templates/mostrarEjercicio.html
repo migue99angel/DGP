@@ -42,11 +42,9 @@
         {% if estado == 0 %}
         <div class="formularioCorreccion">
           <form action="mostrarEjercicio.php?resolucion=true&idEjercicio={{ idEjercicio }}&idPersona={{ idPersona }}" method="post" id="correccion" enctype="multipart/form-data">
-
-
               <label for="multimedia">Imagen o vídeo con la solución</label>
               <input type="file" name="multimedia" id="file" class="inputArchivo" onchange="updateFile(this.value)" /><br>
-              <label for="file" class="etiquetaArchivo">SELECCIONA UN ARCHIVO</label><br>
+              <label for="file" class="etiquetaArchivo">SELECCIONA UN ARCHIVO<p><img class="imagenSeleccionar" src="templates/img/cámara de fotos.png"></p></label><br>
               <span id="archivoSeleccionado"></span><br><br>
 
               <br>
@@ -57,7 +55,7 @@
               <label for="valoracion">¿Te ha gustado el ejercicio? (entre 0 y 5): <span id="textInput">3</span></label><br>
               <span>0</span> <input type="range" name="valoracion" min="0" max="5" onchange="updateTextInput(this.value);"> <span>5</span><br><br>
 
-              <input type="submit" value="RESOLVER"/>
+              <input type="submit" value="RESOLVER" name="botonresolver"/> 
           </form>
           </div>
           {% endif %}
